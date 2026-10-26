@@ -177,7 +177,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
     await page.locator('#walkthrough-next').click(); await page.locator('#walkthrough-next').click();
-    assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Three things on every card a funder can pay for: an editor’s time, an independent impact assessment, and the open issues that keep a standard maintained.');
+    assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Each card shows four things a funder can act on: how long the spec has been in process, who edits it and where they work, which reviews are on file, and what is open in its repository.');
     assert.equal(await page.locator('.walkthrough-highlight').count(), 0);
     assert.equal(await page.locator('.walkthrough-context').count(), 3);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
