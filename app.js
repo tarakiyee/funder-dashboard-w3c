@@ -1,10 +1,10 @@
 'use strict';
 const DEMO_SPECS = ['battery-status', 'payment-request', 'webauthn-3'];
 const ANGLES = {
-  time: 'Standards take years. Support here needs to outlast a single grant.',
-  editors: 'More editors and perspectives strengthen a spec. Could you fund someone to join?',
-  review: "Horizontal review needs reviewers. 'No request found' may be a gap support could fill, or the review may have happened elsewhere. Open review issues are where a funded contributor could start.",
-  maintenance: 'Open issues are entry points for funded contributors.'
+  time: 'Standards decisions affect digital infrastructure for decades. Meaningful participation requires sustained engagement, and maintenance needs funding, not just initial development.',
+  editors: 'Fund time for people to engage deeply with technical details. Fellowships for underrepresented participants and mentorship pairing newcomers with experienced participants are two ways in.',
+  review: 'Accessibility, internationalization and privacy assessments are often completely absent from standards work because industry participants may not see them as relevant. Fund independent impact assessments.',
+  maintenance: 'Maintenance means updating the standard based on experience, fixing errors and adding needed features. Fund long-term maintenance, not just initial development.'
 };
 const cards = new Map();
 const responses = Object.create(null);
@@ -71,13 +71,65 @@ function sectionFailure(card, key, error) {
   const detail = key === 'review' && error.status === 403 ? "couldn't load (rate limit; add a token)" : "couldn't load";
   renderSection(card, key, [element('p', 'load-error', detail)]);
 }
+let activeHelp = null;
+let helpSequence = 0;
+function positionHelp(help) {
+  const section = help.section.getBoundingClientRect();
+  const button = help.button.getBoundingClientRect();
+  const width = Math.min(340, section.width);
+  help.popover.style.width = `${width}px`;
+  help.popover.style.left = `${Math.max(0, Math.min(button.left - section.left, section.width - width))}px`;
+  help.popover.style.top = `${button.bottom - section.top + 6}px`;
+}
+function closeHelp() {
+  if (!activeHelp) return;
+  clearTimeout(activeHelp.closeTimer);
+  activeHelp.popover.hidden = true;
+  activeHelp.button.setAttribute('aria-expanded', 'false');
+  activeHelp.pinned = false;
+  activeHelp = null;
+}
+function openHelp(help, pinned = false) {
+  if (activeHelp !== help) closeHelp();
+  clearTimeout(help.closeTimer);
+  activeHelp = help;
+  help.pinned ||= pinned;
+  help.popover.hidden = false;
+  help.button.setAttribute('aria-expanded', 'true');
+  positionHelp(help);
+}
+function sectionHeading(section, heading, angle) {
+  const row = element('div', 'section-heading');
+  const control = element('span', 'help-control');
+  const button = element('button', 'help-button', '?');
+  const popover = element('span', 'help-popover', angle);
+  popover.id = `funder-angle-${++helpSequence}`; popover.hidden = true; popover.setAttribute('role', 'tooltip');
+  button.type = 'button'; button.setAttribute('aria-label', 'What the funder guide says');
+  button.setAttribute('aria-describedby', popover.id); button.setAttribute('aria-expanded', 'false');
+  const help = { section, control, button, popover, pinned: false, closeTimer: null };
+  control.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') openHelp(help); });
+  control.addEventListener('pointerleave', () => {
+    help.closeTimer = setTimeout(() => { if (activeHelp === help && !help.pinned && document.activeElement !== button) closeHelp(); }, 160);
+  });
+  button.addEventListener('focus', () => openHelp(help));
+  control.addEventListener('focusout', event => { if (activeHelp === help && !control.contains(event.relatedTarget)) closeHelp(); });
+  button.addEventListener('click', () => {
+    // Focus opens the tooltip first on touch; the first click pins it instead of closing it.
+    if (activeHelp === help && help.pinned) closeHelp(); else openHelp(help, true);
+  });
+  control.append(button, popover); row.append(element('h3', '', heading), control);
+  return row;
+}
+document.addEventListener('keydown', event => { if (event.key === 'Escape') closeHelp(); });
+document.addEventListener('pointerdown', event => { if (activeHelp && !activeHelp.control.contains(event.target)) closeHelp(); });
+window.addEventListener('resize', () => { if (activeHelp) positionHelp(activeHelp); });
 function makeCard(shortname) {
   const node = element('article', 'card');
   const header = element('header', 'card-header');
   const title = element('h2', '', shortname);
   const remove = element('button', 'remove-button', 'Remove');
   remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${shortname}`);
-  remove.addEventListener('click', () => { cards.delete(card.shortname); node.remove(); renderTimelines(); });
+  remove.addEventListener('click', () => { if (activeHelp && node.contains(activeHelp.button)) closeHelp(); cards.delete(card.shortname); node.remove(); renderTimelines(); });
   header.append(title, link(shortname, `https://www.w3.org/TR/${shortname}/`, 'spec-link'), remove);
   node.append(header);
   const card = { shortname, node, title, sections: {}, provenance: {}, first: null };
@@ -86,7 +138,7 @@ function makeCard(shortname) {
     const body = element('div', `section-body ${key}-body`);
     body.append(element('p', 'loading', 'loading…'));
     const note = element('p', 'cached-note');
-    section.append(element('h3', '', heading), body, element('p', 'angle', ANGLES[key]), note);
+    section.append(sectionHeading(section, heading, ANGLES[key]), body, note);
     node.append(section); card.sections[key] = { section, body, note }; card.provenance[key] = new Set();
   }
   card.footer = element('footer', 'card-footer');

@@ -75,12 +75,40 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     const bounds = await page.evaluate(() => ({ height: document.documentElement.scrollHeight, width: document.documentElement.scrollWidth, cards: [...document.querySelectorAll('.card')].map(c => c.getBoundingClientRect().height) }));
     assert.ok(bounds.height <= 1080, JSON.stringify(bounds)); assert.ok(bounds.width <= 1920, JSON.stringify(bounds));
     assert.ok(bounds.cards.every(height => height <= 850), JSON.stringify(bounds));
-    assert.equal(await page.locator('.angle').count(), 12);
+    assert.equal(await page.locator('.angle').count(), 0);
+    assert.equal(await page.getByRole('button', { name: 'What the funder guide says' }).count(), 12);
     await page.getByRole('button', { name: 'Remove battery-status', exact: true }).click();
     const changed = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
     assert.deepEqual(changed, ['2016', '2016']);
     await page.setViewportSize({ width: 390, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  });
+  await scenario('help popovers support hover, focus, touch-style clicks and Escape without overflow', async ({ page }) => {
+    await open(page);
+    const buttons = page.getByRole('button', { name: 'What the funder guide says' });
+    assert.equal(await page.locator('.help-popover:visible').count(), 0);
+    await buttons.nth(0).hover();
+    assert.equal(await page.locator('.help-popover:visible').count(), 1);
+    assert.equal(await page.locator('.help-popover:visible').innerText(), 'Standards decisions affect digital infrastructure for decades. Meaningful participation requires sustained engagement, and maintenance needs funding, not just initial development.');
+    await buttons.nth(1).focus();
+    assert.equal(await page.locator('.help-popover:visible').count(), 1);
+    assert.equal(await buttons.nth(0).getAttribute('aria-expanded'), 'false');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.help-popover:visible').count(), 0);
+    await buttons.nth(2).focus(); await buttons.nth(2).click();
+    assert.equal(await page.locator('.help-popover:visible').count(), 1);
+    assert.ok((await page.locator('.help-popover:visible').innerText()).endsWith('Fund independent impact assessments.'));
+    await buttons.nth(2).click(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
+    await page.locator('#shortname').focus();
+    await page.mouse.move(0, 0);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await buttons.nth(2).focus();
+    const bounds = await page.locator('.help-popover:visible').evaluate(node => {
+      const popover = node.getBoundingClientRect(), card = node.closest('.card').getBoundingClientRect();
+      return { left: popover.left, right: popover.right, width: popover.width, bottom: popover.bottom, cardLeft: card.left, cardRight: card.right, cardBottom: card.bottom };
+    });
+    assert.ok(bounds.width <= 340 && bounds.left >= bounds.cardLeft && bounds.right <= bounds.cardRight && bounds.bottom <= bounds.cardBottom, JSON.stringify(bounds));
+    await page.locator('#shortname').click(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
   });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
