@@ -209,6 +209,21 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await page.waitForFunction(() => document.querySelector('#page-message').textContent.includes('suggestions'));
     assert.equal(await page.locator('.card').count(), 3);
   });
+  await scenario('loading skeletons reserve space and reveal after the eight-second cap', async ({ page, setOverride }) => {
+    setOverride(async route => {
+      if (!route.request().url().endsWith('/editors')) return false;
+      await new Promise(resolve => setTimeout(resolve, 9000));
+      await route.fulfill({ json: fixture[route.request().url()] }); return true;
+    });
+    await page.goto(base);
+    assert.equal(await page.locator('.card.pending').count(), 3);
+    assert.equal(await page.locator('.skeleton-placeholder').count(), 12);
+    const initial = await page.locator('.card').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
+    await page.waitForFunction(() => !document.querySelector('.card.pending'), null, { timeout: 9000 });
+    assert.ok(await page.locator('.loading').count() > 0);
+    await settled(page);
+    assert.deepEqual(await page.locator('.card').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height)), initial);
+  });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
       if (route.request().url() !== specURL('svg2')) return false;

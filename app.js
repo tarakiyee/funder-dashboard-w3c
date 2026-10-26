@@ -61,10 +61,24 @@ async function fetchJSON(url, headers, provenance = new Set()) {
     throw error;
   }
 }
+function loadingBlock(key) {
+  const block = element('div', 'skeleton-placeholder');
+  block.setAttribute('role', 'status'); block.append(element('span', 'visually-hidden loading', `loading ${key}…`)); return block;
+}
+function revealCard(card) {
+  if (card.revealed) return;
+  card.revealed = true; clearTimeout(card.revealTimer); card.node.classList.remove('pending');
+}
+function checkCardReveal(card) {
+  if (card.revealed || !card.spec) return;
+  const waiting = Object.values(card.sections).some(section => section.body.querySelector('.loading:not(.computing)'));
+  if (!waiting) revealCard(card);
+}
 function renderSection(card, key, content) {
   const section = card.sections[key];
   section.body.replaceChildren(...content);
   section.note.textContent = card.provenance[key].size ? `cached ${[...card.provenance[key]].join(', ')}` : '';
+  checkCardReveal(card);
 }
 function sectionFailure(card, key, error) {
   console.error(card.shortname, key, error);
@@ -127,19 +141,19 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape') clos
 document.addEventListener('pointerdown', event => { if (activeHelp && !activeHelp.control.contains(event.target)) closeHelp(); });
 window.addEventListener('resize', () => { if (activeHelp) positionHelp(activeHelp); });
 function makeCard(shortname) {
-  const node = element('article', 'card'); node.setAttribute('aria-busy', 'true');
+  const node = element('article', 'card pending'); node.setAttribute('aria-busy', 'true');
   const header = element('header', 'card-header');
   const title = element('h2', '', shortname);
   const remove = element('button', 'remove-button', 'Remove');
   remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${shortname}`);
-  remove.addEventListener('click', () => { if (activeHelp && node.contains(activeHelp.button)) closeHelp(); cards.delete(card.shortname); node.remove(); renderTimelines(); });
+  remove.addEventListener('click', () => { if (activeHelp && node.contains(activeHelp.button)) closeHelp(); clearTimeout(card.revealTimer); cards.delete(card.shortname); node.remove(); renderTimelines(); });
   header.append(title, link(shortname, `https://www.w3.org/TR/${shortname}/`, 'spec-link'), remove);
   node.append(header);
   const card = { shortname, node, title, sections: {}, provenance: {}, first: null };
   for (const [key, heading] of Object.entries({ time: 'Time in process', editors: 'Editors', review: 'Review', maintenance: 'Maintenance' })) {
     const section = element('section', 'card-section');
     const body = element('div', `section-body ${key}-body`);
-    body.append(element('p', 'loading', 'loading…'));
+    body.append(loadingBlock(key));
     const note = element('p', 'cached-note');
     section.append(sectionHeading(section, heading, ANGLES[key]), body, note);
     node.append(section); card.sections[key] = { section, body, note }; card.provenance[key] = new Set();
@@ -147,6 +161,7 @@ function makeCard(shortname) {
   card.footer = element('footer', 'card-footer');
   card.footer.append(link('Search implementations', `https://webstatus.dev/?q=${encodeURIComponent(shortname)}`));
   node.append(card.footer);
+  card.revealTimer = setTimeout(() => revealCard(card), 8000);
   return card;
 }
 const STATUS = {
@@ -391,7 +406,7 @@ async function loadOpenReviewCount(card, repository, run, host) {
     console.error(card.shortname, 'maintenance', error);
     host.replaceChildren(element('span', 'load-error', "couldn't load open review issues"));
   }
-  card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : '';
+  card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : ''; checkCardReveal(card);
 }
 function belongsToLevel(title, version) {
   if (version === undefined || version === null || version === '') return true;
@@ -482,7 +497,7 @@ async function loadMaintenance(card, entry, run) {
   entryPoints.append(element('h4', 'maintenance-label', 'Entry points'), issues, openCount);
   figures.append(activity, entryPoints);
   renderSection(card, 'maintenance', [figures]);
-  const note = () => { card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : ''; };
+  const note = () => { card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : ''; checkCardReveal(card); };
   const fail = (target, error) => {
     if (card.githubRun !== run) return;
     console.error(card.shortname, 'maintenance', error);
@@ -502,7 +517,7 @@ async function loadMaintenance(card, entry, run) {
       last.replaceChildren(link(`Last commit ${dateOnly(card.lastCommit.date)}`, card.lastCommit.url)); note(); renderTimelines();
     }).catch(error => fail(last, error)),
     commitActivity(`${base}/stats/commit_activity`, headers, card.provenance.maintenance, () => {
-      if (card.githubRun === run) count.replaceChildren(element('span', 'loading', 'GitHub is computing commit activity…'));
+      if (card.githubRun === run) { count.replaceChildren(element('span', 'loading computing', 'GitHub is computing commit activity…')); checkCardReveal(card); }
     }).then(weeks => {
       if (card.githubRun !== run) return;
       const total = weeks.reduce((sum, week) => sum + week.total, 0);
@@ -516,7 +531,7 @@ async function loadGithubSections(card, indexPromise) {
   card.reviews = []; card.lastCommit = null;
   for (const key of ['review', 'maintenance']) {
     card.provenance[key] = new Set(card.specProvenance);
-    renderSection(card, key, [element('p', 'loading', 'loading…')]);
+    renderSection(card, key, [loadingBlock(key)]);
   }
   renderTimelines();
   let entry;
@@ -595,7 +610,7 @@ async function addCard(shortname) {
     console.error(shortname, 'specification', error);
     for (const section of Object.values(card.sections)) section.section.remove();
     card.node.insertBefore(element('p', 'load-error', error.status === 404 ? `couldn't find ${shortname}` : "couldn't load specification"), card.footer);
-  } finally { card.node.setAttribute('aria-busy', 'false'); }
+  } finally { card.node.setAttribute('aria-busy', 'false'); revealCard(card); }
 }
 document.querySelector('#add-spec').addEventListener('submit', async event => {
   event.preventDefault();

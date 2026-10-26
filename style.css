@@ -95,3 +95,13 @@ p { margin: 6px 0; }
 .walkthrough-active .card-header, .walkthrough-active .card-footer, .walkthrough-active .card-section:not(.walkthrough-highlight) { opacity: .6; }
 .walkthrough-highlight { outline: 2px solid var(--series-1); outline-offset: 2px; }
 @media (max-width: 650px) { .walkthrough-banner { left: 8px; right: 8px; bottom: 8px; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 12px; } .walkthrough-controls { justify-content: end; } }
+
+.card { transition: opacity 250ms ease; }
+.card.pending { opacity: .35; }
+.time-body { --body-height: 204px; }
+.editors-body { --body-height: 150px; }
+.review-body { --body-height: 104px; }
+.maintenance-body { --body-height: 114px; }
+.section-body { min-height: var(--body-height); }
+.skeleton-placeholder { height: var(--body-height); background: var(--grid); border-radius: 4px; opacity: .4; }
+@media (max-width: 1100px) { .section-body { min-height: var(--body-height); } }
