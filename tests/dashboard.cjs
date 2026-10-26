@@ -36,7 +36,7 @@ async function scenario(name, fn) {
   } finally { await page.close(); }
 }
 async function settled(page) {
-  await page.waitForFunction(() => document.querySelectorAll('.card').length > 0 && !document.querySelector('.loading'), null, { timeout: 45000 });
+  await page.waitForFunction(() => document.querySelectorAll('.card').length > 0 && !document.querySelector('.loading') && !document.querySelector('.card[aria-busy="true"]'), null, { timeout: 45000 });
 }
 async function open(page) { await page.goto(base); await settled(page); }
 async function add(page, name) { await page.locator('#shortname').fill(name); await page.locator('#shortname').press('Enter'); }
@@ -49,13 +49,13 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.deepEqual(await page.locator('.time-body .fact').allTextContents(), [
       'WD · first published 2011-04-26 · 15 years in process',
       'CRD · first published 2016-04-21 · 10 years in process',
-      'REC · first published 2021-04-27 · 5 years in process'
+      'REC · first published 2021-04-27 · 5 years in process · Level 3 · series since 2016'
     ]);
     assert.deepEqual(await page.locator('.editors-body .fact').allTextContents(), ['1 editor from 1 organisation', '3 editors from 3 organisations', '6 editors from 5 organisations']);
     assert.equal(await page.locator('.review-row').count(), 15);
     assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [2, 2, 6]);
     assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
-    assert.equal(await page.locator('.card').nth(2).locator('.review-tick').count(), 12);
+    assert.equal(await page.locator('.card').nth(2).locator('.review-tick').count(), 9);
     assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
     await page.locator('#shortname').fill('SVG2');
     assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
@@ -109,6 +109,25 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     });
     assert.ok(bounds.width <= 340 && bounds.left >= bounds.cardLeft && bounds.right <= bounds.cardRight && bounds.bottom <= bounds.cardBottom, JSON.stringify(bounds));
     await page.locator('#shortname').click(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
+  });
+  await scenario('series chronology and level-aware review matching', async ({ page }) => {
+    await open(page);
+    assert.match(await page.locator('.time-body').nth(2).innerText(), /Level 3 · series since 2016/);
+    assert.doesNotMatch(await page.locator('.time-body').nth(2).innerText(), /series since 2019/);
+    const matches = await page.evaluate(() => [
+      belongsToLevel('Web Authentication Level 2', '3'),
+      belongsToLevel('Web Authentication L2', '3'),
+      belongsToLevel('Web Authentication Level 3', '3'),
+      belongsToLevel('Web Authentication v2', '3'),
+      belongsToLevel('Web Authentication 3', '3'),
+      belongsToLevel('Web Authentication v3.0', '3'),
+      belongsToLevel('Web Authentication 2025-04-24 > 2025-05-25', '3'),
+      belongsToLevel('Web Authentication Level 3 2025-02-19 > 2025-03-31', '3'),
+      belongsToLevel('A review with no version named', '3'),
+      belongsToLevel('Level 2', undefined)
+    ]);
+    assert.deepEqual(matches, [false, false, true, false, true, true, true, true, true, true]);
+    for (const text of await page.locator('.maintenance-figure').allTextContents()) assert.match(text, /series repository/);
   });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {

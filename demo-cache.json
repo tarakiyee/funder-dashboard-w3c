@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-10-26T20:07:07.032Z",
+  "_generated": "2026-10-26T20:12:55.301Z",
   "https://api.w3.org/specifications/battery-status": {
     "shortlink": "https://www.w3.org/TR/battery-status/",
     "description": "<p> This specification defines a new DOM event type that provides information about the battery status of the hosting device and associated auxiliary devices. </p>",
@@ -34765,33 +34765,6 @@
       ]
     }
   ],
-  "https://api.w3.org/specifications/webauthn-3": {
-    "shortlink": "https://www.w3.org/TR/webauthn-3/",
-    "description": "<p>This specification defines an API enabling the creation and use of strong, attested, scoped, public key-based credentials by web applications, for the purpose of strongly authenticating users. Conceptually, one or more public key credentials, each scoped to a given WebAuthn Relying Party, are created by and bound to authenticators as requested by the web application. The user agent mediates access to authenticators and their public key credentials in order to preserve user privacy. Authenticators are responsible for ensuring that no operation is performed without user consent. Authenticators provide cryptographic proof of their properties to Relying Parties via attestation. This specification also describes the functional model for WebAuthn conformant authenticators, including their signature and attestation functionality.</p>",
-    "title": "Web Authentication: An API for accessing Public Key Credentials - Level 3",
-    "shortname": "webauthn-3",
-    "editor-draft": "https://w3c.github.io/webauthn/",
-    "series-version": "3",
-    "_links": {
-      "self": {
-        "href": "https://api.w3.org/specifications/webauthn-3"
-      },
-      "version-history": {
-        "href": "https://api.w3.org/specifications/webauthn-3/versions"
-      },
-      "first-version": {
-        "href": "https://api.w3.org/specifications/webauthn-3/versions/20210427",
-        "title": "First Public Working Draft"
-      },
-      "latest-version": {
-        "href": "https://api.w3.org/specifications/webauthn-3/versions/20260825",
-        "title": "Recommendation"
-      },
-      "series": {
-        "href": "https://api.w3.org/specification-series/webauthn"
-      }
-    }
-  },
   "https://api.github.com/repos/w3c/battery": {
     "id": 54122052,
     "node_id": "MDEwOlJlcG9zaXRvcnk1NDEyMjA1Mg==",
@@ -34932,102 +34905,127 @@
     "network_count": 8,
     "subscribers_count": 25
   },
-  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fbattery%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
-    "total_count": 2,
+  "https://api.github.com/search/issues?per_page=50&q=(%22Battery%20Status%20API%22%20OR%20battery-status)%20in%3Atitle%20is%3Aissue%20repo%3Aw3c%2Fa11y-request%20repo%3Aw3c%2Fi18n-request%20repo%3Aw3cping%2Fprivacy-request%20repo%3Aw3c%2Fsecurity-request%20repo%3Aw3ctag%2Fdesign-reviews": {
+    "total_count": 1,
     "incomplete_results": false,
     "items": [
       {
-        "url": "https://api.github.com/repos/w3c/battery/issues/29",
-        "repository_url": "https://api.github.com/repos/w3c/battery",
-        "labels_url": "https://api.github.com/repos/w3c/battery/issues/29/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3c/battery/issues/29/comments",
-        "events_url": "https://api.github.com/repos/w3c/battery/issues/29/events",
-        "html_url": "https://github.com/w3c/battery/issues/29",
-        "id": 756240370,
-        "node_id": "MDU6SXNzdWU3NTYyNDAzNzA=",
-        "number": 29,
-        "title": "private browsing mode: upgrade recommendation",
+        "url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68",
+        "repository_url": "https://api.github.com/repos/w3ctag/design-reviews",
+        "labels_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/comments",
+        "events_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/events",
+        "html_url": "https://github.com/w3ctag/design-reviews/issues/68",
+        "id": 99294698,
+        "node_id": "MDU6SXNzdWU5OTI5NDY5OA==",
+        "number": 68,
+        "title": "Find out if the Battery Status API people need our feedback",
         "user": {
-          "login": "samuelweiler",
-          "id": 24963390,
-          "node_id": "MDQ6VXNlcjI0OTYzMzkw",
-          "avatar_url": "https://avatars.githubusercontent.com/u/24963390?v=4",
+          "login": "torgo",
+          "id": 287526,
+          "node_id": "MDQ6VXNlcjI4NzUyNg==",
+          "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/samuelweiler",
-          "html_url": "https://github.com/samuelweiler",
-          "followers_url": "https://api.github.com/users/samuelweiler/followers",
-          "following_url": "https://api.github.com/users/samuelweiler/following{/other_user}",
-          "gists_url": "https://api.github.com/users/samuelweiler/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/samuelweiler/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/samuelweiler/subscriptions",
-          "organizations_url": "https://api.github.com/users/samuelweiler/orgs",
-          "repos_url": "https://api.github.com/users/samuelweiler/repos",
-          "events_url": "https://api.github.com/users/samuelweiler/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/samuelweiler/received_events",
+          "url": "https://api.github.com/users/torgo",
+          "html_url": "https://github.com/torgo",
+          "followers_url": "https://api.github.com/users/torgo/followers",
+          "following_url": "https://api.github.com/users/torgo/following{/other_user}",
+          "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
+          "organizations_url": "https://api.github.com/users/torgo/orgs",
+          "repos_url": "https://api.github.com/users/torgo/repos",
+          "events_url": "https://api.github.com/users/torgo/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/torgo/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
-        "labels": [
-          {
-            "id": 1831505086,
-            "node_id": "MDU6TGFiZWwxODMxNTA1MDg2",
-            "url": "https://api.github.com/repos/w3c/battery/labels/privacy-needs-resolution",
-            "name": "privacy-needs-resolution",
-            "color": "d4af37",
-            "default": false,
-            "description": "Issue the Privacy Group has raised and looks for a response on.",
-            "archived_at": null,
-            "archived_by": null
-          }
-        ],
-        "state": "open",
+        "labels": [],
+        "state": "closed",
         "locked": false,
         "assignees": [
           {
-            "login": "rakuco",
-            "id": 36417,
-            "node_id": "MDQ6VXNlcjM2NDE3",
-            "avatar_url": "https://avatars.githubusercontent.com/u/36417?v=4",
+            "login": "torgo",
+            "id": 287526,
+            "node_id": "MDQ6VXNlcjI4NzUyNg==",
+            "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/rakuco",
-            "html_url": "https://github.com/rakuco",
-            "followers_url": "https://api.github.com/users/rakuco/followers",
-            "following_url": "https://api.github.com/users/rakuco/following{/other_user}",
-            "gists_url": "https://api.github.com/users/rakuco/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/rakuco/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/rakuco/subscriptions",
-            "organizations_url": "https://api.github.com/users/rakuco/orgs",
-            "repos_url": "https://api.github.com/users/rakuco/repos",
-            "events_url": "https://api.github.com/users/rakuco/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/rakuco/received_events",
+            "url": "https://api.github.com/users/torgo",
+            "html_url": "https://github.com/torgo",
+            "followers_url": "https://api.github.com/users/torgo/followers",
+            "following_url": "https://api.github.com/users/torgo/following{/other_user}",
+            "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
+            "organizations_url": "https://api.github.com/users/torgo/orgs",
+            "repos_url": "https://api.github.com/users/torgo/repos",
+            "events_url": "https://api.github.com/users/torgo/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/torgo/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           }
         ],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2020-12-03T14:25:52Z",
-        "updated_at": "2021-10-28T06:49:09Z",
-        "closed_at": null,
+        "milestone": {
+          "url": "https://api.github.com/repos/w3ctag/design-reviews/milestones/17",
+          "html_url": "https://github.com/w3ctag/design-reviews/milestone/17",
+          "labels_url": "https://api.github.com/repos/w3ctag/design-reviews/milestones/17/labels",
+          "id": 1210722,
+          "node_id": "MDk6TWlsZXN0b25lMTIxMDcyMg==",
+          "number": 17,
+          "title": "tag-telcon-2015-08-19",
+          "description": "",
+          "creator": {
+            "login": "torgo",
+            "id": 287526,
+            "node_id": "MDQ6VXNlcjI4NzUyNg==",
+            "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/torgo",
+            "html_url": "https://github.com/torgo",
+            "followers_url": "https://api.github.com/users/torgo/followers",
+            "following_url": "https://api.github.com/users/torgo/following{/other_user}",
+            "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
+            "organizations_url": "https://api.github.com/users/torgo/orgs",
+            "repos_url": "https://api.github.com/users/torgo/repos",
+            "events_url": "https://api.github.com/users/torgo/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/torgo/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "open_issues": 0,
+          "closed_issues": 2,
+          "state": "closed",
+          "created_at": "2015-07-16T07:21:07Z",
+          "updated_at": "2015-09-15T18:27:07Z",
+          "due_on": "2015-08-18T22:00:00Z",
+          "closed_at": "2015-09-15T13:59:57Z"
+        },
+        "comments": 2,
+        "created_at": "2015-08-05T20:44:17Z",
+        "updated_at": "2015-09-15T18:27:07Z",
+        "closed_at": "2015-09-15T18:27:07Z",
         "assignee": {
-          "login": "rakuco",
-          "id": 36417,
-          "node_id": "MDQ6VXNlcjM2NDE3",
-          "avatar_url": "https://avatars.githubusercontent.com/u/36417?v=4",
+          "login": "torgo",
+          "id": 287526,
+          "node_id": "MDQ6VXNlcjI4NzUyNg==",
+          "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/rakuco",
-          "html_url": "https://github.com/rakuco",
-          "followers_url": "https://api.github.com/users/rakuco/followers",
-          "following_url": "https://api.github.com/users/rakuco/following{/other_user}",
-          "gists_url": "https://api.github.com/users/rakuco/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/rakuco/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/rakuco/subscriptions",
-          "organizations_url": "https://api.github.com/users/rakuco/orgs",
-          "repos_url": "https://api.github.com/users/rakuco/repos",
-          "events_url": "https://api.github.com/users/rakuco/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/rakuco/received_events",
+          "url": "https://api.github.com/users/torgo",
+          "html_url": "https://github.com/torgo",
+          "followers_url": "https://api.github.com/users/torgo/followers",
+          "following_url": "https://api.github.com/users/torgo/following{/other_user}",
+          "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
+          "organizations_url": "https://api.github.com/users/torgo/orgs",
+          "repos_url": "https://api.github.com/users/torgo/repos",
+          "events_url": "https://api.github.com/users/torgo/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/torgo/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
@@ -35047,11 +35045,11 @@
           "blocking": 0,
           "total_blocking": 0
         },
-        "body": "First, it's not quite clear what \"the user permission requirement\" refers to in\r\n\r\n> The user agent MAY ask the user for battery status information access, or alternatively, enforce the user permission requirement in its private browsing modes. \r\n\r\nSome clarity is needed, and I'm thinking this should be at least a SHOULD.",
+        "body": "",
         "reactions": {
-          "url": "https://api.github.com/repos/w3c/battery/issues/29/reactions",
-          "total_count": 1,
-          "+1": 1,
+          "url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/reactions",
+          "total_count": 0,
+          "+1": 0,
           "-1": 0,
           "laugh": 0,
           "hooray": 0,
@@ -35060,9 +35058,9 @@
           "rocket": 0,
           "eyes": 0
         },
-        "timeline_url": "https://api.github.com/repos/w3c/battery/issues/29/timeline",
+        "timeline_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/timeline",
         "performed_via_github_app": null,
-        "state_reason": null,
+        "state_reason": "completed",
         "pinned_comment": null,
         "score": 1
       }
@@ -35747,127 +35745,102 @@
       "week": 1792886400
     }
   ],
-  "https://api.github.com/search/issues?per_page=50&q=(%22Battery%20Status%20API%22%20OR%20battery-status)%20in%3Atitle%20is%3Aissue%20repo%3Aw3c%2Fa11y-request%20repo%3Aw3c%2Fi18n-request%20repo%3Aw3cping%2Fprivacy-request%20repo%3Aw3c%2Fsecurity-request%20repo%3Aw3ctag%2Fdesign-reviews": {
-    "total_count": 1,
+  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fbattery%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
+    "total_count": 2,
     "incomplete_results": false,
     "items": [
       {
-        "url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68",
-        "repository_url": "https://api.github.com/repos/w3ctag/design-reviews",
-        "labels_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/comments",
-        "events_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/events",
-        "html_url": "https://github.com/w3ctag/design-reviews/issues/68",
-        "id": 99294698,
-        "node_id": "MDU6SXNzdWU5OTI5NDY5OA==",
-        "number": 68,
-        "title": "Find out if the Battery Status API people need our feedback",
+        "url": "https://api.github.com/repos/w3c/battery/issues/29",
+        "repository_url": "https://api.github.com/repos/w3c/battery",
+        "labels_url": "https://api.github.com/repos/w3c/battery/issues/29/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3c/battery/issues/29/comments",
+        "events_url": "https://api.github.com/repos/w3c/battery/issues/29/events",
+        "html_url": "https://github.com/w3c/battery/issues/29",
+        "id": 756240370,
+        "node_id": "MDU6SXNzdWU3NTYyNDAzNzA=",
+        "number": 29,
+        "title": "private browsing mode: upgrade recommendation",
         "user": {
-          "login": "torgo",
-          "id": 287526,
-          "node_id": "MDQ6VXNlcjI4NzUyNg==",
-          "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
+          "login": "samuelweiler",
+          "id": 24963390,
+          "node_id": "MDQ6VXNlcjI0OTYzMzkw",
+          "avatar_url": "https://avatars.githubusercontent.com/u/24963390?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/torgo",
-          "html_url": "https://github.com/torgo",
-          "followers_url": "https://api.github.com/users/torgo/followers",
-          "following_url": "https://api.github.com/users/torgo/following{/other_user}",
-          "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
-          "organizations_url": "https://api.github.com/users/torgo/orgs",
-          "repos_url": "https://api.github.com/users/torgo/repos",
-          "events_url": "https://api.github.com/users/torgo/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/torgo/received_events",
+          "url": "https://api.github.com/users/samuelweiler",
+          "html_url": "https://github.com/samuelweiler",
+          "followers_url": "https://api.github.com/users/samuelweiler/followers",
+          "following_url": "https://api.github.com/users/samuelweiler/following{/other_user}",
+          "gists_url": "https://api.github.com/users/samuelweiler/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/samuelweiler/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/samuelweiler/subscriptions",
+          "organizations_url": "https://api.github.com/users/samuelweiler/orgs",
+          "repos_url": "https://api.github.com/users/samuelweiler/repos",
+          "events_url": "https://api.github.com/users/samuelweiler/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/samuelweiler/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
-        "labels": [],
-        "state": "closed",
+        "labels": [
+          {
+            "id": 1831505086,
+            "node_id": "MDU6TGFiZWwxODMxNTA1MDg2",
+            "url": "https://api.github.com/repos/w3c/battery/labels/privacy-needs-resolution",
+            "name": "privacy-needs-resolution",
+            "color": "d4af37",
+            "default": false,
+            "description": "Issue the Privacy Group has raised and looks for a response on.",
+            "archived_at": null,
+            "archived_by": null
+          }
+        ],
+        "state": "open",
         "locked": false,
         "assignees": [
           {
-            "login": "torgo",
-            "id": 287526,
-            "node_id": "MDQ6VXNlcjI4NzUyNg==",
-            "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
+            "login": "rakuco",
+            "id": 36417,
+            "node_id": "MDQ6VXNlcjM2NDE3",
+            "avatar_url": "https://avatars.githubusercontent.com/u/36417?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/torgo",
-            "html_url": "https://github.com/torgo",
-            "followers_url": "https://api.github.com/users/torgo/followers",
-            "following_url": "https://api.github.com/users/torgo/following{/other_user}",
-            "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
-            "organizations_url": "https://api.github.com/users/torgo/orgs",
-            "repos_url": "https://api.github.com/users/torgo/repos",
-            "events_url": "https://api.github.com/users/torgo/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/torgo/received_events",
+            "url": "https://api.github.com/users/rakuco",
+            "html_url": "https://github.com/rakuco",
+            "followers_url": "https://api.github.com/users/rakuco/followers",
+            "following_url": "https://api.github.com/users/rakuco/following{/other_user}",
+            "gists_url": "https://api.github.com/users/rakuco/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/rakuco/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/rakuco/subscriptions",
+            "organizations_url": "https://api.github.com/users/rakuco/orgs",
+            "repos_url": "https://api.github.com/users/rakuco/repos",
+            "events_url": "https://api.github.com/users/rakuco/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/rakuco/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           }
         ],
-        "milestone": {
-          "url": "https://api.github.com/repos/w3ctag/design-reviews/milestones/17",
-          "html_url": "https://github.com/w3ctag/design-reviews/milestone/17",
-          "labels_url": "https://api.github.com/repos/w3ctag/design-reviews/milestones/17/labels",
-          "id": 1210722,
-          "node_id": "MDk6TWlsZXN0b25lMTIxMDcyMg==",
-          "number": 17,
-          "title": "tag-telcon-2015-08-19",
-          "description": "",
-          "creator": {
-            "login": "torgo",
-            "id": 287526,
-            "node_id": "MDQ6VXNlcjI4NzUyNg==",
-            "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/torgo",
-            "html_url": "https://github.com/torgo",
-            "followers_url": "https://api.github.com/users/torgo/followers",
-            "following_url": "https://api.github.com/users/torgo/following{/other_user}",
-            "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
-            "organizations_url": "https://api.github.com/users/torgo/orgs",
-            "repos_url": "https://api.github.com/users/torgo/repos",
-            "events_url": "https://api.github.com/users/torgo/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/torgo/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "open_issues": 0,
-          "closed_issues": 2,
-          "state": "closed",
-          "created_at": "2015-07-16T07:21:07Z",
-          "updated_at": "2015-09-15T18:27:07Z",
-          "due_on": "2015-08-18T22:00:00Z",
-          "closed_at": "2015-09-15T13:59:57Z"
-        },
-        "comments": 2,
-        "created_at": "2015-08-05T20:44:17Z",
-        "updated_at": "2015-09-15T18:27:07Z",
-        "closed_at": "2015-09-15T18:27:07Z",
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2020-12-03T14:25:52Z",
+        "updated_at": "2021-10-28T06:49:09Z",
+        "closed_at": null,
         "assignee": {
-          "login": "torgo",
-          "id": 287526,
-          "node_id": "MDQ6VXNlcjI4NzUyNg==",
-          "avatar_url": "https://avatars.githubusercontent.com/u/287526?v=4",
+          "login": "rakuco",
+          "id": 36417,
+          "node_id": "MDQ6VXNlcjM2NDE3",
+          "avatar_url": "https://avatars.githubusercontent.com/u/36417?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/torgo",
-          "html_url": "https://github.com/torgo",
-          "followers_url": "https://api.github.com/users/torgo/followers",
-          "following_url": "https://api.github.com/users/torgo/following{/other_user}",
-          "gists_url": "https://api.github.com/users/torgo/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/torgo/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/torgo/subscriptions",
-          "organizations_url": "https://api.github.com/users/torgo/orgs",
-          "repos_url": "https://api.github.com/users/torgo/repos",
-          "events_url": "https://api.github.com/users/torgo/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/torgo/received_events",
+          "url": "https://api.github.com/users/rakuco",
+          "html_url": "https://github.com/rakuco",
+          "followers_url": "https://api.github.com/users/rakuco/followers",
+          "following_url": "https://api.github.com/users/rakuco/following{/other_user}",
+          "gists_url": "https://api.github.com/users/rakuco/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/rakuco/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/rakuco/subscriptions",
+          "organizations_url": "https://api.github.com/users/rakuco/orgs",
+          "repos_url": "https://api.github.com/users/rakuco/repos",
+          "events_url": "https://api.github.com/users/rakuco/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/rakuco/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
@@ -35887,115 +35860,9 @@
           "blocking": 0,
           "total_blocking": 0
         },
-        "body": "",
+        "body": "First, it's not quite clear what \"the user permission requirement\" refers to in\r\n\r\n> The user agent MAY ask the user for battery status information access, or alternatively, enforce the user permission requirement in its private browsing modes. \r\n\r\nSome clarity is needed, and I'm thinking this should be at least a SHOULD.",
         "reactions": {
-          "url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/w3ctag/design-reviews/issues/68/timeline",
-        "performed_via_github_app": null,
-        "state_reason": "completed",
-        "pinned_comment": null,
-        "score": 1
-      }
-    ],
-    "search_type": "lexical"
-  },
-  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fpayment-request%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
-    "total_count": 3,
-    "incomplete_results": false,
-    "items": [
-      {
-        "url": "https://api.github.com/repos/w3c/payment-request/issues/948",
-        "repository_url": "https://api.github.com/repos/w3c/payment-request",
-        "labels_url": "https://api.github.com/repos/w3c/payment-request/issues/948/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3c/payment-request/issues/948/comments",
-        "events_url": "https://api.github.com/repos/w3c/payment-request/issues/948/events",
-        "html_url": "https://github.com/w3c/payment-request/issues/948",
-        "id": 846911862,
-        "node_id": "MDU6SXNzdWU4NDY5MTE4NjI=",
-        "number": 948,
-        "title": "Localization and string metadata for descriptions",
-        "user": {
-          "login": "aphillips",
-          "id": 69082,
-          "node_id": "MDQ6VXNlcjY5MDgy",
-          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/aphillips",
-          "html_url": "https://github.com/aphillips",
-          "followers_url": "https://api.github.com/users/aphillips/followers",
-          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
-          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
-          "organizations_url": "https://api.github.com/users/aphillips/orgs",
-          "repos_url": "https://api.github.com/users/aphillips/repos",
-          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/aphillips/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 488699321,
-            "node_id": "MDU6TGFiZWw0ODg2OTkzMjE=",
-            "url": "https://api.github.com/repos/w3c/payment-request/labels/i18n-needs-resolution",
-            "name": "i18n-needs-resolution",
-            "color": "F9C9FF",
-            "default": false,
-            "description": "Issue the Internationalization Group has raised and looks for a response on.",
-            "archived_at": null,
-            "archived_by": null
-          },
-          {
-            "id": 686556788,
-            "node_id": "MDU6TGFiZWw2ODY1NTY3ODg=",
-            "url": "https://api.github.com/repos/w3c/payment-request/labels/Future%20Candidate%20Feature",
-            "name": "Future Candidate Feature",
-            "color": "006b75",
-            "default": false,
-            "description": null,
-            "archived_at": null,
-            "archived_by": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignees": [],
-        "milestone": null,
-        "comments": 16,
-        "created_at": "2021-03-31T16:07:50Z",
-        "updated_at": "2022-08-08T11:29:50Z",
-        "closed_at": null,
-        "assignee": null,
-        "author_association": "NONE",
-        "issue_field_values": [],
-        "type": null,
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "issue_dependencies_summary": {
-          "blocked_by": 0,
-          "total_blocked_by": 0,
-          "blocking": 0,
-          "total_blocking": 0
-        },
-        "body": "2.2 Describing what is being paid for \r\nhttps://www.w3.org/TR/2020/CR-payment-request-20201203/#describing-what-is-being-paid-for\r\n\r\nExample 2 contains this:\r\n```\r\nconst details = {\r\n  id: \"super-store-order-123-12312\",\r\n  displayItems: [\r\n    {\r\n      label: \"Sub-total\",\r\n      amount: { currency: \"USD\", value: \"55.00\" },\r\n    },\r\n    {\r\n      label: \"Sales Tax\",\r\n      amount: { currency: \"USD\", value: \"5.00\" },\r\n      type: \"tax\"\r\n    },\r\n  ],\r\n  total: {\r\n    label: \"Total due\",\r\n    // The total is USD$65.00 here because we need to\r\n    // add shipping (below). The selected shipping\r\n    // costs USD$5.00.\r\n    amount: { currency: \"USD\", value: \"65.00\" },\r\n  },\r\n};\r\n```\r\n\r\nThe value `label` contains natural language text with no language metadata or base direction information. The same usage is found in other example sections that follow. I18N recommends that there be a means of providing this metadata so that the document's processor can display the value correctly.\r\n\r\nThis comment is probably a duplicate of #327. It is also related to #946 ",
-        "reactions": {
-          "url": "https://api.github.com/repos/w3c/payment-request/issues/948/reactions",
+          "url": "https://api.github.com/repos/w3c/battery/issues/29/reactions",
           "total_count": 1,
           "+1": 1,
           "-1": 0,
@@ -36006,7 +35873,7 @@
           "rocket": 0,
           "eyes": 0
         },
-        "timeline_url": "https://api.github.com/repos/w3c/payment-request/issues/948/timeline",
+        "timeline_url": "https://api.github.com/repos/w3c/battery/issues/29/timeline",
         "performed_via_github_app": null,
         "state_reason": null,
         "pinned_comment": null,
@@ -36015,505 +35882,90 @@
     ],
     "search_type": "lexical"
   },
-  "https://api.github.com/repos/w3c/payment-request": {
-    "id": 52568788,
-    "node_id": "MDEwOlJlcG9zaXRvcnk1MjU2ODc4OA==",
-    "name": "payment-request",
-    "full_name": "w3c/payment-request",
-    "private": false,
-    "owner": {
-      "login": "w3c",
-      "id": 379216,
-      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
-      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/w3c",
-      "html_url": "https://github.com/w3c",
-      "followers_url": "https://api.github.com/users/w3c/followers",
-      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
-      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
-      "organizations_url": "https://api.github.com/users/w3c/orgs",
-      "repos_url": "https://api.github.com/users/w3c/repos",
-      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/w3c/received_events",
-      "type": "Organization",
-      "user_view_type": "public",
-      "site_admin": false
-    },
-    "html_url": "https://github.com/w3c/payment-request",
-    "description": "Payment Request API",
-    "fork": false,
-    "url": "https://api.github.com/repos/w3c/payment-request",
-    "forks_url": "https://api.github.com/repos/w3c/payment-request/forks",
-    "keys_url": "https://api.github.com/repos/w3c/payment-request/keys{/key_id}",
-    "collaborators_url": "https://api.github.com/repos/w3c/payment-request/collaborators{/collaborator}",
-    "teams_url": "https://api.github.com/repos/w3c/payment-request/teams",
-    "hooks_url": "https://api.github.com/repos/w3c/payment-request/hooks",
-    "issue_events_url": "https://api.github.com/repos/w3c/payment-request/issues/events{/number}",
-    "events_url": "https://api.github.com/repos/w3c/payment-request/events",
-    "assignees_url": "https://api.github.com/repos/w3c/payment-request/assignees{/user}",
-    "branches_url": "https://api.github.com/repos/w3c/payment-request/branches{/branch}",
-    "tags_url": "https://api.github.com/repos/w3c/payment-request/tags",
-    "blobs_url": "https://api.github.com/repos/w3c/payment-request/git/blobs{/sha}",
-    "git_tags_url": "https://api.github.com/repos/w3c/payment-request/git/tags{/sha}",
-    "git_refs_url": "https://api.github.com/repos/w3c/payment-request/git/refs{/sha}",
-    "trees_url": "https://api.github.com/repos/w3c/payment-request/git/trees{/sha}",
-    "statuses_url": "https://api.github.com/repos/w3c/payment-request/statuses/{sha}",
-    "languages_url": "https://api.github.com/repos/w3c/payment-request/languages",
-    "stargazers_url": "https://api.github.com/repos/w3c/payment-request/stargazers",
-    "contributors_url": "https://api.github.com/repos/w3c/payment-request/contributors",
-    "subscribers_url": "https://api.github.com/repos/w3c/payment-request/subscribers",
-    "subscription_url": "https://api.github.com/repos/w3c/payment-request/subscription",
-    "commits_url": "https://api.github.com/repos/w3c/payment-request/commits{/sha}",
-    "git_commits_url": "https://api.github.com/repos/w3c/payment-request/git/commits{/sha}",
-    "comments_url": "https://api.github.com/repos/w3c/payment-request/comments{/number}",
-    "issue_comment_url": "https://api.github.com/repos/w3c/payment-request/issues/comments{/number}",
-    "contents_url": "https://api.github.com/repos/w3c/payment-request/contents/{+path}",
-    "compare_url": "https://api.github.com/repos/w3c/payment-request/compare/{base}...{head}",
-    "merges_url": "https://api.github.com/repos/w3c/payment-request/merges",
-    "archive_url": "https://api.github.com/repos/w3c/payment-request/{archive_format}{/ref}",
-    "downloads_url": "https://api.github.com/repos/w3c/payment-request/downloads",
-    "issues_url": "https://api.github.com/repos/w3c/payment-request/issues{/number}",
-    "pulls_url": "https://api.github.com/repos/w3c/payment-request/pulls{/number}",
-    "milestones_url": "https://api.github.com/repos/w3c/payment-request/milestones{/number}",
-    "notifications_url": "https://api.github.com/repos/w3c/payment-request/notifications{?since,all,participating}",
-    "labels_url": "https://api.github.com/repos/w3c/payment-request/labels{/name}",
-    "releases_url": "https://api.github.com/repos/w3c/payment-request/releases{/id}",
-    "deployments_url": "https://api.github.com/repos/w3c/payment-request/deployments",
-    "created_at": "2016-02-26T01:12:49Z",
-    "updated_at": "2026-10-13T08:52:34Z",
-    "pushed_at": "2026-10-07T21:24:06Z",
-    "git_url": "git://github.com/w3c/payment-request.git",
-    "ssh_url": "git@github.com:w3c/payment-request.git",
-    "clone_url": "https://github.com/w3c/payment-request.git",
-    "svn_url": "https://github.com/w3c/payment-request",
-    "homepage": "https://www.w3.org/TR/payment-request/",
-    "size": 1520,
-    "stargazers_count": 511,
-    "watchers_count": 511,
-    "language": "HTML",
-    "has_issues": true,
-    "has_projects": true,
-    "has_downloads": false,
-    "has_wiki": true,
-    "has_pages": true,
-    "has_discussions": false,
-    "forks_count": 139,
-    "mirror_url": null,
-    "archived": false,
-    "disabled": false,
-    "open_issues_count": 59,
-    "license": {
-      "key": "other",
-      "name": "Other",
-      "spdx_id": "NOASSERTION",
-      "url": null,
-      "node_id": "MDc6TGljZW5zZTA="
-    },
-    "allow_forking": true,
-    "is_template": false,
-    "web_commit_signoff_required": false,
-    "has_pull_requests": true,
-    "pull_request_creation_policy": "all",
-    "topics": [
-      "e-commerce",
-      "payments",
-      "standardization",
-      "w3c"
-    ],
-    "visibility": "public",
-    "forks": 139,
-    "open_issues": 59,
-    "watchers": 511,
-    "default_branch": "gh-pages",
-    "permissions": {
-      "admin": false,
-      "maintain": false,
-      "push": false,
-      "triage": false,
-      "pull": true
-    },
-    "custom_properties": {},
-    "organization": {
-      "login": "w3c",
-      "id": 379216,
-      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
-      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/w3c",
-      "html_url": "https://github.com/w3c",
-      "followers_url": "https://api.github.com/users/w3c/followers",
-      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
-      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
-      "organizations_url": "https://api.github.com/users/w3c/orgs",
-      "repos_url": "https://api.github.com/users/w3c/repos",
-      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/w3c/received_events",
-      "type": "Organization",
-      "user_view_type": "public",
-      "site_admin": false
-    },
-    "network_count": 139,
-    "subscribers_count": 95
-  },
-  "https://api.github.com/search/issues?per_page=50&q=(%22Payment%20Request%20API%22%20OR%20payment-request)%20in%3Atitle%20is%3Aissue%20repo%3Aw3c%2Fa11y-request%20repo%3Aw3c%2Fi18n-request%20repo%3Aw3cping%2Fprivacy-request%20repo%3Aw3c%2Fsecurity-request%20repo%3Aw3ctag%2Fdesign-reviews": {
-    "total_count": 3,
-    "incomplete_results": false,
-    "items": [
-      {
-        "url": "https://api.github.com/repos/w3c/i18n-request/issues/149",
-        "repository_url": "https://api.github.com/repos/w3c/i18n-request",
-        "labels_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/comments",
-        "events_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/events",
-        "html_url": "https://github.com/w3c/i18n-request/issues/149",
-        "id": 804784063,
-        "node_id": "MDU6SXNzdWU4MDQ3ODQwNjM=",
-        "number": 149,
-        "title": "Payment Request 2021-02-03 > 2021-04-01",
-        "user": {
-          "login": "aphillips",
-          "id": 69082,
-          "node_id": "MDQ6VXNlcjY5MDgy",
-          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/aphillips",
-          "html_url": "https://github.com/aphillips",
-          "followers_url": "https://api.github.com/users/aphillips/followers",
-          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
-          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
-          "organizations_url": "https://api.github.com/users/aphillips/orgs",
-          "repos_url": "https://api.github.com/users/aphillips/repos",
-          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/aphillips/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
+  "https://api.github.com/repos/w3c/payment-request/commits?per_page=1": [
+    {
+      "sha": "21e40b83dd69437ed52367f7ddad306d0ad8b66f",
+      "node_id": "C_kwDOAyIi1NoAKDIxZTQwYjgzZGQ2OTQzN2VkNTIzNjdmN2RkYWQzMDZkMGFkOGI2NmY",
+      "commit": {
+        "author": {
+          "name": "Marcos Cáceres",
+          "email": "marcos@marcosc.com",
+          "date": "2026-06-22T18:34:28Z"
         },
-        "labels": [
-          {
-            "id": 1739922697,
-            "node_id": "MDU6TGFiZWwxNzM5OTIyNjk3",
-            "url": "https://api.github.com/repos/w3c/i18n-request/labels/REVIEW%20REQUESTED",
-            "name": "REVIEW REQUESTED",
-            "color": "6ff265",
-            "default": false,
-            "description": "",
-            "archived_at": null,
-            "archived_by": null
-          },
-          {
-            "id": 1739927776,
-            "node_id": "MDU6TGFiZWwxNzM5OTI3Nzc2",
-            "url": "https://api.github.com/repos/w3c/i18n-request/labels/CR",
-            "name": "CR",
-            "color": "d93f0b",
-            "default": false,
-            "description": "In Candidate Recommendation.",
-            "archived_at": null,
-            "archived_by": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignees": [
-          {
-            "login": "aphillips",
-            "id": 69082,
-            "node_id": "MDQ6VXNlcjY5MDgy",
-            "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/aphillips",
-            "html_url": "https://github.com/aphillips",
-            "followers_url": "https://api.github.com/users/aphillips/followers",
-            "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
-            "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
-            "organizations_url": "https://api.github.com/users/aphillips/orgs",
-            "repos_url": "https://api.github.com/users/aphillips/repos",
-            "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/aphillips/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          }
-        ],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2021-02-09T18:00:51Z",
-        "updated_at": "2021-02-11T15:26:28Z",
-        "closed_at": null,
-        "assignee": {
-          "login": "aphillips",
-          "id": 69082,
-          "node_id": "MDQ6VXNlcjY5MDgy",
-          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/aphillips",
-          "html_url": "https://github.com/aphillips",
-          "followers_url": "https://api.github.com/users/aphillips/followers",
-          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
-          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
-          "organizations_url": "https://api.github.com/users/aphillips/orgs",
-          "repos_url": "https://api.github.com/users/aphillips/repos",
-          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/aphillips/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2026-06-22T18:34:28Z"
         },
-        "author_association": "CONTRIBUTOR",
-        "issue_field_values": [],
-        "type": null,
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
+        "message": "chore: export handler algos (#1074)",
+        "tree": {
+          "sha": "705911fdaa9d13eb9c8be8e68edca6680ebc19bf",
+          "url": "https://api.github.com/repos/w3c/payment-request/git/trees/705911fdaa9d13eb9c8be8e68edca6680ebc19bf"
         },
-        "issue_dependencies_summary": {
-          "blocked_by": 0,
-          "total_blocked_by": 0,
-          "blocking": 0,
-          "total_blocking": 0
-        },
-        "body": "In the issue title above add the document name followed by the date of this request, then the date of your proposed deadline for comments.\r\n\r\n- name of spec to be reviewed: Payment Request\r\n- URL of spec: https://www.w3.org/TR/2020/CR-payment-request-20201203/\r\n\r\n- What and when is your next expected transition? See email link below.\r\n- What has changed since any previous review? See email link below.\r\n\r\nOther comments:\r\n\r\nhttps://lists.w3.org/Archives/Member/member-i18n-core/2021Feb/0002.html",
-        "reactions": {
-          "url": "https://api.github.com/repos/w3c/i18n-request/issues/149/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "pinned_comment": null,
-        "score": 1
+        "url": "https://api.github.com/repos/w3c/payment-request/git/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqOYA0CRC1aQ7uu5UhlAAAx64QADvN0rIOcRGKHXR2yImSSk1c\n7Q5FdChlBZC9E+CPcQBqdv2w+WJf3KIGTUnkO/6rPd9KOVyD4Xqal3eSGRg+SAC4\nC5n3yizW/tmnzCfMA8qoFngA4lhzxssJoO20eX4uB42gy4MQllKQAYCCXMxElNFY\nt3XsPRNnOcriDzGiZIkLNKRGqyg1va35Spz+eWuenN3mxALOWWHlXYy9qRb/jfF3\nwxwrn1iaO9rsghLfjZvu76RQSpTPIRR0VGS0OjZg7HHVpqkL9E8svzG/xKN+S9pc\nYCcXfGf0rV67ZDbv0hiZc3wMO5y1Ecyiy1DnmuA32R/VMk7ueqM1k4QWqIYu3wVC\njZxr6csX4jGPH+alXPjMXL9sid3DGh+iwtJ1sCzvk/kfLyoUlaOC3I71b60fpRop\nHu4VJOoGaTr6rUWaTrD4IeZNlmBvztdhPaFihGbxGQr3ogXavfO14PuqgB/DxW37\nfL4ksbmO03gur015U2rnsBEmAZpEgXICHET2PdUwzdLswb8NLUpdXCz41JvEbGUB\nSYCe6ajtKez+G6ICbudaxuSAQjVcBDLm5mcPxX6qPo1o47NelS/nzb3FUWbJ+6Q/\naolYJtJn1X+Y8u+YfKIkRZhZhOuJ57zKzSaqqQlVmQcizXyXRHv7Be0ElLY/UvJn\nQzcPAk2i4sRjbtNxWvV9\n=SZLj\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 705911fdaa9d13eb9c8be8e68edca6680ebc19bf\nparent 87a473c6029df5113a83073976e910f5d16289c0\nauthor Marcos Cáceres <marcos@marcosc.com> 1782153268 +0200\ncommitter GitHub <noreply@github.com> 1782153268 +0200\n\nchore: export handler algos (#1074)",
+          "verified_at": "2026-06-22T18:34:28Z"
+        }
       },
-      {
-        "url": "https://api.github.com/repos/w3c/i18n-request/issues/27",
-        "repository_url": "https://api.github.com/repos/w3c/i18n-request",
-        "labels_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/comments",
-        "events_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/events",
-        "html_url": "https://github.com/w3c/i18n-request/issues/27",
-        "id": 539691668,
-        "node_id": "MDU6SXNzdWU1Mzk2OTE2Njg=",
-        "number": 27,
-        "title": "Payment Request API   > 2016-04-21",
-        "user": {
-          "login": "r12a",
-          "id": 4839211,
-          "node_id": "MDQ6VXNlcjQ4MzkyMTE=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/4839211?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/r12a",
-          "html_url": "https://github.com/r12a",
-          "followers_url": "https://api.github.com/users/r12a/followers",
-          "following_url": "https://api.github.com/users/r12a/following{/other_user}",
-          "gists_url": "https://api.github.com/users/r12a/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/r12a/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/r12a/subscriptions",
-          "organizations_url": "https://api.github.com/users/r12a/orgs",
-          "repos_url": "https://api.github.com/users/r12a/repos",
-          "events_url": "https://api.github.com/users/r12a/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/r12a/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [],
-        "state": "closed",
-        "locked": false,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2016-12-02T20:21:37Z",
-        "updated_at": "2022-12-02T16:02:05Z",
-        "closed_at": "2022-12-02T16:02:05Z",
-        "assignee": null,
-        "author_association": "CONTRIBUTOR",
-        "issue_field_values": [],
-        "type": null,
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "issue_dependencies_summary": {
-          "blocked_by": 0,
-          "total_blocked_by": 0,
-          "blocking": 0,
-          "total_blocking": 0
-        },
-        "body": "https://github.com/w3c/i18n-activity/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3As%3Apayment-request+\r\n\r\n\r\n\r\nhttp://www.w3.org/TR/payment-request/\r\n\r\nIssues:\r\n https://github.com/w3c/i18n-activity/issues?q=is%3Aissue+label%3Apayment-request",
-        "reactions": {
-          "url": "https://api.github.com/repos/w3c/i18n-request/issues/27/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/timeline",
-        "performed_via_github_app": null,
-        "state_reason": "completed",
-        "pinned_comment": null,
-        "score": 1
+      "url": "https://api.github.com/repos/w3c/payment-request/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
+      "html_url": "https://github.com/w3c/payment-request/commit/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
+      "comments_url": "https://api.github.com/repos/w3c/payment-request/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f/comments",
+      "author": {
+        "login": "marcoscaceres",
+        "id": 870154,
+        "node_id": "MDQ6VXNlcjg3MDE1NA==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/870154?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/marcoscaceres",
+        "html_url": "https://github.com/marcoscaceres",
+        "followers_url": "https://api.github.com/users/marcoscaceres/followers",
+        "following_url": "https://api.github.com/users/marcoscaceres/following{/other_user}",
+        "gists_url": "https://api.github.com/users/marcoscaceres/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/marcoscaceres/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/marcoscaceres/subscriptions",
+        "organizations_url": "https://api.github.com/users/marcoscaceres/orgs",
+        "repos_url": "https://api.github.com/users/marcoscaceres/repos",
+        "events_url": "https://api.github.com/users/marcoscaceres/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/marcoscaceres/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
       },
-      {
-        "url": "https://api.github.com/repos/w3cping/privacy-request/issues/28",
-        "repository_url": "https://api.github.com/repos/w3cping/privacy-request",
-        "labels_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/comments",
-        "events_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/events",
-        "html_url": "https://github.com/w3cping/privacy-request/issues/28",
-        "id": 767661552,
-        "node_id": "MDU6SXNzdWU3Njc2NjE1NTI=",
-        "number": 28,
-        "title": "Payment Request API (call for wide review)",
-        "user": {
-          "login": "sandandsnow",
-          "id": 30192696,
-          "node_id": "MDQ6VXNlcjMwMTkyNjk2",
-          "avatar_url": "https://avatars.githubusercontent.com/u/30192696?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/sandandsnow",
-          "html_url": "https://github.com/sandandsnow",
-          "followers_url": "https://api.github.com/users/sandandsnow/followers",
-          "following_url": "https://api.github.com/users/sandandsnow/following{/other_user}",
-          "gists_url": "https://api.github.com/users/sandandsnow/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/sandandsnow/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/sandandsnow/subscriptions",
-          "organizations_url": "https://api.github.com/users/sandandsnow/orgs",
-          "repos_url": "https://api.github.com/users/sandandsnow/repos",
-          "events_url": "https://api.github.com/users/sandandsnow/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/sandandsnow/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 2803942811,
-            "node_id": "MDU6TGFiZWwyODAzOTQyODEx",
-            "url": "https://api.github.com/repos/w3cping/privacy-request/labels/REVIEW%20REQUESTED",
-            "name": "REVIEW REQUESTED",
-            "color": "6ff265",
-            "default": false,
-            "description": "",
-            "archived_at": null,
-            "archived_by": null
-          }
-        ],
-        "state": "closed",
-        "locked": false,
-        "assignees": [
-          {
-            "login": "Sauski",
-            "id": 6678321,
-            "node_id": "MDQ6VXNlcjY2NzgzMjE=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/6678321?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/Sauski",
-            "html_url": "https://github.com/Sauski",
-            "followers_url": "https://api.github.com/users/Sauski/followers",
-            "following_url": "https://api.github.com/users/Sauski/following{/other_user}",
-            "gists_url": "https://api.github.com/users/Sauski/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/Sauski/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/Sauski/subscriptions",
-            "organizations_url": "https://api.github.com/users/Sauski/orgs",
-            "repos_url": "https://api.github.com/users/Sauski/repos",
-            "events_url": "https://api.github.com/users/Sauski/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/Sauski/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          }
-        ],
-        "milestone": null,
-        "comments": 4,
-        "created_at": "2020-12-15T14:40:16Z",
-        "updated_at": "2021-03-08T20:16:44Z",
-        "closed_at": "2021-01-29T23:35:21Z",
-        "assignee": {
-          "login": "Sauski",
-          "id": 6678321,
-          "node_id": "MDQ6VXNlcjY2NzgzMjE=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/6678321?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/Sauski",
-          "html_url": "https://github.com/Sauski",
-          "followers_url": "https://api.github.com/users/Sauski/followers",
-          "following_url": "https://api.github.com/users/Sauski/following{/other_user}",
-          "gists_url": "https://api.github.com/users/Sauski/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/Sauski/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/Sauski/subscriptions",
-          "organizations_url": "https://api.github.com/users/Sauski/orgs",
-          "repos_url": "https://api.github.com/users/Sauski/repos",
-          "events_url": "https://api.github.com/users/Sauski/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/Sauski/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "author_association": "COLLABORATOR",
-        "issue_field_values": [],
-        "type": null,
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "issue_dependencies_summary": {
-          "blocked_by": 0,
-          "total_blocked_by": 0,
-          "blocking": 0,
-          "total_blocking": 0
-        },
-        "body": "The Web Payments Working Group made a [call for wide review](https://lists.w3.org/Archives/Public/public-review-announce/2020Dec/0002.html) on 2 December 2020.\r\n\r\nSpec: https://www.w3.org/TR/2020/CR-payment-request-20201203/\r\n\r\nThe document was published as a Candidate Recommendation Snapshot.\r\n\r\nReported changes since the last publication:\r\nChanges since last publication \r\n\r\nSubstantive changes to the Payment Request API since the 9 July 2018 version are as follows. The complete list of changes, including all editorial changes, is viewable in the commit history. Key set of changes are viewable in the Changelog. \r\n\r\n * Added support for notification when the user selects a payment handler, but before confirming payment. This allows merchant to update totals, validate acceptance, etc. \r\n * Added support to notify site of billing address selection. This allows a merchant to update a total (e.g., for VAT in Europe). To enhance privacy, only some billing address data is returned to the merchant as long as the user has not confirmed payment. \r\n * Added support for retry() and fine-grain error reporting to the user. \r\n * Clearer definition of canMakePayment() and worked to align implementations. canMakePayment() does not reveal whether payment handler is primed to pay. \r\n * Removed languageCode and regionCode from PaymentAddress. \r\n * Removed currencySystem. \r\n * &quot;Payment request is showing&quot; boolean now attached to top-level browsing context. Previously, only a single payment UI was allowed to be shown at a time across the whole browser. This now allows multiple browser tabs to show a payment UI at the same time (for those payment handlers able to support it). \r\n * Integrated with Permissions Policy. \r\n * Defined handling of multiple applicable modifiers. \r\n * Removed support for merchant validation because of lack of multi-implementer support. \r\n * Deprecated allowpaymentrequest attribute. \r\n * Calling show() now consumes the user activation.",
-        "reactions": {
-          "url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/timeline",
-        "performed_via_github_app": null,
-        "state_reason": "completed",
-        "pinned_comment": null,
-        "score": 1
-      }
-    ],
-    "search_type": "lexical"
-  },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "87a473c6029df5113a83073976e910f5d16289c0",
+          "url": "https://api.github.com/repos/w3c/payment-request/commits/87a473c6029df5113a83073976e910f5d16289c0",
+          "html_url": "https://github.com/w3c/payment-request/commit/87a473c6029df5113a83073976e910f5d16289c0"
+        }
+      ]
+    }
+  ],
   "https://api.github.com/repos/w3c/payment-request/stats/commit_activity": [
     {
       "days": [
@@ -37192,90 +36644,638 @@
       "week": 1792886400
     }
   ],
-  "https://api.github.com/repos/w3c/payment-request/commits?per_page=1": [
-    {
-      "sha": "21e40b83dd69437ed52367f7ddad306d0ad8b66f",
-      "node_id": "C_kwDOAyIi1NoAKDIxZTQwYjgzZGQ2OTQzN2VkNTIzNjdmN2RkYWQzMDZkMGFkOGI2NmY",
-      "commit": {
-        "author": {
-          "name": "Marcos Cáceres",
-          "email": "marcos@marcosc.com",
-          "date": "2026-06-22T18:34:28Z"
-        },
-        "committer": {
-          "name": "GitHub",
-          "email": "noreply@github.com",
-          "date": "2026-06-22T18:34:28Z"
-        },
-        "message": "chore: export handler algos (#1074)",
-        "tree": {
-          "sha": "705911fdaa9d13eb9c8be8e68edca6680ebc19bf",
-          "url": "https://api.github.com/repos/w3c/payment-request/git/trees/705911fdaa9d13eb9c8be8e68edca6680ebc19bf"
-        },
-        "url": "https://api.github.com/repos/w3c/payment-request/git/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
-        "comment_count": 0,
-        "verification": {
-          "verified": true,
-          "reason": "valid",
-          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqOYA0CRC1aQ7uu5UhlAAAx64QADvN0rIOcRGKHXR2yImSSk1c\n7Q5FdChlBZC9E+CPcQBqdv2w+WJf3KIGTUnkO/6rPd9KOVyD4Xqal3eSGRg+SAC4\nC5n3yizW/tmnzCfMA8qoFngA4lhzxssJoO20eX4uB42gy4MQllKQAYCCXMxElNFY\nt3XsPRNnOcriDzGiZIkLNKRGqyg1va35Spz+eWuenN3mxALOWWHlXYy9qRb/jfF3\nwxwrn1iaO9rsghLfjZvu76RQSpTPIRR0VGS0OjZg7HHVpqkL9E8svzG/xKN+S9pc\nYCcXfGf0rV67ZDbv0hiZc3wMO5y1Ecyiy1DnmuA32R/VMk7ueqM1k4QWqIYu3wVC\njZxr6csX4jGPH+alXPjMXL9sid3DGh+iwtJ1sCzvk/kfLyoUlaOC3I71b60fpRop\nHu4VJOoGaTr6rUWaTrD4IeZNlmBvztdhPaFihGbxGQr3ogXavfO14PuqgB/DxW37\nfL4ksbmO03gur015U2rnsBEmAZpEgXICHET2PdUwzdLswb8NLUpdXCz41JvEbGUB\nSYCe6ajtKez+G6ICbudaxuSAQjVcBDLm5mcPxX6qPo1o47NelS/nzb3FUWbJ+6Q/\naolYJtJn1X+Y8u+YfKIkRZhZhOuJ57zKzSaqqQlVmQcizXyXRHv7Be0ElLY/UvJn\nQzcPAk2i4sRjbtNxWvV9\n=SZLj\n-----END PGP SIGNATURE-----\n",
-          "payload": "tree 705911fdaa9d13eb9c8be8e68edca6680ebc19bf\nparent 87a473c6029df5113a83073976e910f5d16289c0\nauthor Marcos Cáceres <marcos@marcosc.com> 1782153268 +0200\ncommitter GitHub <noreply@github.com> 1782153268 +0200\n\nchore: export handler algos (#1074)",
-          "verified_at": "2026-06-22T18:34:28Z"
-        }
+  "https://api.github.com/repos/w3c/payment-request": {
+    "id": 52568788,
+    "node_id": "MDEwOlJlcG9zaXRvcnk1MjU2ODc4OA==",
+    "name": "payment-request",
+    "full_name": "w3c/payment-request",
+    "private": false,
+    "owner": {
+      "login": "w3c",
+      "id": 379216,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/w3c",
+      "html_url": "https://github.com/w3c",
+      "followers_url": "https://api.github.com/users/w3c/followers",
+      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
+      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
+      "organizations_url": "https://api.github.com/users/w3c/orgs",
+      "repos_url": "https://api.github.com/users/w3c/repos",
+      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/w3c/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/w3c/payment-request",
+    "description": "Payment Request API",
+    "fork": false,
+    "url": "https://api.github.com/repos/w3c/payment-request",
+    "forks_url": "https://api.github.com/repos/w3c/payment-request/forks",
+    "keys_url": "https://api.github.com/repos/w3c/payment-request/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/w3c/payment-request/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/w3c/payment-request/teams",
+    "hooks_url": "https://api.github.com/repos/w3c/payment-request/hooks",
+    "issue_events_url": "https://api.github.com/repos/w3c/payment-request/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/w3c/payment-request/events",
+    "assignees_url": "https://api.github.com/repos/w3c/payment-request/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/w3c/payment-request/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/w3c/payment-request/tags",
+    "blobs_url": "https://api.github.com/repos/w3c/payment-request/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/w3c/payment-request/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/w3c/payment-request/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/w3c/payment-request/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/w3c/payment-request/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/w3c/payment-request/languages",
+    "stargazers_url": "https://api.github.com/repos/w3c/payment-request/stargazers",
+    "contributors_url": "https://api.github.com/repos/w3c/payment-request/contributors",
+    "subscribers_url": "https://api.github.com/repos/w3c/payment-request/subscribers",
+    "subscription_url": "https://api.github.com/repos/w3c/payment-request/subscription",
+    "commits_url": "https://api.github.com/repos/w3c/payment-request/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/w3c/payment-request/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/w3c/payment-request/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/w3c/payment-request/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/w3c/payment-request/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/w3c/payment-request/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/w3c/payment-request/merges",
+    "archive_url": "https://api.github.com/repos/w3c/payment-request/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/w3c/payment-request/downloads",
+    "issues_url": "https://api.github.com/repos/w3c/payment-request/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/w3c/payment-request/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/w3c/payment-request/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/w3c/payment-request/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/w3c/payment-request/labels{/name}",
+    "releases_url": "https://api.github.com/repos/w3c/payment-request/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/w3c/payment-request/deployments",
+    "created_at": "2016-02-26T01:12:49Z",
+    "updated_at": "2026-10-13T08:52:34Z",
+    "pushed_at": "2026-10-07T21:24:06Z",
+    "git_url": "git://github.com/w3c/payment-request.git",
+    "ssh_url": "git@github.com:w3c/payment-request.git",
+    "clone_url": "https://github.com/w3c/payment-request.git",
+    "svn_url": "https://github.com/w3c/payment-request",
+    "homepage": "https://www.w3.org/TR/payment-request/",
+    "size": 1520,
+    "stargazers_count": 511,
+    "watchers_count": 511,
+    "language": "HTML",
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": false,
+    "has_wiki": true,
+    "has_pages": true,
+    "has_discussions": false,
+    "forks_count": 139,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 59,
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
+    "topics": [
+      "e-commerce",
+      "payments",
+      "standardization",
+      "w3c"
+    ],
+    "visibility": "public",
+    "forks": 139,
+    "open_issues": 59,
+    "watchers": 511,
+    "default_branch": "gh-pages",
+    "permissions": {
+      "admin": false,
+      "maintain": false,
+      "push": false,
+      "triage": false,
+      "pull": true
+    },
+    "custom_properties": {},
+    "organization": {
+      "login": "w3c",
+      "id": 379216,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/w3c",
+      "html_url": "https://github.com/w3c",
+      "followers_url": "https://api.github.com/users/w3c/followers",
+      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
+      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
+      "organizations_url": "https://api.github.com/users/w3c/orgs",
+      "repos_url": "https://api.github.com/users/w3c/repos",
+      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/w3c/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "network_count": 139,
+    "subscribers_count": 95
+  },
+  "https://api.w3.org/specifications/webauthn-3": {
+    "shortlink": "https://www.w3.org/TR/webauthn-3/",
+    "description": "<p>This specification defines an API enabling the creation and use of strong, attested, scoped, public key-based credentials by web applications, for the purpose of strongly authenticating users. Conceptually, one or more public key credentials, each scoped to a given WebAuthn Relying Party, are created by and bound to authenticators as requested by the web application. The user agent mediates access to authenticators and their public key credentials in order to preserve user privacy. Authenticators are responsible for ensuring that no operation is performed without user consent. Authenticators provide cryptographic proof of their properties to Relying Parties via attestation. This specification also describes the functional model for WebAuthn conformant authenticators, including their signature and attestation functionality.</p>",
+    "title": "Web Authentication: An API for accessing Public Key Credentials - Level 3",
+    "shortname": "webauthn-3",
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "series-version": "3",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-3"
       },
-      "url": "https://api.github.com/repos/w3c/payment-request/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
-      "html_url": "https://github.com/w3c/payment-request/commit/21e40b83dd69437ed52367f7ddad306d0ad8b66f",
-      "comments_url": "https://api.github.com/repos/w3c/payment-request/commits/21e40b83dd69437ed52367f7ddad306d0ad8b66f/comments",
-      "author": {
-        "login": "marcoscaceres",
-        "id": 870154,
-        "node_id": "MDQ6VXNlcjg3MDE1NA==",
-        "avatar_url": "https://avatars.githubusercontent.com/u/870154?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/marcoscaceres",
-        "html_url": "https://github.com/marcoscaceres",
-        "followers_url": "https://api.github.com/users/marcoscaceres/followers",
-        "following_url": "https://api.github.com/users/marcoscaceres/following{/other_user}",
-        "gists_url": "https://api.github.com/users/marcoscaceres/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/marcoscaceres/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/marcoscaceres/subscriptions",
-        "organizations_url": "https://api.github.com/users/marcoscaceres/orgs",
-        "repos_url": "https://api.github.com/users/marcoscaceres/repos",
-        "events_url": "https://api.github.com/users/marcoscaceres/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/marcoscaceres/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
+      "version-history": {
+        "href": "https://api.w3.org/specifications/webauthn-3/versions"
       },
-      "committer": {
-        "login": "web-flow",
-        "id": 19864447,
-        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
-        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/web-flow",
-        "html_url": "https://github.com/web-flow",
-        "followers_url": "https://api.github.com/users/web-flow/followers",
-        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
-        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
-        "organizations_url": "https://api.github.com/users/web-flow/orgs",
-        "repos_url": "https://api.github.com/users/web-flow/repos",
-        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/web-flow/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
+      "first-version": {
+        "href": "https://api.w3.org/specifications/webauthn-3/versions/20210427",
+        "title": "First Public Working Draft"
       },
-      "parents": [
-        {
-          "sha": "87a473c6029df5113a83073976e910f5d16289c0",
-          "url": "https://api.github.com/repos/w3c/payment-request/commits/87a473c6029df5113a83073976e910f5d16289c0",
-          "html_url": "https://github.com/w3c/payment-request/commit/87a473c6029df5113a83073976e910f5d16289c0"
-        }
-      ]
+      "latest-version": {
+        "href": "https://api.w3.org/specifications/webauthn-3/versions/20260825",
+        "title": "Recommendation"
+      },
+      "series": {
+        "href": "https://api.w3.org/specification-series/webauthn"
+      }
     }
-  ],
+  },
+  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fpayment-request%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
+    "total_count": 3,
+    "incomplete_results": false,
+    "items": [
+      {
+        "url": "https://api.github.com/repos/w3c/payment-request/issues/948",
+        "repository_url": "https://api.github.com/repos/w3c/payment-request",
+        "labels_url": "https://api.github.com/repos/w3c/payment-request/issues/948/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3c/payment-request/issues/948/comments",
+        "events_url": "https://api.github.com/repos/w3c/payment-request/issues/948/events",
+        "html_url": "https://github.com/w3c/payment-request/issues/948",
+        "id": 846911862,
+        "node_id": "MDU6SXNzdWU4NDY5MTE4NjI=",
+        "number": 948,
+        "title": "Localization and string metadata for descriptions",
+        "user": {
+          "login": "aphillips",
+          "id": 69082,
+          "node_id": "MDQ6VXNlcjY5MDgy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/aphillips",
+          "html_url": "https://github.com/aphillips",
+          "followers_url": "https://api.github.com/users/aphillips/followers",
+          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
+          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
+          "organizations_url": "https://api.github.com/users/aphillips/orgs",
+          "repos_url": "https://api.github.com/users/aphillips/repos",
+          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/aphillips/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 488699321,
+            "node_id": "MDU6TGFiZWw0ODg2OTkzMjE=",
+            "url": "https://api.github.com/repos/w3c/payment-request/labels/i18n-needs-resolution",
+            "name": "i18n-needs-resolution",
+            "color": "F9C9FF",
+            "default": false,
+            "description": "Issue the Internationalization Group has raised and looks for a response on.",
+            "archived_at": null,
+            "archived_by": null
+          },
+          {
+            "id": 686556788,
+            "node_id": "MDU6TGFiZWw2ODY1NTY3ODg=",
+            "url": "https://api.github.com/repos/w3c/payment-request/labels/Future%20Candidate%20Feature",
+            "name": "Future Candidate Feature",
+            "color": "006b75",
+            "default": false,
+            "description": null,
+            "archived_at": null,
+            "archived_by": null
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignees": [],
+        "milestone": null,
+        "comments": 16,
+        "created_at": "2021-03-31T16:07:50Z",
+        "updated_at": "2022-08-08T11:29:50Z",
+        "closed_at": null,
+        "assignee": null,
+        "author_association": "NONE",
+        "issue_field_values": [],
+        "type": null,
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "issue_dependencies_summary": {
+          "blocked_by": 0,
+          "total_blocked_by": 0,
+          "blocking": 0,
+          "total_blocking": 0
+        },
+        "body": "2.2 Describing what is being paid for \r\nhttps://www.w3.org/TR/2020/CR-payment-request-20201203/#describing-what-is-being-paid-for\r\n\r\nExample 2 contains this:\r\n```\r\nconst details = {\r\n  id: \"super-store-order-123-12312\",\r\n  displayItems: [\r\n    {\r\n      label: \"Sub-total\",\r\n      amount: { currency: \"USD\", value: \"55.00\" },\r\n    },\r\n    {\r\n      label: \"Sales Tax\",\r\n      amount: { currency: \"USD\", value: \"5.00\" },\r\n      type: \"tax\"\r\n    },\r\n  ],\r\n  total: {\r\n    label: \"Total due\",\r\n    // The total is USD$65.00 here because we need to\r\n    // add shipping (below). The selected shipping\r\n    // costs USD$5.00.\r\n    amount: { currency: \"USD\", value: \"65.00\" },\r\n  },\r\n};\r\n```\r\n\r\nThe value `label` contains natural language text with no language metadata or base direction information. The same usage is found in other example sections that follow. I18N recommends that there be a means of providing this metadata so that the document's processor can display the value correctly.\r\n\r\nThis comment is probably a duplicate of #327. It is also related to #946 ",
+        "reactions": {
+          "url": "https://api.github.com/repos/w3c/payment-request/issues/948/reactions",
+          "total_count": 1,
+          "+1": 1,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/w3c/payment-request/issues/948/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "pinned_comment": null,
+        "score": 1
+      }
+    ],
+    "search_type": "lexical"
+  },
+  "https://api.github.com/search/issues?per_page=50&q=(%22Payment%20Request%20API%22%20OR%20payment-request)%20in%3Atitle%20is%3Aissue%20repo%3Aw3c%2Fa11y-request%20repo%3Aw3c%2Fi18n-request%20repo%3Aw3cping%2Fprivacy-request%20repo%3Aw3c%2Fsecurity-request%20repo%3Aw3ctag%2Fdesign-reviews": {
+    "total_count": 3,
+    "incomplete_results": false,
+    "items": [
+      {
+        "url": "https://api.github.com/repos/w3c/i18n-request/issues/149",
+        "repository_url": "https://api.github.com/repos/w3c/i18n-request",
+        "labels_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/comments",
+        "events_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/events",
+        "html_url": "https://github.com/w3c/i18n-request/issues/149",
+        "id": 804784063,
+        "node_id": "MDU6SXNzdWU4MDQ3ODQwNjM=",
+        "number": 149,
+        "title": "Payment Request 2021-02-03 > 2021-04-01",
+        "user": {
+          "login": "aphillips",
+          "id": 69082,
+          "node_id": "MDQ6VXNlcjY5MDgy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/aphillips",
+          "html_url": "https://github.com/aphillips",
+          "followers_url": "https://api.github.com/users/aphillips/followers",
+          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
+          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
+          "organizations_url": "https://api.github.com/users/aphillips/orgs",
+          "repos_url": "https://api.github.com/users/aphillips/repos",
+          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/aphillips/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 1739922697,
+            "node_id": "MDU6TGFiZWwxNzM5OTIyNjk3",
+            "url": "https://api.github.com/repos/w3c/i18n-request/labels/REVIEW%20REQUESTED",
+            "name": "REVIEW REQUESTED",
+            "color": "6ff265",
+            "default": false,
+            "description": "",
+            "archived_at": null,
+            "archived_by": null
+          },
+          {
+            "id": 1739927776,
+            "node_id": "MDU6TGFiZWwxNzM5OTI3Nzc2",
+            "url": "https://api.github.com/repos/w3c/i18n-request/labels/CR",
+            "name": "CR",
+            "color": "d93f0b",
+            "default": false,
+            "description": "In Candidate Recommendation.",
+            "archived_at": null,
+            "archived_by": null
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignees": [
+          {
+            "login": "aphillips",
+            "id": 69082,
+            "node_id": "MDQ6VXNlcjY5MDgy",
+            "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/aphillips",
+            "html_url": "https://github.com/aphillips",
+            "followers_url": "https://api.github.com/users/aphillips/followers",
+            "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
+            "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
+            "organizations_url": "https://api.github.com/users/aphillips/orgs",
+            "repos_url": "https://api.github.com/users/aphillips/repos",
+            "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/aphillips/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          }
+        ],
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2021-02-09T18:00:51Z",
+        "updated_at": "2021-02-11T15:26:28Z",
+        "closed_at": null,
+        "assignee": {
+          "login": "aphillips",
+          "id": 69082,
+          "node_id": "MDQ6VXNlcjY5MDgy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/69082?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/aphillips",
+          "html_url": "https://github.com/aphillips",
+          "followers_url": "https://api.github.com/users/aphillips/followers",
+          "following_url": "https://api.github.com/users/aphillips/following{/other_user}",
+          "gists_url": "https://api.github.com/users/aphillips/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/aphillips/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/aphillips/subscriptions",
+          "organizations_url": "https://api.github.com/users/aphillips/orgs",
+          "repos_url": "https://api.github.com/users/aphillips/repos",
+          "events_url": "https://api.github.com/users/aphillips/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/aphillips/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "author_association": "CONTRIBUTOR",
+        "issue_field_values": [],
+        "type": null,
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "issue_dependencies_summary": {
+          "blocked_by": 0,
+          "total_blocked_by": 0,
+          "blocking": 0,
+          "total_blocking": 0
+        },
+        "body": "In the issue title above add the document name followed by the date of this request, then the date of your proposed deadline for comments.\r\n\r\n- name of spec to be reviewed: Payment Request\r\n- URL of spec: https://www.w3.org/TR/2020/CR-payment-request-20201203/\r\n\r\n- What and when is your next expected transition? See email link below.\r\n- What has changed since any previous review? See email link below.\r\n\r\nOther comments:\r\n\r\nhttps://lists.w3.org/Archives/Member/member-i18n-core/2021Feb/0002.html",
+        "reactions": {
+          "url": "https://api.github.com/repos/w3c/i18n-request/issues/149/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/w3c/i18n-request/issues/149/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "pinned_comment": null,
+        "score": 1
+      },
+      {
+        "url": "https://api.github.com/repos/w3c/i18n-request/issues/27",
+        "repository_url": "https://api.github.com/repos/w3c/i18n-request",
+        "labels_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/comments",
+        "events_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/events",
+        "html_url": "https://github.com/w3c/i18n-request/issues/27",
+        "id": 539691668,
+        "node_id": "MDU6SXNzdWU1Mzk2OTE2Njg=",
+        "number": 27,
+        "title": "Payment Request API   > 2016-04-21",
+        "user": {
+          "login": "r12a",
+          "id": 4839211,
+          "node_id": "MDQ6VXNlcjQ4MzkyMTE=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/4839211?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/r12a",
+          "html_url": "https://github.com/r12a",
+          "followers_url": "https://api.github.com/users/r12a/followers",
+          "following_url": "https://api.github.com/users/r12a/following{/other_user}",
+          "gists_url": "https://api.github.com/users/r12a/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/r12a/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/r12a/subscriptions",
+          "organizations_url": "https://api.github.com/users/r12a/orgs",
+          "repos_url": "https://api.github.com/users/r12a/repos",
+          "events_url": "https://api.github.com/users/r12a/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/r12a/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [],
+        "state": "closed",
+        "locked": false,
+        "assignees": [],
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2016-12-02T20:21:37Z",
+        "updated_at": "2022-12-02T16:02:05Z",
+        "closed_at": "2022-12-02T16:02:05Z",
+        "assignee": null,
+        "author_association": "CONTRIBUTOR",
+        "issue_field_values": [],
+        "type": null,
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "issue_dependencies_summary": {
+          "blocked_by": 0,
+          "total_blocked_by": 0,
+          "blocking": 0,
+          "total_blocking": 0
+        },
+        "body": "https://github.com/w3c/i18n-activity/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3As%3Apayment-request+\r\n\r\n\r\n\r\nhttp://www.w3.org/TR/payment-request/\r\n\r\nIssues:\r\n https://github.com/w3c/i18n-activity/issues?q=is%3Aissue+label%3Apayment-request",
+        "reactions": {
+          "url": "https://api.github.com/repos/w3c/i18n-request/issues/27/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/w3c/i18n-request/issues/27/timeline",
+        "performed_via_github_app": null,
+        "state_reason": "completed",
+        "pinned_comment": null,
+        "score": 1
+      },
+      {
+        "url": "https://api.github.com/repos/w3cping/privacy-request/issues/28",
+        "repository_url": "https://api.github.com/repos/w3cping/privacy-request",
+        "labels_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/comments",
+        "events_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/events",
+        "html_url": "https://github.com/w3cping/privacy-request/issues/28",
+        "id": 767661552,
+        "node_id": "MDU6SXNzdWU3Njc2NjE1NTI=",
+        "number": 28,
+        "title": "Payment Request API (call for wide review)",
+        "user": {
+          "login": "sandandsnow",
+          "id": 30192696,
+          "node_id": "MDQ6VXNlcjMwMTkyNjk2",
+          "avatar_url": "https://avatars.githubusercontent.com/u/30192696?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/sandandsnow",
+          "html_url": "https://github.com/sandandsnow",
+          "followers_url": "https://api.github.com/users/sandandsnow/followers",
+          "following_url": "https://api.github.com/users/sandandsnow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/sandandsnow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/sandandsnow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/sandandsnow/subscriptions",
+          "organizations_url": "https://api.github.com/users/sandandsnow/orgs",
+          "repos_url": "https://api.github.com/users/sandandsnow/repos",
+          "events_url": "https://api.github.com/users/sandandsnow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/sandandsnow/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 2803942811,
+            "node_id": "MDU6TGFiZWwyODAzOTQyODEx",
+            "url": "https://api.github.com/repos/w3cping/privacy-request/labels/REVIEW%20REQUESTED",
+            "name": "REVIEW REQUESTED",
+            "color": "6ff265",
+            "default": false,
+            "description": "",
+            "archived_at": null,
+            "archived_by": null
+          }
+        ],
+        "state": "closed",
+        "locked": false,
+        "assignees": [
+          {
+            "login": "Sauski",
+            "id": 6678321,
+            "node_id": "MDQ6VXNlcjY2NzgzMjE=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/6678321?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Sauski",
+            "html_url": "https://github.com/Sauski",
+            "followers_url": "https://api.github.com/users/Sauski/followers",
+            "following_url": "https://api.github.com/users/Sauski/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Sauski/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/Sauski/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Sauski/subscriptions",
+            "organizations_url": "https://api.github.com/users/Sauski/orgs",
+            "repos_url": "https://api.github.com/users/Sauski/repos",
+            "events_url": "https://api.github.com/users/Sauski/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/Sauski/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          }
+        ],
+        "milestone": null,
+        "comments": 4,
+        "created_at": "2020-12-15T14:40:16Z",
+        "updated_at": "2021-03-08T20:16:44Z",
+        "closed_at": "2021-01-29T23:35:21Z",
+        "assignee": {
+          "login": "Sauski",
+          "id": 6678321,
+          "node_id": "MDQ6VXNlcjY2NzgzMjE=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/6678321?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Sauski",
+          "html_url": "https://github.com/Sauski",
+          "followers_url": "https://api.github.com/users/Sauski/followers",
+          "following_url": "https://api.github.com/users/Sauski/following{/other_user}",
+          "gists_url": "https://api.github.com/users/Sauski/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/Sauski/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/Sauski/subscriptions",
+          "organizations_url": "https://api.github.com/users/Sauski/orgs",
+          "repos_url": "https://api.github.com/users/Sauski/repos",
+          "events_url": "https://api.github.com/users/Sauski/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/Sauski/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "author_association": "COLLABORATOR",
+        "issue_field_values": [],
+        "type": null,
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "issue_dependencies_summary": {
+          "blocked_by": 0,
+          "total_blocked_by": 0,
+          "blocking": 0,
+          "total_blocking": 0
+        },
+        "body": "The Web Payments Working Group made a [call for wide review](https://lists.w3.org/Archives/Public/public-review-announce/2020Dec/0002.html) on 2 December 2020.\r\n\r\nSpec: https://www.w3.org/TR/2020/CR-payment-request-20201203/\r\n\r\nThe document was published as a Candidate Recommendation Snapshot.\r\n\r\nReported changes since the last publication:\r\nChanges since last publication \r\n\r\nSubstantive changes to the Payment Request API since the 9 July 2018 version are as follows. The complete list of changes, including all editorial changes, is viewable in the commit history. Key set of changes are viewable in the Changelog. \r\n\r\n * Added support for notification when the user selects a payment handler, but before confirming payment. This allows merchant to update totals, validate acceptance, etc. \r\n * Added support to notify site of billing address selection. This allows a merchant to update a total (e.g., for VAT in Europe). To enhance privacy, only some billing address data is returned to the merchant as long as the user has not confirmed payment. \r\n * Added support for retry() and fine-grain error reporting to the user. \r\n * Clearer definition of canMakePayment() and worked to align implementations. canMakePayment() does not reveal whether payment handler is primed to pay. \r\n * Removed languageCode and regionCode from PaymentAddress. \r\n * Removed currencySystem. \r\n * &quot;Payment request is showing&quot; boolean now attached to top-level browsing context. Previously, only a single payment UI was allowed to be shown at a time across the whole browser. This now allows multiple browser tabs to show a payment UI at the same time (for those payment handlers able to support it). \r\n * Integrated with Permissions Policy. \r\n * Defined handling of multiple applicable modifiers. \r\n * Removed support for merchant validation because of lack of multi-implementer support. \r\n * Deprecated allowpaymentrequest attribute. \r\n * Calling show() now consumes the user activation.",
+        "reactions": {
+          "url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/w3cping/privacy-request/issues/28/timeline",
+        "performed_via_github_app": null,
+        "state_reason": "completed",
+        "pinned_comment": null,
+        "score": 1
+      }
+    ],
+    "search_type": "lexical"
+  },
   "https://api.w3.org/specifications/battery-status/versions/20110426": {
     "status": "Working Draft",
     "rec-track": true,
@@ -37302,6 +37302,148 @@
         "href": "https://api.w3.org/specifications/battery-status/versions/20110426/successors"
       }
     }
+  },
+  "https://api.github.com/repos/w3c/webauthn": {
+    "id": 51303856,
+    "node_id": "MDEwOlJlcG9zaXRvcnk1MTMwMzg1Ng==",
+    "name": "webauthn",
+    "full_name": "w3c/webauthn",
+    "private": false,
+    "owner": {
+      "login": "w3c",
+      "id": 379216,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/w3c",
+      "html_url": "https://github.com/w3c",
+      "followers_url": "https://api.github.com/users/w3c/followers",
+      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
+      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
+      "organizations_url": "https://api.github.com/users/w3c/orgs",
+      "repos_url": "https://api.github.com/users/w3c/repos",
+      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/w3c/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/w3c/webauthn",
+    "description": "Web Authentication: An API for accessing Public Key Credentials",
+    "fork": false,
+    "url": "https://api.github.com/repos/w3c/webauthn",
+    "forks_url": "https://api.github.com/repos/w3c/webauthn/forks",
+    "keys_url": "https://api.github.com/repos/w3c/webauthn/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/w3c/webauthn/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/w3c/webauthn/teams",
+    "hooks_url": "https://api.github.com/repos/w3c/webauthn/hooks",
+    "issue_events_url": "https://api.github.com/repos/w3c/webauthn/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/w3c/webauthn/events",
+    "assignees_url": "https://api.github.com/repos/w3c/webauthn/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/w3c/webauthn/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/w3c/webauthn/tags",
+    "blobs_url": "https://api.github.com/repos/w3c/webauthn/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/w3c/webauthn/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/w3c/webauthn/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/w3c/webauthn/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/w3c/webauthn/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/w3c/webauthn/languages",
+    "stargazers_url": "https://api.github.com/repos/w3c/webauthn/stargazers",
+    "contributors_url": "https://api.github.com/repos/w3c/webauthn/contributors",
+    "subscribers_url": "https://api.github.com/repos/w3c/webauthn/subscribers",
+    "subscription_url": "https://api.github.com/repos/w3c/webauthn/subscription",
+    "commits_url": "https://api.github.com/repos/w3c/webauthn/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/w3c/webauthn/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/w3c/webauthn/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/w3c/webauthn/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/w3c/webauthn/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/w3c/webauthn/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/w3c/webauthn/merges",
+    "archive_url": "https://api.github.com/repos/w3c/webauthn/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/w3c/webauthn/downloads",
+    "issues_url": "https://api.github.com/repos/w3c/webauthn/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/w3c/webauthn/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/w3c/webauthn/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/w3c/webauthn/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/w3c/webauthn/labels{/name}",
+    "releases_url": "https://api.github.com/repos/w3c/webauthn/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/w3c/webauthn/deployments",
+    "created_at": "2016-02-08T14:51:38Z",
+    "updated_at": "2026-10-26T15:32:33Z",
+    "pushed_at": "2026-10-26T15:33:31Z",
+    "git_url": "git://github.com/w3c/webauthn.git",
+    "ssh_url": "git@github.com:w3c/webauthn.git",
+    "clone_url": "https://github.com/w3c/webauthn.git",
+    "svn_url": "https://github.com/w3c/webauthn",
+    "homepage": "https://w3c.github.io/webauthn/",
+    "size": 32636,
+    "stargazers_count": 1486,
+    "watchers_count": 1486,
+    "language": "Bikeshed",
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": false,
+    "has_wiki": true,
+    "has_pages": true,
+    "has_discussions": false,
+    "forks_count": 312,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 110,
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
+    "topics": [
+      "webauthn"
+    ],
+    "visibility": "public",
+    "forks": 312,
+    "open_issues": 110,
+    "watchers": 1486,
+    "default_branch": "main",
+    "permissions": {
+      "admin": false,
+      "maintain": false,
+      "push": false,
+      "triage": false,
+      "pull": true
+    },
+    "custom_properties": {},
+    "organization": {
+      "login": "w3c",
+      "id": 379216,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/w3c",
+      "html_url": "https://github.com/w3c",
+      "followers_url": "https://api.github.com/users/w3c/followers",
+      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
+      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
+      "organizations_url": "https://api.github.com/users/w3c/orgs",
+      "repos_url": "https://api.github.com/users/w3c/repos",
+      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/w3c/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "network_count": 312,
+    "subscribers_count": 196
   },
   "https://api.w3.org/specifications/battery-status/versions/20241024": {
     "status": "Working Draft",
@@ -38098,261 +38240,159 @@
       "week": 1792886400
     }
   ],
-  "https://api.github.com/repos/w3c/webauthn": {
-    "id": 51303856,
-    "node_id": "MDEwOlJlcG9zaXRvcnk1MTMwMzg1Ng==",
-    "name": "webauthn",
-    "full_name": "w3c/webauthn",
-    "private": false,
-    "owner": {
-      "login": "w3c",
-      "id": 379216,
-      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
-      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/w3c",
-      "html_url": "https://github.com/w3c",
-      "followers_url": "https://api.github.com/users/w3c/followers",
-      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
-      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
-      "organizations_url": "https://api.github.com/users/w3c/orgs",
-      "repos_url": "https://api.github.com/users/w3c/repos",
-      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/w3c/received_events",
-      "type": "Organization",
-      "user_view_type": "public",
-      "site_admin": false
-    },
-    "html_url": "https://github.com/w3c/webauthn",
-    "description": "Web Authentication: An API for accessing Public Key Credentials",
-    "fork": false,
-    "url": "https://api.github.com/repos/w3c/webauthn",
-    "forks_url": "https://api.github.com/repos/w3c/webauthn/forks",
-    "keys_url": "https://api.github.com/repos/w3c/webauthn/keys{/key_id}",
-    "collaborators_url": "https://api.github.com/repos/w3c/webauthn/collaborators{/collaborator}",
-    "teams_url": "https://api.github.com/repos/w3c/webauthn/teams",
-    "hooks_url": "https://api.github.com/repos/w3c/webauthn/hooks",
-    "issue_events_url": "https://api.github.com/repos/w3c/webauthn/issues/events{/number}",
-    "events_url": "https://api.github.com/repos/w3c/webauthn/events",
-    "assignees_url": "https://api.github.com/repos/w3c/webauthn/assignees{/user}",
-    "branches_url": "https://api.github.com/repos/w3c/webauthn/branches{/branch}",
-    "tags_url": "https://api.github.com/repos/w3c/webauthn/tags",
-    "blobs_url": "https://api.github.com/repos/w3c/webauthn/git/blobs{/sha}",
-    "git_tags_url": "https://api.github.com/repos/w3c/webauthn/git/tags{/sha}",
-    "git_refs_url": "https://api.github.com/repos/w3c/webauthn/git/refs{/sha}",
-    "trees_url": "https://api.github.com/repos/w3c/webauthn/git/trees{/sha}",
-    "statuses_url": "https://api.github.com/repos/w3c/webauthn/statuses/{sha}",
-    "languages_url": "https://api.github.com/repos/w3c/webauthn/languages",
-    "stargazers_url": "https://api.github.com/repos/w3c/webauthn/stargazers",
-    "contributors_url": "https://api.github.com/repos/w3c/webauthn/contributors",
-    "subscribers_url": "https://api.github.com/repos/w3c/webauthn/subscribers",
-    "subscription_url": "https://api.github.com/repos/w3c/webauthn/subscription",
-    "commits_url": "https://api.github.com/repos/w3c/webauthn/commits{/sha}",
-    "git_commits_url": "https://api.github.com/repos/w3c/webauthn/git/commits{/sha}",
-    "comments_url": "https://api.github.com/repos/w3c/webauthn/comments{/number}",
-    "issue_comment_url": "https://api.github.com/repos/w3c/webauthn/issues/comments{/number}",
-    "contents_url": "https://api.github.com/repos/w3c/webauthn/contents/{+path}",
-    "compare_url": "https://api.github.com/repos/w3c/webauthn/compare/{base}...{head}",
-    "merges_url": "https://api.github.com/repos/w3c/webauthn/merges",
-    "archive_url": "https://api.github.com/repos/w3c/webauthn/{archive_format}{/ref}",
-    "downloads_url": "https://api.github.com/repos/w3c/webauthn/downloads",
-    "issues_url": "https://api.github.com/repos/w3c/webauthn/issues{/number}",
-    "pulls_url": "https://api.github.com/repos/w3c/webauthn/pulls{/number}",
-    "milestones_url": "https://api.github.com/repos/w3c/webauthn/milestones{/number}",
-    "notifications_url": "https://api.github.com/repos/w3c/webauthn/notifications{?since,all,participating}",
-    "labels_url": "https://api.github.com/repos/w3c/webauthn/labels{/name}",
-    "releases_url": "https://api.github.com/repos/w3c/webauthn/releases{/id}",
-    "deployments_url": "https://api.github.com/repos/w3c/webauthn/deployments",
-    "created_at": "2016-02-08T14:51:38Z",
-    "updated_at": "2026-10-26T15:32:33Z",
-    "pushed_at": "2026-10-26T15:33:31Z",
-    "git_url": "git://github.com/w3c/webauthn.git",
-    "ssh_url": "git@github.com:w3c/webauthn.git",
-    "clone_url": "https://github.com/w3c/webauthn.git",
-    "svn_url": "https://github.com/w3c/webauthn",
-    "homepage": "https://w3c.github.io/webauthn/",
-    "size": 32636,
-    "stargazers_count": 1486,
-    "watchers_count": 1486,
-    "language": "Bikeshed",
-    "has_issues": true,
-    "has_projects": true,
-    "has_downloads": false,
-    "has_wiki": true,
-    "has_pages": true,
-    "has_discussions": false,
-    "forks_count": 312,
-    "mirror_url": null,
-    "archived": false,
-    "disabled": false,
-    "open_issues_count": 110,
-    "license": {
-      "key": "other",
-      "name": "Other",
-      "spdx_id": "NOASSERTION",
-      "url": null,
-      "node_id": "MDc6TGljZW5zZTA="
-    },
-    "allow_forking": true,
-    "is_template": false,
-    "web_commit_signoff_required": false,
-    "has_pull_requests": true,
-    "pull_request_creation_policy": "all",
-    "topics": [
-      "webauthn"
-    ],
-    "visibility": "public",
-    "forks": 312,
-    "open_issues": 110,
-    "watchers": 1486,
-    "default_branch": "main",
-    "permissions": {
-      "admin": false,
-      "maintain": false,
-      "push": false,
-      "triage": false,
-      "pull": true
-    },
-    "custom_properties": {},
-    "organization": {
-      "login": "w3c",
-      "id": 379216,
-      "node_id": "MDEyOk9yZ2FuaXphdGlvbjM3OTIxNg==",
-      "avatar_url": "https://avatars.githubusercontent.com/u/379216?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/w3c",
-      "html_url": "https://github.com/w3c",
-      "followers_url": "https://api.github.com/users/w3c/followers",
-      "following_url": "https://api.github.com/users/w3c/following{/other_user}",
-      "gists_url": "https://api.github.com/users/w3c/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/w3c/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/w3c/subscriptions",
-      "organizations_url": "https://api.github.com/users/w3c/orgs",
-      "repos_url": "https://api.github.com/users/w3c/repos",
-      "events_url": "https://api.github.com/users/w3c/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/w3c/received_events",
-      "type": "Organization",
-      "user_view_type": "public",
-      "site_admin": false
-    },
-    "network_count": 312,
-    "subscribers_count": 196
-  },
-  "https://api.w3.org/specifications/battery-status/versions": {
-    "page": 1,
-    "limit": 100,
-    "pages": 1,
-    "total": 23,
-    "_links": {
-      "up": {
-        "href": "https://api.w3.org/specifications/battery-status"
-      },
-      "version-history": [
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20241024",
-          "title": "Battery Status API"
+  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fwebauthn%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
+    "total_count": 4,
+    "incomplete_results": false,
+    "items": [
+      {
+        "url": "https://api.github.com/repos/w3c/webauthn/issues/2320",
+        "repository_url": "https://api.github.com/repos/w3c/webauthn",
+        "labels_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/labels{/name}",
+        "comments_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/comments",
+        "events_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/events",
+        "html_url": "https://github.com/w3c/webauthn/issues/2320",
+        "id": 3322956687,
+        "node_id": "I_kwDOAw7VsM7GEEuP",
+        "number": 2320,
+        "title": "document and mitigate fingerprinting and disclosure risk of capabilities and extensions",
+        "user": {
+          "login": "npdoty",
+          "id": 63572,
+          "node_id": "MDQ6VXNlcjYzNTcy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/63572?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/npdoty",
+          "html_url": "https://github.com/npdoty",
+          "followers_url": "https://api.github.com/users/npdoty/followers",
+          "following_url": "https://api.github.com/users/npdoty/following{/other_user}",
+          "gists_url": "https://api.github.com/users/npdoty/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/npdoty/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/npdoty/subscriptions",
+          "organizations_url": "https://api.github.com/users/npdoty/orgs",
+          "repos_url": "https://api.github.com/users/npdoty/repos",
+          "events_url": "https://api.github.com/users/npdoty/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/npdoty/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
         },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20240523",
-          "title": "Battery Status API"
+        "labels": [
+          {
+            "id": 340916444,
+            "node_id": "MDU6TGFiZWwzNDA5MTY0NDQ=",
+            "url": "https://api.github.com/repos/w3c/webauthn/labels/type:technical",
+            "name": "type:technical",
+            "color": "ffca04",
+            "default": false,
+            "description": null,
+            "archived_at": null,
+            "archived_by": null
+          },
+          {
+            "id": 1224889899,
+            "node_id": "MDU6TGFiZWwxMjI0ODg5ODk5",
+            "url": "https://api.github.com/repos/w3c/webauthn/labels/subtype:FeatureProposal",
+            "name": "subtype:FeatureProposal",
+            "color": "f7c56f",
+            "default": false,
+            "description": "",
+            "archived_at": null,
+            "archived_by": null
+          },
+          {
+            "id": 1831511047,
+            "node_id": "MDU6TGFiZWwxODMxNTExMDQ3",
+            "url": "https://api.github.com/repos/w3c/webauthn/labels/privacy-needs-resolution",
+            "name": "privacy-needs-resolution",
+            "color": "d4af37",
+            "default": false,
+            "description": "Issue the Privacy Group has raised and looks for a response on.",
+            "archived_at": null,
+            "archived_by": null
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignees": [],
+        "milestone": {
+          "url": "https://api.github.com/repos/w3c/webauthn/milestones/33",
+          "html_url": "https://github.com/w3c/webauthn/milestone/33",
+          "labels_url": "https://api.github.com/repos/w3c/webauthn/milestones/33/labels",
+          "id": 13848552,
+          "node_id": "MI_kwDOAw7VsM4A00_o",
+          "number": 33,
+          "title": "L4 WD02 Milestone",
+          "description": "",
+          "creator": {
+            "login": "nadalin",
+            "id": 7937635,
+            "node_id": "MDQ6VXNlcjc5Mzc2MzU=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/7937635?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/nadalin",
+            "html_url": "https://github.com/nadalin",
+            "followers_url": "https://api.github.com/users/nadalin/followers",
+            "following_url": "https://api.github.com/users/nadalin/following{/other_user}",
+            "gists_url": "https://api.github.com/users/nadalin/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/nadalin/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/nadalin/subscriptions",
+            "organizations_url": "https://api.github.com/users/nadalin/orgs",
+            "repos_url": "https://api.github.com/users/nadalin/repos",
+            "events_url": "https://api.github.com/users/nadalin/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/nadalin/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "open_issues": 63,
+          "closed_issues": 22,
+          "state": "open",
+          "created_at": "2025-10-08T18:20:37Z",
+          "updated_at": "2026-10-14T19:27:46Z",
+          "due_on": "2026-10-07T00:00:00Z",
+          "closed_at": null
         },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20220203",
-          "title": "Battery Status API"
+        "comments": 3,
+        "created_at": "2025-08-14T17:09:46Z",
+        "updated_at": "2025-12-03T19:39:20Z",
+        "closed_at": null,
+        "assignee": null,
+        "author_association": "NONE",
+        "issue_field_values": [],
+        "type": null,
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
         },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20220201",
-          "title": "Battery Status API"
+        "issue_dependencies_summary": {
+          "blocked_by": 0,
+          "total_blocked_by": 0,
+          "blocking": 0,
+          "total_blocking": 0
         },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20211109",
-          "title": "Battery Status API"
+        "body": "> The client’s support or lack of support of a WebAuthn capability may pose a fingerprinting risk. Client implementations MAY wish to limit capability disclosures based on client policy and/or user consent.\n\nWe can do deeper analysis than just that it's a risk and that someone could maybe mitigate it.\n\nClientCapability, but also every extension. Extensions in particular seem very distinguishing, for identifying the particular software configuration that the user has installed for authentication, or maybe other things about the user's underlying software or hardware. The potential risks will change over time depending on which extensions are included in the registry. Does the registry process consider the privacy risks of each particular extension becoming immediately, silently detectable by every origin?\n\nDoes 'supported' mean that there are available authenticators or that the platform actually does support it, or just that there is a piece of software that could trigger that functionality if it was configured and called? it isn't clear what this should indicate to the relying party or what the client should be choosing to hide for privacy purposes. Conditions here might limit both the fingerprinting risk, and the risk of revealing details about the user, like their hardware and software.\n\nhttps://w3c.github.io/fingerprinting-guidance/ has additional advice on how to evaluate and mitigate these risks.\n\nThis item was raised and discussed by the Privacy WG as part of this privacy review:\nhttps://github.com/w3cping/privacy-request/issues/162\n",
+        "reactions": {
+          "url": "https://api.github.com/repos/w3c/webauthn/issues/2320/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
         },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210913",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210831",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210827",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210826",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210825",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210817",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210814",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210813",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20210601",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20160707",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20160329",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20141209",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20140828",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20120508",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20111129",
-          "title": "Battery Status API"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20110915",
-          "title": "Battery Status Events"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20110602",
-          "title": "Battery Status Event Specification"
-        },
-        {
-          "href": "https://api.w3.org/specifications/battery-status/versions/20110426",
-          "title": "Battery Status Event Specification"
-        }
-      ],
-      "self": {
-        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
-      },
-      "first": {
-        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
-      },
-      "last": {
-        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
+        "timeline_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "pinned_comment": null,
+        "score": 1
       }
-    }
+    ],
+    "search_type": "lexical"
   },
   "https://api.github.com/search/issues?per_page=50&q=(%22Web%20Authentication%22%20OR%20webauthn-3)%20in%3Atitle%20is%3Aissue%20repo%3Aw3c%2Fa11y-request%20repo%3Aw3c%2Fi18n-request%20repo%3Aw3cping%2Fprivacy-request%20repo%3Aw3c%2Fsecurity-request%20repo%3Aw3ctag%2Fdesign-reviews": {
     "total_count": 22,
@@ -42040,6 +42080,146 @@
     ],
     "search_type": "lexical"
   },
+  "https://api.w3.org/specifications/battery-status/versions": {
+    "page": 1,
+    "limit": 100,
+    "pages": 1,
+    "total": 23,
+    "_links": {
+      "up": {
+        "href": "https://api.w3.org/specifications/battery-status"
+      },
+      "version-history": [
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20241024",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20240523",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20220203",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20220201",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20211109",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210913",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210831",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210827",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210826",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210825",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210817",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210814",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210813",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20210601",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20160707",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20160329",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20141209",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20140828",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20120508",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20111129",
+          "title": "Battery Status API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20110915",
+          "title": "Battery Status Events"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20110602",
+          "title": "Battery Status Event Specification"
+        },
+        {
+          "href": "https://api.w3.org/specifications/battery-status/versions/20110426",
+          "title": "Battery Status Event Specification"
+        }
+      ],
+      "self": {
+        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
+      },
+      "first": {
+        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
+      },
+      "last": {
+        "href": "https://api.w3.org/specifications/battery-status/versions?page=1&items=100"
+      }
+    }
+  },
+  "https://api.w3.org/specification-series/battery-status/specifications": {
+    "page": 1,
+    "limit": 100,
+    "pages": 1,
+    "total": 1,
+    "_links": {
+      "up": {
+        "href": "https://api.w3.org/specification-series/battery-status"
+      },
+      "specifications": [
+        {
+          "href": "https://api.w3.org/specifications/battery-status",
+          "title": "Battery Status API"
+        }
+      ],
+      "self": {
+        "href": "https://api.w3.org/specification-series/battery-status/specifications?page=1&items=100"
+      },
+      "first": {
+        "href": "https://api.w3.org/specification-series/battery-status/specifications?page=1&items=100"
+      },
+      "last": {
+        "href": "https://api.w3.org/specification-series/battery-status/specifications?page=1&items=100"
+      }
+    }
+  },
   "https://api.w3.org/specifications/payment-request/versions/20160421": {
     "status": "First Public Working Draft",
     "rec-track": true,
@@ -42067,160 +42247,6 @@
         "href": "https://api.w3.org/specifications/payment-request/versions/20160421/successors"
       }
     }
-  },
-  "https://api.github.com/search/issues?per_page=1&q=repo%3Aw3c%2Fwebauthn%20is%3Aissue%20is%3Aopen%20label%3Ai18n-needs-resolution%2Ca11y-needs-resolution%2Cprivacy-needs-resolution%2Csecurity-needs-resolution%2Ctag-needs-resolution%2Ci18n-tracker%2Ca11y-tracker%2Cprivacy-tracker%2Csecurity-tracker%2Ctag-tracker": {
-    "total_count": 4,
-    "incomplete_results": false,
-    "items": [
-      {
-        "url": "https://api.github.com/repos/w3c/webauthn/issues/2320",
-        "repository_url": "https://api.github.com/repos/w3c/webauthn",
-        "labels_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/labels{/name}",
-        "comments_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/comments",
-        "events_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/events",
-        "html_url": "https://github.com/w3c/webauthn/issues/2320",
-        "id": 3322956687,
-        "node_id": "I_kwDOAw7VsM7GEEuP",
-        "number": 2320,
-        "title": "document and mitigate fingerprinting and disclosure risk of capabilities and extensions",
-        "user": {
-          "login": "npdoty",
-          "id": 63572,
-          "node_id": "MDQ6VXNlcjYzNTcy",
-          "avatar_url": "https://avatars.githubusercontent.com/u/63572?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/npdoty",
-          "html_url": "https://github.com/npdoty",
-          "followers_url": "https://api.github.com/users/npdoty/followers",
-          "following_url": "https://api.github.com/users/npdoty/following{/other_user}",
-          "gists_url": "https://api.github.com/users/npdoty/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/npdoty/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/npdoty/subscriptions",
-          "organizations_url": "https://api.github.com/users/npdoty/orgs",
-          "repos_url": "https://api.github.com/users/npdoty/repos",
-          "events_url": "https://api.github.com/users/npdoty/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/npdoty/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 340916444,
-            "node_id": "MDU6TGFiZWwzNDA5MTY0NDQ=",
-            "url": "https://api.github.com/repos/w3c/webauthn/labels/type:technical",
-            "name": "type:technical",
-            "color": "ffca04",
-            "default": false,
-            "description": null,
-            "archived_at": null,
-            "archived_by": null
-          },
-          {
-            "id": 1224889899,
-            "node_id": "MDU6TGFiZWwxMjI0ODg5ODk5",
-            "url": "https://api.github.com/repos/w3c/webauthn/labels/subtype:FeatureProposal",
-            "name": "subtype:FeatureProposal",
-            "color": "f7c56f",
-            "default": false,
-            "description": "",
-            "archived_at": null,
-            "archived_by": null
-          },
-          {
-            "id": 1831511047,
-            "node_id": "MDU6TGFiZWwxODMxNTExMDQ3",
-            "url": "https://api.github.com/repos/w3c/webauthn/labels/privacy-needs-resolution",
-            "name": "privacy-needs-resolution",
-            "color": "d4af37",
-            "default": false,
-            "description": "Issue the Privacy Group has raised and looks for a response on.",
-            "archived_at": null,
-            "archived_by": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignees": [],
-        "milestone": {
-          "url": "https://api.github.com/repos/w3c/webauthn/milestones/33",
-          "html_url": "https://github.com/w3c/webauthn/milestone/33",
-          "labels_url": "https://api.github.com/repos/w3c/webauthn/milestones/33/labels",
-          "id": 13848552,
-          "node_id": "MI_kwDOAw7VsM4A00_o",
-          "number": 33,
-          "title": "L4 WD02 Milestone",
-          "description": "",
-          "creator": {
-            "login": "nadalin",
-            "id": 7937635,
-            "node_id": "MDQ6VXNlcjc5Mzc2MzU=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/7937635?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/nadalin",
-            "html_url": "https://github.com/nadalin",
-            "followers_url": "https://api.github.com/users/nadalin/followers",
-            "following_url": "https://api.github.com/users/nadalin/following{/other_user}",
-            "gists_url": "https://api.github.com/users/nadalin/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/nadalin/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/nadalin/subscriptions",
-            "organizations_url": "https://api.github.com/users/nadalin/orgs",
-            "repos_url": "https://api.github.com/users/nadalin/repos",
-            "events_url": "https://api.github.com/users/nadalin/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/nadalin/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "open_issues": 63,
-          "closed_issues": 22,
-          "state": "open",
-          "created_at": "2025-10-08T18:20:37Z",
-          "updated_at": "2026-10-14T19:27:46Z",
-          "due_on": "2026-10-07T00:00:00Z",
-          "closed_at": null
-        },
-        "comments": 3,
-        "created_at": "2025-08-14T17:09:46Z",
-        "updated_at": "2025-12-03T19:39:20Z",
-        "closed_at": null,
-        "assignee": null,
-        "author_association": "NONE",
-        "issue_field_values": [],
-        "type": null,
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "issue_dependencies_summary": {
-          "blocked_by": 0,
-          "total_blocked_by": 0,
-          "blocking": 0,
-          "total_blocking": 0
-        },
-        "body": "> The client’s support or lack of support of a WebAuthn capability may pose a fingerprinting risk. Client implementations MAY wish to limit capability disclosures based on client policy and/or user consent.\n\nWe can do deeper analysis than just that it's a risk and that someone could maybe mitigate it.\n\nClientCapability, but also every extension. Extensions in particular seem very distinguishing, for identifying the particular software configuration that the user has installed for authentication, or maybe other things about the user's underlying software or hardware. The potential risks will change over time depending on which extensions are included in the registry. Does the registry process consider the privacy risks of each particular extension becoming immediately, silently detectable by every origin?\n\nDoes 'supported' mean that there are available authenticators or that the platform actually does support it, or just that there is a piece of software that could trigger that functionality if it was configured and called? it isn't clear what this should indicate to the relying party or what the client should be choosing to hide for privacy purposes. Conditions here might limit both the fingerprinting risk, and the risk of revealing details about the user, like their hardware and software.\n\nhttps://w3c.github.io/fingerprinting-guidance/ has additional advice on how to evaluate and mitigate these risks.\n\nThis item was raised and discussed by the Privacy WG as part of this privacy review:\nhttps://github.com/w3cping/privacy-request/issues/162\n",
-        "reactions": {
-          "url": "https://api.github.com/repos/w3c/webauthn/issues/2320/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/w3c/webauthn/issues/2320/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "pinned_comment": null,
-        "score": 1
-      }
-    ],
-    "search_type": "lexical"
   },
   "https://api.w3.org/specifications/payment-request/versions/20260622": {
     "status": "Candidate Recommendation Draft",
@@ -42648,6 +42674,36 @@
       }
     }
   },
+  "https://api.w3.org/specification-series/payment-request/specifications": {
+    "page": 1,
+    "limit": 100,
+    "pages": 1,
+    "total": 2,
+    "_links": {
+      "up": {
+        "href": "https://api.w3.org/specification-series/payment-request"
+      },
+      "specifications": [
+        {
+          "href": "https://api.w3.org/specifications/payment-request",
+          "title": "Payment Request API"
+        },
+        {
+          "href": "https://api.w3.org/specifications/payment-request-1.1",
+          "title": "Payment Request API 1.1"
+        }
+      ],
+      "self": {
+        "href": "https://api.w3.org/specification-series/payment-request/specifications?page=1&items=100"
+      },
+      "first": {
+        "href": "https://api.w3.org/specification-series/payment-request/specifications?page=1&items=100"
+      },
+      "last": {
+        "href": "https://api.w3.org/specification-series/payment-request/specifications?page=1&items=100"
+      }
+    }
+  },
   "https://api.w3.org/specifications/webauthn-3/versions/20210427": {
     "status": "First Public Working Draft",
     "rec-track": true,
@@ -42750,6 +42806,44 @@
       }
     }
   },
+  "https://api.w3.org/specification-series/webauthn/specifications": {
+    "page": 1,
+    "limit": 100,
+    "pages": 1,
+    "total": 4,
+    "_links": {
+      "up": {
+        "href": "https://api.w3.org/specification-series/webauthn"
+      },
+      "specifications": [
+        {
+          "href": "https://api.w3.org/specifications/webauthn-2",
+          "title": "Web Authentication: An API for accessing Public Key Credentials - Level 2"
+        },
+        {
+          "href": "https://api.w3.org/specifications/webauthn-3",
+          "title": "Web Authentication: An API for accessing Public Key Credentials - Level 3"
+        },
+        {
+          "href": "https://api.w3.org/specifications/webauthn-4",
+          "title": "Web Authentication: An API for accessing Public Key Credentials - Level 4"
+        },
+        {
+          "href": "https://api.w3.org/specifications/webauthn-1",
+          "title": "Web Authentication:An API for accessing Public Key Credentials Level 1"
+        }
+      ],
+      "self": {
+        "href": "https://api.w3.org/specification-series/webauthn/specifications?page=1&items=100"
+      },
+      "first": {
+        "href": "https://api.w3.org/specification-series/webauthn/specifications?page=1&items=100"
+      },
+      "last": {
+        "href": "https://api.w3.org/specification-series/webauthn/specifications?page=1&items=100"
+      }
+    }
+  },
   "https://api.w3.org/specifications/battery-status/versions/20241024/editors": {
     "page": 1,
     "limit": 100,
@@ -42810,6 +42904,36 @@
       }
     }
   },
+  "https://api.w3.org/specifications/payment-request-1.1": {
+    "shortlink": "https://www.w3.org/TR/payment-request-1.1/",
+    "description": "<p>This specification standardizes an API to allow merchants (i.e. web sites selling physical or digital goods) to utilize one or more payment methods with minimal integration. User agents (e.g., browsers) facilitate the payment flow between merchant and user.</p>",
+    "title": "Payment Request API 1.1",
+    "shortname": "payment-request-1.1",
+    "editor-draft": "https://w3c.github.io/payment-request/",
+    "series-version": "1.1",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1"
+      },
+      "version-history": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions"
+      },
+      "first-version": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20220726",
+        "title": "First Public Working Draft"
+      },
+      "latest-version": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20240205",
+        "title": "Retired"
+      },
+      "superseded-by": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/superseded"
+      },
+      "series": {
+        "href": "https://api.w3.org/specification-series/payment-request"
+      }
+    }
+  },
   "https://api.w3.org/specifications/webauthn-3/versions/20260825/editors": {
     "page": 1,
     "limit": 100,
@@ -42853,6 +42977,87 @@
       },
       "last": {
         "href": "https://api.w3.org/specifications/webauthn-3/versions/20260825/editors?page=1&items=100"
+      }
+    }
+  },
+  "https://api.w3.org/specifications/webauthn-2": {
+    "shortlink": "https://www.w3.org/TR/webauthn-2/",
+    "description": "<p>This specification defines an API enabling the creation and use of strong, attested, scoped, public key-based credentials by web applications, for the purpose of strongly authenticating users. Conceptually, one or more public key credentials, each scoped to a given WebAuthn Relying Party, are created by and bound to authenticators as requested by the web application. The user agent mediates access to authenticators and their public key credentials in order to preserve user privacy. Authenticators are responsible for ensuring that no operation is performed without user consent. Authenticators provide cryptographic proof of their properties to Relying Parties via attestation. This specification also describes the functional model for WebAuthn conformant authenticators, including their signature and attestation functionality.</p>",
+    "title": "Web Authentication: An API for accessing Public Key Credentials - Level 2",
+    "shortname": "webauthn-2",
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "series-version": "2",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-2"
+      },
+      "version-history": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions"
+      },
+      "first-version": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20190604",
+        "title": "First Public Working Draft"
+      },
+      "latest-version": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20210408",
+        "title": "Recommendation"
+      },
+      "series": {
+        "href": "https://api.w3.org/specification-series/webauthn"
+      }
+    }
+  },
+  "https://api.w3.org/specifications/webauthn-4": {
+    "shortlink": "https://www.w3.org/TR/webauthn-4/",
+    "description": "<p>This specification defines an API enabling the creation and use of strong, attested, scoped, public key-based credentials by web applications, for the purpose of strongly authenticating users.</p>",
+    "title": "Web Authentication: An API for accessing Public Key Credentials - Level 4",
+    "shortname": "webauthn-4",
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "series-version": "4",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-4"
+      },
+      "version-history": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions"
+      },
+      "first-version": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions/20260915",
+        "title": "First Public Working Draft"
+      },
+      "latest-version": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions/20260915",
+        "title": "First Public Working Draft"
+      },
+      "series": {
+        "href": "https://api.w3.org/specification-series/webauthn"
+      }
+    }
+  },
+  "https://api.w3.org/specifications/webauthn-1": {
+    "shortlink": "https://www.w3.org/TR/webauthn-1/",
+    "description": "<p>This specification defines an API that enables web pages to access WebAuthn compliant strong cryptographic credentials through browser script.</p>",
+    "title": "Web Authentication:An API for accessing Public Key Credentials Level 1",
+    "shortname": "webauthn-1",
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "series-version": "1",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-1"
+      },
+      "version-history": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions"
+      },
+      "first-version": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20160531",
+        "title": "First Public Working Draft"
+      },
+      "latest-version": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20190304",
+        "title": "Recommendation"
+      },
+      "series": {
+        "href": "https://api.w3.org/specification-series/webauthn"
       }
     }
   },
@@ -42960,6 +43165,34 @@
       }
     }
   },
+  "https://api.w3.org/specifications/payment-request-1.1/versions/20220726": {
+    "status": "First Public Working Draft",
+    "rec-track": true,
+    "editor-draft": "https://w3c.github.io/payment-request/",
+    "uri": "https://www.w3.org/TR/2022/WD-payment-request-1.1-20220726/",
+    "date": "2022-07-26",
+    "informative": false,
+    "title": "Payment Request API 1.1",
+    "shortlink": "https://www.w3.org/TR/payment-request-1.1/",
+    "process-rules": "https://www.w3.org/2021/Process-20211102/",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20220726"
+      },
+      "editors": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20220726/editors"
+      },
+      "deliverers": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20220726/deliverers"
+      },
+      "specification": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1"
+      },
+      "successor-version": {
+        "href": "https://api.w3.org/specifications/payment-request-1.1/versions/20220726/successors"
+      }
+    }
+  },
   "https://api.w3.org/users/hxt8l1ldm4o448w48oooksc8goc0wks/affiliations": {
     "page": 1,
     "limit": 100,
@@ -43012,29 +43245,54 @@
       }
     }
   },
-  "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations": {
+  "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations": {
     "page": 1,
     "limit": 100,
     "pages": 1,
     "total": 1,
     "_links": {
       "up": {
-        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0"
+        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc"
       },
       "affiliations": [
         {
-          "href": "https://api.w3.org/affiliations/131353",
-          "title": "Okta"
+          "href": "https://api.w3.org/affiliations/1202",
+          "title": "Apple Inc."
         }
       ],
       "self": {
-        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
       },
       "first": {
-        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
       },
       "last": {
-        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
+      }
+    }
+  },
+  "https://api.w3.org/specifications/webauthn-4/versions/20260915": {
+    "status": "First Public Working Draft",
+    "rec-track": true,
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "uri": "https://www.w3.org/TR/2026/WD-webauthn-4-20260915/",
+    "date": "2026-09-15",
+    "informative": false,
+    "title": "Web Authentication: An API for accessing Public Key Credentials - Level 4",
+    "shortlink": "https://www.w3.org/TR/webauthn-4/",
+    "process-rules": "https://www.w3.org/policies/process/20250818/",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions/20260915"
+      },
+      "editors": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions/20260915/editors"
+      },
+      "deliverers": {
+        "href": "https://api.w3.org/specifications/webauthn-4/versions/20260915/deliverers"
+      },
+      "specification": {
+        "href": "https://api.w3.org/specifications/webauthn-4"
       }
     }
   },
@@ -43064,6 +43322,88 @@
       }
     }
   },
+  "https://api.w3.org/specifications/webauthn-2/versions/20190604": {
+    "status": "First Public Working Draft",
+    "rec-track": true,
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "uri": "https://www.w3.org/TR/2019/WD-webauthn-2-20190604/",
+    "date": "2019-06-04",
+    "informative": false,
+    "title": "Web Authentication:An API for accessing Public Key Credentials Level 2",
+    "shortlink": "https://www.w3.org/TR/webauthn-2/",
+    "process-rules": "https://www.w3.org/2019/Process-20190301/",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20190604"
+      },
+      "editors": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20190604/editors"
+      },
+      "deliverers": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20190604/deliverers"
+      },
+      "specification": {
+        "href": "https://api.w3.org/specifications/webauthn-2"
+      },
+      "successor-version": {
+        "href": "https://api.w3.org/specifications/webauthn-2/versions/20190604/successors"
+      }
+    }
+  },
+  "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations": {
+    "page": 1,
+    "limit": 100,
+    "pages": 1,
+    "total": 1,
+    "_links": {
+      "up": {
+        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0"
+      },
+      "affiliations": [
+        {
+          "href": "https://api.w3.org/affiliations/131353",
+          "title": "Okta"
+        }
+      ],
+      "self": {
+        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+      },
+      "first": {
+        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+      },
+      "last": {
+        "href": "https://api.w3.org/users/gn0lltmbnw0scsks88k8kocgocgkcg0/affiliations?page=1&items=100"
+      }
+    }
+  },
+  "https://api.w3.org/specifications/webauthn-1/versions/20160531": {
+    "status": "First Public Working Draft",
+    "rec-track": true,
+    "editor-draft": "https://w3c.github.io/webauthn/",
+    "uri": "https://www.w3.org/TR/2016/WD-webauthn-20160531/",
+    "date": "2016-05-31",
+    "informative": false,
+    "title": "Web Authentication: A Web API for accessing scoped credentials",
+    "shortlink": "https://www.w3.org/TR/webauthn/",
+    "process-rules": "http://www.w3.org/2015/Process-20150901/",
+    "_links": {
+      "self": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20160531"
+      },
+      "editors": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20160531/editors"
+      },
+      "deliverers": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20160531/deliverers"
+      },
+      "specification": {
+        "href": "https://api.w3.org/specifications/webauthn-1"
+      },
+      "successor-version": {
+        "href": "https://api.w3.org/specifications/webauthn-1/versions/20160531/successors"
+      }
+    }
+  },
   "https://api.w3.org/users/j5kd4mcr6xskswkkk0gkgg8og4s0cgc/affiliations": {
     "page": 1,
     "limit": 100,
@@ -43081,32 +43421,6 @@
       },
       "last": {
         "href": "https://api.w3.org/users/j5kd4mcr6xskswkkk0gkgg8og4s0cgc/affiliations?page=0&items=100"
-      }
-    }
-  },
-  "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations": {
-    "page": 1,
-    "limit": 100,
-    "pages": 1,
-    "total": 1,
-    "_links": {
-      "up": {
-        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc"
-      },
-      "affiliations": [
-        {
-          "href": "https://api.w3.org/affiliations/1202",
-          "title": "Apple Inc."
-        }
-      ],
-      "self": {
-        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
-      },
-      "first": {
-        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
-      },
-      "last": {
-        "href": "https://api.w3.org/users/opk2csmzg7kcckk0oogkwccs0wkkgkc/affiliations?page=1&items=100"
       }
     }
   }

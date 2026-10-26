@@ -124,7 +124,7 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape') clos
 document.addEventListener('pointerdown', event => { if (activeHelp && !activeHelp.control.contains(event.target)) closeHelp(); });
 window.addEventListener('resize', () => { if (activeHelp) positionHelp(activeHelp); });
 function makeCard(shortname) {
-  const node = element('article', 'card');
+  const node = element('article', 'card'); node.setAttribute('aria-busy', 'true');
   const header = element('header', 'card-header');
   const title = element('h2', '', shortname);
   const remove = element('button', 'remove-button', 'Remove');
@@ -245,6 +245,36 @@ function renderTimelines() {
     card.timelineHost.replaceChildren(contextStrip(card, start), timeline(card, parseDate(card.first.date).getTime()));
   }
 }
+function updateTimeFact(card) {
+  if (!card.timeFact || !card.first || !card.latest) return;
+  const years = wholeYears(card.first.date);
+  let text = `${STATUS[card.latest.status] || card.latest.status} · first published ${card.first.date} · ${years} ${years === 1 ? 'year' : 'years'} in process`;
+  if (card.seriesFirst && card.seriesFirst !== card.first.date && card.spec['series-version']) text += ` · Level ${card.spec['series-version']} · series since ${card.seriesFirst.slice(0, 4)}`;
+  card.timeFact.textContent = text;
+  if (card.seriesError) card.timeFact.append(element('span', 'load-error', " · couldn't load series history"));
+  card.sections.time.note.textContent = card.provenance.time.size ? `cached ${[...card.provenance.time].join(', ')}` : '';
+}
+async function loadSeries(card, firstPromise) {
+  const seriesURL = card.spec._links?.series?.href;
+  if (!seriesURL) return;
+  try {
+    const data = await fetchJSON(`${seriesURL}/specifications`, undefined, card.provenance.time);
+    const entries = data._links?.specifications || [];
+    if (entries.length <= 1) { updateTimeFact(card); return; }
+    // W3C does not return these in chronological order (WebAuthn Level 2 precedes Level 1).
+    const dates = await Promise.all(entries.map(async entry => {
+      if (entry.href === card.spec._links?.self?.href) return (await firstPromise).date;
+      const spec = await fetchJSON(entry.href, undefined, card.provenance.time);
+      const version = await fetchJSON(spec._links['first-version'].href, undefined, card.provenance.time);
+      parseDate(version.date); return version.date;
+    }));
+    card.seriesFirst = dates.sort()[0];
+    updateTimeFact(card);
+  } catch (error) {
+    console.error(card.shortname, 'time', error);
+    card.seriesError = true; updateTimeFact(card);
+  }
+}
 async function loadTime(card, firstPromise, latestPromise, historyPromise) {
   try {
     const [first, latest, history] = await Promise.all([firstPromise, latestPromise, historyPromise]);
@@ -255,8 +285,9 @@ async function loadTime(card, firstPromise, latestPromise, historyPromise) {
       return match ? `${match[1]}-${match[2]}-${match[3]}` : null;
     }).filter(Boolean);
     card.timelineHost = element('div', 'timeline-host');
-    const years = wholeYears(first.date);
-    renderSection(card, 'time', [card.timelineHost, element('p', 'fact', `${STATUS[latest.status] || latest.status} · first published ${first.date} · ${years} ${years === 1 ? 'year' : 'years'} in process`)]);
+    card.timeFact = element('p', 'fact');
+    renderSection(card, 'time', [card.timelineHost, card.timeFact]);
+    updateTimeFact(card);
     renderTimelines();
   } catch (error) { sectionFailure(card, 'time', error); }
 }
@@ -338,6 +369,15 @@ async function loadOpenReviewCount(card, repository, run, host) {
   }
   card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : '';
 }
+function belongsToLevel(title, version) {
+  if (version === undefined || version === null || version === '') return true;
+  // Review trackers append dates/deadlines; a date is not a spec level.
+  const subject = title.replace(/\s+\d{4}-\d{2}-\d{2}(?:\s*>\s*\d{4}-\d{2}-\d{2})?\s*$/, '').trim();
+  const named = subject.match(/\b(level|l)\s*(\d+)\b/i);
+  const trailing = subject.match(/\bv?(\d+)(\.\d+)?$/);
+  const mentioned = named ? named[2] : trailing ? trailing[1] + (trailing[2] || '') : null;
+  return mentioned === null || Number(mentioned) === Number(version);
+}
 async function loadReview(card, entry, run) {
   try {
     const phrase = reviewPhrase(card, entry).replaceAll('"', '');
@@ -345,7 +385,7 @@ async function loadReview(card, entry, run) {
     const data = await fetchJSON(`https://api.github.com/search/issues?per_page=50&q=${encodeURIComponent(query)}`, githubHeaders(), card.provenance.review);
     if (!Array.isArray(data.items)) throw new Error('Invalid review search response');
     if (card.githubRun !== run) return;
-    card.reviews = data.items.filter(item => !/charter/i.test(item.title) && REVIEW_AREAS.some(area => item.repository_url.endsWith('/' + area.repo)));
+    card.reviews = data.items.filter(item => !/charter/i.test(item.title) && belongsToLevel(item.title, card.spec['series-version']) && REVIEW_AREAS.some(area => item.repository_url.endsWith('/' + area.repo)));
     const list = element('dl', 'review-list');
     for (const area of REVIEW_AREAS) {
       const items = card.reviews.filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
@@ -429,7 +469,7 @@ async function loadMaintenance(card, entry, run) {
     fetchJSON(base, headers, card.provenance.maintenance).then(data => {
       if (card.githubRun !== run) return;
       if (!Number.isFinite(data.open_issues_count)) throw new Error('Invalid repository issue count');
-      issues.replaceChildren(link(`${data.open_issues_count} open issues and pull requests`, `${data.html_url}/issues`)); note();
+      issues.replaceChildren(link(`${data.open_issues_count} open issues and pull requests in the series repository`, `${data.html_url}/issues`)); note();
     }).catch(error => fail(issues, error)),
     fetchJSON(`${base}/commits?per_page=1`, headers, card.provenance.maintenance).then(data => {
       if (card.githubRun !== run) return;
@@ -439,7 +479,8 @@ async function loadMaintenance(card, entry, run) {
     }).catch(error => fail(last, error)),
     commitActivity(`${base}/stats/commit_activity`, headers, card.provenance.maintenance).then(weeks => {
       if (card.githubRun !== run) return;
-      count.textContent = `${weeks.reduce((sum, week) => sum + week.total, 0)} commits in the last 52 weeks`;
+      const total = weeks.reduce((sum, week) => sum + week.total, 0);
+      count.textContent = `${total} ${total === 1 ? 'commit' : 'commits'} in the last 52 weeks, series repository`;
       strip.replaceChildren(commitStrip(weeks)); note();
     }).catch(error => fail(count, error))
   ]);
@@ -474,7 +515,7 @@ async function loadCardData(card) {
   const first = version('first-version');
   const latest = version('latest-version');
   const history = version('version-history');
-  await Promise.all([loadTime(card, first, latest, history), loadEditors(card, latest), loadGithubSections(card, index)]);
+  await Promise.all([loadTime(card, first, latest, history), loadSeries(card, first), loadEditors(card, latest), loadGithubSections(card, index)]);
 }
 
 async function addCard(shortname) {
@@ -505,7 +546,7 @@ async function addCard(shortname) {
     console.error(shortname, 'specification', error);
     for (const section of Object.values(card.sections)) section.section.remove();
     card.node.insertBefore(element('p', 'load-error', error.status === 404 ? `couldn't find ${shortname}` : "couldn't load specification"), card.footer);
-  }
+  } finally { card.node.setAttribute('aria-busy', 'false'); }
 }
 document.querySelector('#add-spec').addEventListener('submit', event => {
   event.preventDefault(); const input = document.querySelector('#shortname'); addCard(input.value); input.value = '';
