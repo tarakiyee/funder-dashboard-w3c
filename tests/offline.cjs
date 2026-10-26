@@ -24,6 +24,7 @@ const { chromium } = require('playwright');
     assert.equal(await page.locator('.cached-note').filter({ hasText: 'cached' }).count(), 12);
     assert.equal(await page.locator('.editor-item').count(), 10);
     assert.equal(await page.locator('.commit-strip > g').count(), 156);
+    assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), ['2 open from horizontal review', '3 open from horizontal review', '4 open from horizontal review']);
     assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= 1080));
     assert.deepEqual(pageErrors, []);
     console.log('PASS real offline reload: app shell, 3 cards, 12 cache labels, 10 editors, 156 weeks');

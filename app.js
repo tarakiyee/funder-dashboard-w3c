@@ -1,5 +1,5 @@
 'use strict';
-const DEMO_SPECS = ['webauthn-3', 'digital-credentials', 'vibration'];
+const DEMO_SPECS = ['battery-status', 'payment-request', 'webauthn-3'];
 const ANGLES = {
   time: 'Standards take years. Support here needs to outlast a single grant.',
   editors: 'More editors and perspectives strengthen a spec. Could you fund someone to join?',
@@ -32,7 +32,7 @@ async function liveFetch(url, headers) {
   const isW3C = new URL(url).hostname === 'api.w3.org';
   if (isW3C) {
     const turn = w3cQueue;
-    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 250)));
+    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 500)));
     await turn;
   }
   for (let attempt = 0; ; attempt++) {

@@ -1,7 +1,7 @@
 'use strict';
 // Cache the static shell only. W3C/GitHub/CDN requests always go directly to the network;
 // app.js decides whether a failed API call can use an exact URL in demo-cache.json.
-const CACHE = 'funder-dashboard-shell-v1';
+const CACHE = 'funder-dashboard-shell-v2';
 const ASSETS = ['index.html', 'style.css', 'app.js', 'demo-cache.json'];
 const assetURLs = ASSETS.map(asset => new URL(asset, self.registration.scope).href);
 self.addEventListener('install', event => {

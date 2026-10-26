@@ -8,10 +8,11 @@ const base = process.env.DASHBOARD_TEST_URL || 'http://127.0.0.1:8080';
 const fixturePath = process.env.DASHBOARD_FIXTURES || path.join(__dirname, '..', 'demo-cache.json');
 const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
 const specURL = name => `https://api.w3.org/specifications/${name}`;
-const demoNames = ['webauthn-3', 'digital-credentials', 'vibration'];
+const demoNames = ['battery-status', 'payment-request', 'webauthn-3'];
 const checks = [];
 let browser;
 async function scenario(name, fn) {
+  if (process.env.DASHBOARD_TEST_CASE && !name.includes(process.env.DASHBOARD_TEST_CASE)) return;
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, serviceWorkers: 'block' });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -46,15 +47,15 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('.card').count(), 3);
     assert.equal(await page.locator('.load-error').count(), 0);
     assert.deepEqual(await page.locator('.time-body .fact').allTextContents(), [
-      'REC · first published 2021-04-27 · 5 years in process',
-      'WD · first published 2025-07-01 · 1 year in process',
-      'CRD · first published 2011-11-17 · 14 years in process'
+      'WD · first published 2011-04-26 · 15 years in process',
+      'CRD · first published 2016-04-21 · 10 years in process',
+      'REC · first published 2021-04-27 · 5 years in process'
     ]);
-    assert.deepEqual(await page.locator('.editors-body .fact').allTextContents(), ['6 editors from 5 organisations', '3 editors from 3 organisations', '1 editor from 1 organisation']);
+    assert.deepEqual(await page.locator('.editors-body .fact').allTextContents(), ['1 editor from 1 organisation', '3 editors from 3 organisations', '6 editors from 5 organisations']);
     assert.equal(await page.locator('.review-row').count(), 15);
-    assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [6, 2, 2]);
+    assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [2, 2, 6]);
     assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
-    assert.equal(await page.locator('.card').first().locator('.review-tick').count(), 12);
+    assert.equal(await page.locator('.card').nth(2).locator('.review-tick').count(), 12);
     assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
     await page.locator('#shortname').fill('SVG2');
     assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
@@ -62,11 +63,11 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.ok(await page.locator('#shortname').evaluate(input => !input.checkValidity()));
     await page.locator('#shortname').fill('');
     assert.equal(await page.locator('.commit-strip > g').count(), 156);
-    assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), ['4 open from horizontal review', '20 open from horizontal review', '4 open from horizontal review']);
+    assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), ['2 open from horizontal review', '3 open from horizontal review', '4 open from horizontal review']);
     const axes = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => [...svg.querySelectorAll('.axis-label')].map(label => [label.textContent, label.getAttribute('x')])));
     assert.deepEqual(axes[0], axes[1]); assert.deepEqual(axes[1], axes[2]);
     const detailStarts = await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
-    assert.deepEqual(detailStarts, ['2021', '2025', '2011']);
+    assert.deepEqual(detailStarts, ['2011', '2016', '2021']);
     assert.equal(await page.locator('.review-body .review-open-issues').count(), 0);
     const colours = await page.locator('.legend-entry').evaluateAll(entries => entries.map(e => [e.textContent, getComputedStyle(e.firstChild).backgroundColor]));
     const organisations = new Map();
@@ -75,9 +76,9 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.ok(bounds.height <= 1080, JSON.stringify(bounds)); assert.ok(bounds.width <= 1920, JSON.stringify(bounds));
     assert.ok(bounds.cards.every(height => height <= 850), JSON.stringify(bounds));
     assert.equal(await page.locator('.angle').count(), 12);
-    await page.getByRole('button', { name: 'Remove vibration', exact: true }).click();
+    await page.getByRole('button', { name: 'Remove battery-status', exact: true }).click();
     const changed = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
-    assert.deepEqual(changed, ['2021', '2021']);
+    assert.deepEqual(changed, ['2016', '2016']);
     await page.setViewportSize({ width: 390, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   });
@@ -108,7 +109,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
       await route.fulfill({ status: 503, json: {} }); return true;
     });
     await open(page);
-    const card = page.locator('.card').first();
+    const card = page.locator('.card').nth(2);
     assert.match(await card.locator('.editors-body').innerText(), /couldn't load/);
     assert.equal(await card.locator('.time-body .fact').count(), 1);
     assert.equal(await card.locator('.review-row').count(), 5);
