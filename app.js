@@ -27,9 +27,24 @@ function link(text, url, className) {
 class HTTPError extends Error {
   constructor(status) { super(`HTTP ${status}`); this.status = status; }
 }
+let w3cQueue = Promise.resolve();
+async function liveFetch(url, headers) {
+  const isW3C = new URL(url).hostname === 'api.w3.org';
+  if (isW3C) {
+    const turn = w3cQueue;
+    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 180)));
+    await turn;
+  }
+  for (let attempt = 0; ; attempt++) {
+    const response = await fetch(url, headers ? { headers } : undefined);
+    if (response.status !== 429 || attempt === 2) return response;
+    const retryAfter = Number(response.headers.get('Retry-After'));
+    await new Promise(resolve => setTimeout(resolve, Math.min(30000, Math.max(2000, retryAfter * 1000 || 2000))));
+  }
+}
 async function fetchJSON(url, headers, provenance = new Set()) {
   try {
-    const response = await fetch(url, headers ? { headers } : undefined);
+    const response = await liveFetch(url, headers);
     if (!response.ok) throw new HTTPError(response.status);
     if (response.status === 202) return null;
     const body = await response.json();
@@ -62,7 +77,7 @@ function makeCard(shortname) {
   const title = element('h2', '', shortname);
   const remove = element('button', 'remove-button', 'Remove');
   remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${shortname}`);
-  remove.addEventListener('click', () => { cards.delete(shortname); node.remove(); renderTimelines(); });
+  remove.addEventListener('click', () => { cards.delete(card.shortname); node.remove(); renderTimelines(); });
   header.append(title, link(shortname, `https://www.w3.org/TR/${shortname}/`, 'spec-link'), remove);
   node.append(header);
   const card = { shortname, node, title, sections: {}, provenance: {}, first: null };
@@ -202,23 +217,176 @@ async function loadEditors(card, latestPromise) {
   } catch (error) { sectionFailure(card, 'editors', error); }
 }
 
+const REVIEW_AREAS = [
+  { label: 'Accessibility', letter: 'A', repo: 'w3c/a11y-request' },
+  { label: 'Internationalization', letter: 'I', repo: 'w3c/i18n-request' },
+  { label: 'Privacy', letter: 'P', repo: 'w3cping/privacy-request' },
+  { label: 'Security', letter: 'S', repo: 'w3c/security-request' },
+  { label: 'TAG', letter: 'T', repo: 'w3ctag/design-reviews' }
+];
+let specIndexPromise;
+function specIndex() {
+  if (!specIndexPromise) {
+    const provenance = new Set();
+    specIndexPromise = fetchJSON('https://cdn.jsdelivr.net/npm/web-specs@latest/index.json', undefined, provenance).then(data => {
+      if (!Array.isArray(data)) throw new Error('Invalid specification index');
+      return { data, provenance };
+    }).catch(error => { specIndexPromise = null; throw error; });
+  }
+  return specIndexPromise;
+}
+function inheritProvenance(target, source) { for (const date of source) target.add(date); }
+function githubHeaders() { return githubToken ? { Authorization: `Bearer ${githubToken}` } : undefined; }
+function reviewPhrase(card, entry) {
+  return (entry?.series?.shortTitle || card.spec.title.split(':')[0]).replace(/\s+(level\s*)?\d+(\.\d+)?$/i, '').trim();
+}
+async function loadReview(card, entry, run) {
+  try {
+    const phrase = reviewPhrase(card, entry).replaceAll('"', '');
+    const query = `("${phrase}" OR ${card.shortname}) in:title is:issue ${REVIEW_AREAS.map(area => `repo:${area.repo}`).join(' ')}`;
+    const data = await fetchJSON(`https://api.github.com/search/issues?per_page=50&q=${encodeURIComponent(query)}`, githubHeaders(), card.provenance.review);
+    if (!Array.isArray(data.items)) throw new Error('Invalid review search response');
+    if (card.githubRun !== run) return;
+    card.reviews = data.items.filter(item => !/charter/i.test(item.title) && REVIEW_AREAS.some(area => item.repository_url.endsWith('/' + area.repo)));
+    const list = element('dl', 'review-list');
+    for (const area of REVIEW_AREAS) {
+      const items = card.reviews.filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
+      const row = element('div', 'review-row'); const value = element('dd');
+      if (items.length) { const item = items[0]; value.append(link(`#${item.number} ${item.state}, ${dateOnly(item.created_at)}`, item.html_url)); }
+      else value.textContent = 'no request found';
+      row.append(element('dt', '', area.label), value); list.append(row);
+    }
+    renderSection(card, 'review', [list]); renderTimelines();
+  } catch (error) { if (card.githubRun === run) sectionFailure(card, 'review', error); }
+}
+function repositoryFor(card, entry) {
+  const candidate = entry?.nightly?.repository;
+  if (candidate) {
+    const match = candidate.match(/^https:\/\/github\.com\/([^/]+)\/([^/#?]+)/);
+    if (match) return `${match[1]}/${match[2].replace(/\.git$/, '')}`;
+  }
+  try {
+    const url = new URL(card.spec['editor-draft']);
+    const owner = url.hostname.match(/^([a-z0-9-]+)\.github\.io$/i)?.[1];
+    const repo = url.pathname.split('/').filter(Boolean)[0];
+    if (owner && repo) return `${owner}/${repo}`;
+  } catch { /* A spec need not have a GitHub editor draft. */ }
+  return null;
+}
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function commitActivity(url, headers, provenance) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const data = await fetchJSON(url, headers, provenance);
+    if (Array.isArray(data) && data.length === 52 && data.every(week => Number.isFinite(week.week) && Number.isFinite(week.total))) return data;
+    delete responses[url];
+    if (attempt < 3) await delay(2000);
+  }
+  throw new Error('Commit activity is still being computed after three retries');
+}
+function commitStrip(weeks) {
+  const width = 520, height = 44, gap = 2, barWidth = (width - gap * 51) / 52;
+  const max = Math.max(1, ...weeks.map(week => week.total));
+  const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'commit-strip', role: 'img', 'aria-label': 'Weekly commits over the last 52 weeks; scale is local to this card' });
+  svg.append(svgElement('line', { x1: 0, x2: width, y1: 43, y2: 43, stroke: 'var(--grid)' }));
+  weeks.forEach((week, index) => {
+    const x = index * (barWidth + gap), h = week.total / max * 40, y = 43 - h, r = Math.min(4, h, barWidth / 2);
+    const mark = svgElement('g');
+    // Transparent hit area keeps zero-count weeks available on hover without inventing a bar.
+    mark.append(svgElement('rect', { x, y: 0, width: barWidth, height: 44, fill: 'transparent' }));
+    if (week.total) mark.append(svgElement('path', { d: `M${x},43 V${y + r} Q${x},${y} ${x + r},${y} H${x + barWidth - r} Q${x + barWidth},${y} ${x + barWidth},${y + r} V43 Z`, fill: 'var(--series-1)' }));
+    svg.append(markTitle(mark, `${dateOnly(new Date(week.week * 1000))}: ${week.total} ${week.total === 1 ? 'commit' : 'commits'}`));
+  });
+  return svg;
+}
+async function loadMaintenance(card, entry, run) {
+  const repository = repositoryFor(card, entry);
+  if (!repository) { if (card.githubRun === run) renderSection(card, 'maintenance', [element('p', 'fact', 'no repository found')]); return; }
+  const base = `https://api.github.com/repos/${repository}`;
+  const headers = githubHeaders();
+  // Render independent figures as each call resolves, including when activity takes time to compute.
+  const figures = element('div', 'maintenance-figures');
+  const issues = element('div', 'maintenance-figure'); issues.append(element('p', 'loading', 'loading…'));
+  const count = element('div', 'maintenance-figure'); count.append(element('p', 'loading', 'loading…'));
+  figures.append(issues, count);
+  const strip = element('div', 'commit-strip-host');
+  const last = element('p', 'last-commit'); last.append(element('span', 'loading', 'loading…'));
+  renderSection(card, 'maintenance', [figures, strip, last]);
+  const note = () => { card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : ''; };
+  const fail = (target, error) => {
+    if (card.githubRun !== run) return;
+    console.error(card.shortname, 'maintenance', error);
+    target.replaceChildren(element('span', 'load-error', "couldn't load")); note();
+  };
+  await Promise.all([
+    fetchJSON(base, headers, card.provenance.maintenance).then(data => {
+      if (card.githubRun !== run) return;
+      if (!Number.isFinite(data.open_issues_count)) throw new Error('Invalid repository issue count');
+      issues.replaceChildren(link(`${data.open_issues_count} open issues and pull requests`, `${data.html_url}/issues`)); note();
+    }).catch(error => fail(issues, error)),
+    fetchJSON(`${base}/commits?per_page=1`, headers, card.provenance.maintenance).then(data => {
+      if (card.githubRun !== run) return;
+      if (!Array.isArray(data) || !data[0]?.commit?.committer?.date) throw new Error('No commit date returned');
+      card.lastCommit = { date: data[0].commit.committer.date, url: data[0].html_url };
+      last.replaceChildren(link(`Last commit ${dateOnly(card.lastCommit.date)}`, card.lastCommit.url)); note(); renderTimelines();
+    }).catch(error => fail(last, error)),
+    commitActivity(`${base}/stats/commit_activity`, headers, card.provenance.maintenance).then(weeks => {
+      if (card.githubRun !== run) return;
+      count.textContent = `${weeks.reduce((sum, week) => sum + week.total, 0)} commits in the last 52 weeks`;
+      strip.replaceChildren(commitStrip(weeks)); note();
+    }).catch(error => fail(count, error))
+  ]);
+}
+async function loadGithubSections(card, indexPromise) {
+  const run = card.githubRun = (card.githubRun || 0) + 1;
+  card.reviews = []; card.lastCommit = null;
+  for (const key of ['review', 'maintenance']) {
+    card.provenance[key] = new Set(card.specProvenance);
+    renderSection(card, key, [element('p', 'loading', 'loading…')]);
+  }
+  renderTimelines();
+  let entry;
+  try {
+    const index = await indexPromise;
+    entry = index.data.find(item => item.shortname === (card.spec.shortname || card.shortname));
+    for (const key of ['review', 'maintenance']) inheritProvenance(card.provenance[key], index.provenance);
+  } catch (error) { console.error(card.shortname, 'specification index', error); }
+  if (card.githubRun !== run) return;
+  if (entry?.groups?.[0]?.url && !card.footer.querySelector('.patent-link')) card.footer.append(link('Patents', `${entry.groups[0].url.replace(/\/?$/, '/') }ipr/`, 'patent-link'));
+  await Promise.all([loadReview(card, entry, run), loadMaintenance(card, entry, run)]);
+}
+
 async function loadCardData(card) {
   const links = card.spec._links;
+  const index = specIndex();
   const first = fetchJSON(links['first-version'].href, undefined, card.provenance.time);
   const latest = fetchJSON(links['latest-version'].href, undefined, card.provenance.time);
   const history = fetchJSON(links['version-history'].href, undefined, card.provenance.time);
-  await Promise.all([loadTime(card, first, latest, history), loadEditors(card, latest)]);
+  await Promise.all([loadTime(card, first, latest, history), loadEditors(card, latest), loadGithubSections(card, index)]);
 }
 
 async function addCard(shortname) {
-  shortname = shortname.trim().toLowerCase();
-  if (!/^[a-z0-9][a-z0-9._-]*$/.test(shortname)) return;
-  if (cards.has(shortname)) { document.querySelector('#page-message').textContent = `${shortname} is already on the page.`; return; }
+  shortname = shortname.trim();
+  if (!/^[a-z0-9][a-z0-9._-]*$/i.test(shortname)) return;
+  if ([...cards.keys()].some(key => key.toLowerCase() === shortname.toLowerCase())) { document.querySelector('#page-message').textContent = `${shortname} is already on the page.`; return; }
   document.querySelector('#page-message').textContent = '';
   const card = makeCard(shortname); cards.set(shortname, card); document.querySelector('#cards').append(card.node);
   try {
     card.spec = await fetchJSON(`https://api.w3.org/specifications/${encodeURIComponent(shortname)}`, undefined, card.provenance.time);
+    const canonical = card.spec.shortname || shortname;
+    if (cards.get(shortname) !== card) return; // Removed while its request was in flight.
+    if (canonical !== shortname) {
+      if (cards.has(canonical)) { cards.delete(shortname); card.node.remove(); renderTimelines(); return; }
+      const ordered = [...cards.entries()].map(([key, value]) => [value === card ? canonical : key, value]);
+      cards.clear(); for (const [key, value] of ordered) cards.set(key, value);
+    }
+    card.shortname = canonical;
+    card.node.querySelector('.spec-link').textContent = canonical;
+    card.node.querySelector('.spec-link').href = `https://www.w3.org/TR/${encodeURIComponent(canonical)}/`;
+    card.node.querySelector('.remove-button').setAttribute('aria-label', `Remove ${canonical}`);
+    card.footer.firstChild.href = `https://webstatus.dev/?q=${encodeURIComponent(canonical)}`;
     card.title.textContent = card.spec.title;
+    card.specProvenance = new Set(card.provenance.time);
+    for (const key of Object.keys(card.sections)) inheritProvenance(card.provenance[key], card.specProvenance);
     await loadCardData(card);
   } catch (error) {
     console.error(shortname, 'specification', error);
@@ -232,6 +400,7 @@ document.querySelector('#add-spec').addEventListener('submit', event => {
 tokenInput.addEventListener('change', () => {
   githubToken = tokenInput.value.trim();
   try { if (githubToken) sessionStorage.setItem('github-token', githubToken); else sessionStorage.removeItem('github-token'); } catch { /* Memory remains available. */ }
+  for (const card of cards.values()) if (card.spec) loadGithubSections(card, specIndex());
 });
 document.querySelector('#export-cache').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify({ _generated: new Date().toISOString(), ...responses }, null, 2)], { type: 'application/json' });

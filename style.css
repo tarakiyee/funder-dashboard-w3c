@@ -7,8 +7,8 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; }
-main { max-width: 1920px; margin: auto; padding: 26px 32px 16px; }
-h1 { margin: 0 0 20px; font-size: 32px; letter-spacing: -.8px; font-weight: 650; }
+main { max-width: 1920px; margin: auto; padding: 20px 32px 14px; }
+h1 { margin: 0 0 12px; font-size: 32px; letter-spacing: -.8px; font-weight: 650; }
 .input-row { display: flex; align-items: end; gap: 12px; }
 label { display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); }
 .spec-input { width: 300px; }
@@ -21,13 +21,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .page-message { font-size: 14px; margin: 8px 0; min-height: 16px; color: var(--ink-2); }
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
-.card { min-width: 0; border: 1px solid var(--grid); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 16px; min-height: 800px; }
-.card-header { position: relative; padding-right: 28px; min-height: 70px; }
+.card { min-width: 0; border: 1px solid var(--grid); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.card-header { position: relative; padding-right: 54px; min-height: 76px; }
 .card h2 { margin: 0 0 7px; font-size: 23px; line-height: 1.15; font-weight: 650; letter-spacing: -.3px; }
 .spec-link { font-size: 15px; color: var(--ink-2); }
 .remove-button { position: absolute; right: -6px; top: -6px; background: none; border: none; font-size: 13px; padding: 5px; color: var(--ink-2); }
-.card-section { border-top: 1px solid var(--grid); padding-top: 12px; }
-.card-section h3 { margin: 0 0 9px; font-size: 14px; text-transform: uppercase; letter-spacing: 1.1px; font-weight: 650; color: var(--ink-2); }
+.card-section { border-top: 1px solid var(--grid); padding-top: 8px; }
+.card-section h3 { margin: 0 0 6px; font-size: 14px; text-transform: uppercase; letter-spacing: 1.1px; font-weight: 650; color: var(--ink-2); }
 p { margin: 6px 0; }
 .fact { font-size: 16px; line-height: 1.4; }
 .angle { font-size: 16px; font-style: italic; line-height: 1.35; color: var(--ink-2); margin: 8px 0 0; }
@@ -40,7 +40,7 @@ p { margin: 6px 0; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } .card { min-height: auto; } main { padding: 20px; } .token-input { width: 320px; } }
 @media (max-width: 650px) { .input-row { flex-wrap: wrap; } .spec-input { flex: 1; min-width: 160px; } .token-input { width: 100%; margin-left: 0; } h1 { font-size: 28px; } .page-footer { align-items: start; } }
-.timeline { width: 100%; height: 146px; overflow: visible; display: block; }
+.timeline { width: 100%; height: 120px; overflow: visible; display: block; }
 .timeline text { fill: var(--ink); font-size: 12px; font-family: inherit; }
 .timeline .axis-label { fill: var(--ink-muted); font-size: 11px; }
 .timeline .review-letter { fill: var(--ink); font-size: 9px; font-weight: 600; }
@@ -52,3 +52,16 @@ p { margin: 6px 0; }
 .editor-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 10px; }
 .legend-entry { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--ink-2); }
 .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+.review-list { margin: 0; font-size: 15px; line-height: 1.5; }
+.review-row { display: grid; grid-template-columns: 155px minmax(0, 1fr); gap: 8px; }
+.review-row dd { margin: 0; }
+.review-row dt { color: var(--ink-2); }
+.maintenance-figures { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.maintenance-figure { font-size: 19px; line-height: 1.3; font-weight: 500; }
+.commit-strip { display: block; width: 100%; height: 40px; margin-top: 8px; }
+.last-commit { font-size: 13px; color: var(--ink-2); margin-top: 5px; }
+.last-commit a { color: inherit; }
+@media (max-width: 450px) { .review-row { grid-template-columns: 1fr; gap: 0; margin-bottom: 5px; } }
+
+.cached-note:empty { display: none; }
+.page-message:empty { min-height: 0; margin: 16px 0 0; }
