@@ -91,9 +91,6 @@ p { margin: 6px 0; }
 #walkthrough-fact { margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2); }
 .walkthrough-controls { display: flex; gap: 8px; }
 .walkthrough-controls button { border: 1px solid var(--ink-2); border-radius: 4px; background: var(--surface); color: var(--ink); padding: 7px 12px; font-size: 18px; }
-.walkthrough-active .page-header, .walkthrough-active .input-row, .walkthrough-active .page-message, .walkthrough-active .page-footer,
-.walkthrough-active .card-header, .walkthrough-active .card-footer, .walkthrough-active .card-section:not(.walkthrough-highlight) { opacity: .6; }
-.walkthrough-highlight { outline: 2px solid var(--series-1); outline-offset: 2px; }
 @media (max-width: 650px) { .walkthrough-banner { left: 8px; right: 8px; bottom: 8px; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 12px; } .walkthrough-controls { justify-content: end; } }
 
 .card { transition: opacity 250ms ease; }
@@ -121,3 +118,19 @@ h1 { margin-bottom: 8px; }
 .walkthrough-banner { bottom: 8px; padding: 8px 14px; }
 
 .timeline-text { margin: 0; padding: 0; list-style: none; }
+
+.maturity-explainer { display: block; margin-bottom: 6px; }
+.timeline-status { color: var(--ink); font: 12px/1.2 Inter, "Segoe UI", Arial, sans-serif; white-space: nowrap; }
+
+.walkthrough-overlay { position: fixed; inset: 0; z-index: 20; background: var(--ink); opacity: 0; pointer-events: none; transition: opacity 300ms ease; }
+.walkthrough-active .walkthrough-overlay { opacity: .55; pointer-events: auto; }
+.card-section { transition: transform 300ms ease; }
+.walkthrough-highlight, .walkthrough-context { position: relative; z-index: 30; background: var(--surface); outline: 3px solid var(--walkthrough-colour); outline-offset: 2px; box-shadow: 0 6px 24px color-mix(in srgb, var(--ink) 18%, transparent); }
+.walkthrough-primary { transform: scale(1.04); }
+.walkthrough-closing .card-section { transform: none; transition: none; }
+.walkthrough-banner { border-left: 6px solid var(--walkthrough-colour, var(--series-1)); font-size: 20px; line-height: 1.25; }
+#walkthrough-step-label { color: var(--walkthrough-colour); font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.walkthrough-nav { display: flex; flex-direction: column; align-items: end; gap: 12px; }
+.walkthrough-dots { display: flex; gap: 8px; }
+.walkthrough-dot { width: 12px; height: 12px; border: 1px solid var(--ink-2); border-radius: 50%; padding: 0; background: var(--surface); }
+.walkthrough-dot[aria-current="step"] { background: var(--walkthrough-colour); border-color: var(--walkthrough-colour); }

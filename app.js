@@ -27,14 +27,7 @@ function link(text, url, className) {
 class HTTPError extends Error {
   constructor(status) { super(`HTTP ${status}`); this.status = status; }
 }
-let w3cQueue = Promise.resolve();
 async function liveFetch(url, headers) {
-  const isW3C = new URL(url).hostname === 'api.w3.org';
-  if (isW3C) {
-    const turn = w3cQueue;
-    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 500)));
-    await turn;
-  }
   for (let attempt = 0; ; attempt++) {
     const response = await fetch(url, headers ? { headers } : undefined);
     if (response.status !== 429 || attempt === 2) return response;
@@ -67,11 +60,11 @@ function loadingBlock(key) {
 }
 function revealCard(card) {
   if (card.revealed) return;
-  card.revealed = true; clearTimeout(card.revealTimer); card.node.classList.remove('pending');
+  card.revealed = true; card.node.classList.remove('pending');
 }
 function checkCardReveal(card) {
-  if (card.revealed || !card.spec) return;
-  const waiting = Object.values(card.sections).some(section => section.body.querySelector('.loading:not(.computing)'));
+  if (card.revealed || card.node.getAttribute('aria-busy') === 'true') return;
+  const waiting = Object.values(card.sections).some(section => section.body.querySelector('.loading'));
   if (!waiting) revealCard(card);
 }
 function renderSection(card, key, content) {
@@ -116,7 +109,9 @@ function sectionHeading(section, heading, angle) {
   const row = element('div', 'section-heading');
   const control = element('span', 'help-control');
   const button = element('button', 'help-button', '?');
-  const popover = element('span', 'help-popover', angle);
+  const popover = element('span', 'help-popover');
+  if (heading === 'Time in process') popover.append(element('span', 'maturity-explainer', 'W3C specs move from Working Draft to Candidate Recommendation to Recommendation, the finished standard.'));
+  popover.append(element('span', 'guide-quote', angle));
   popover.id = `funder-angle-${++helpSequence}`; popover.hidden = true; popover.setAttribute('role', 'tooltip');
   button.type = 'button'; button.setAttribute('aria-label', 'What the funder guide says');
   button.setAttribute('aria-describedby', popover.id); button.setAttribute('aria-expanded', 'false');
@@ -146,7 +141,7 @@ function makeCard(shortname) {
   const title = element('h2', '', shortname);
   const remove = element('button', 'remove-button', 'Remove');
   remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${shortname}`);
-  remove.addEventListener('click', () => { if (activeHelp && node.contains(activeHelp.button)) closeHelp(); clearTimeout(card.revealTimer); cards.delete(card.shortname); node.remove(); renderTimelines(); });
+  remove.addEventListener('click', () => { if (activeHelp && node.contains(activeHelp.button)) closeHelp(); cards.delete(card.shortname); node.remove(); renderTimelines(); });
   header.append(title, link(shortname, `https://www.w3.org/TR/${shortname}/`, 'spec-link'), remove);
   node.append(header);
   const card = { shortname, node, title, sections: {}, provenance: {}, first: null };
@@ -163,14 +158,24 @@ function makeCard(shortname) {
   card.footer = element('footer', 'card-footer');
   card.footer.append(link('Search implementations', `https://webstatus.dev/?q=${encodeURIComponent(shortname)}`));
   node.append(card.footer);
-  card.revealTimer = setTimeout(() => revealCard(card), 8000);
   return card;
 }
 const STATUS = {
   'First Public Working Draft': 'WD', 'Working Draft': 'WD',
-  'Candidate Recommendation Snapshot': 'CR', 'Candidate Recommendation Draft': 'CRD',
+  'Candidate Recommendation': 'CR', 'Candidate Recommendation Snapshot': 'CR', 'Candidate Recommendation Draft': 'CRD',
   'Recommendation': 'REC', 'Group Note': 'Note', 'Note': 'Note', 'Draft Note': 'Note'
 };
+function statusDescription(status) {
+  return {
+    'First Public Working Draft': 'Working Draft',
+    'Working Draft': 'Working Draft',
+    'Candidate Recommendation Draft': 'Candidate Recommendation Draft (stable, gathering implementations)',
+    'Candidate Recommendation Snapshot': 'Candidate Recommendation',
+    'Candidate Recommendation': 'Candidate Recommendation',
+    'Recommendation': 'Recommendation (finished W3C standard)',
+    'Group Note': 'Note', 'Draft Note': 'Note', 'Note': 'Note'
+  }[status] || status;
+}
 const today = new Date();
 const SVG_NS = 'http://www.w3.org/2000/svg';
 function svgElement(tag, attrs = {}, text) {
@@ -238,7 +243,12 @@ function timeline(card, start) {
     }
     if (dense) svg.append(markTitle(svgElement('circle', { cx: firstX, cy: 13, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), card.first.date));
     svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 13, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), `${card.latest.status}, ${card.latest.date}`));
-    label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 29, lastX > 340 ? 'end' : 'start');
+    const rightAligned = lastX > 340;
+    const statusBox = svgElement('foreignObject', { x: rightAligned ? lastX - 150 : lastX, y: 17, width: 150, height: 18 });
+    const statusText = element('div', 'timeline-status'); statusText.style.textAlign = rightAligned ? 'right' : 'left';
+    const abbreviation = element('abbr', '', STATUS[card.latest.status] || card.latest.status);
+    abbreviation.title = statusDescription(card.latest.status);
+    statusText.append(abbreviation, document.createTextNode(` ${card.latest.date.slice(0, 4)}`)); statusBox.append(statusText); svg.append(statusBox);
   }
   REVIEW_AREAS.forEach((area, index) => {
     const items = (card.reviews || []).filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
@@ -259,7 +269,7 @@ function timelineText(card, contextOnly = false) {
   const list = element('ul', 'visually-hidden timeline-text');
   list.setAttribute('aria-label', `${card.shortname} ${contextOnly ? 'context' : 'detail'} timeline marks`);
   if (contextOnly) {
-    list.append(element('li', '', `First draft ${card.first.date}`), element('li', '', `${STATUS[card.latest.status] || card.latest.status} ${card.latest.date}`));
+    list.append(element('li', '', `First draft ${card.first.date}`), element('li', '', `${statusDescription(card.latest.status)} ${card.latest.date}`));
     return list;
   }
   for (const date of [...new Set([...(card.versionDates || []), card.first.date, card.latest.date])].sort()) list.append(element('li', '', `Publication ${date}`));
@@ -283,7 +293,7 @@ function renderTimelines() {
 function updateTimeFact(card) {
   if (!card.timeFact || !card.first || !card.latest) return;
   const years = wholeYears(card.first.date);
-  let text = `${STATUS[card.latest.status] || card.latest.status} · first published ${card.first.date} · ${years} ${years === 1 ? 'year' : 'years'} in process`;
+  let text = `Latest publication: ${statusDescription(card.latest.status)} · first published ${card.first.date} · ${years} ${years === 1 ? 'year' : 'years'} in process`;
   if (card.seriesFirst && card.seriesFirst !== card.first.date && card.spec['series-version']) text += ` · Level ${card.spec['series-version']} · series since ${card.seriesFirst.slice(0, 4)}`;
   card.timeFact.textContent = text;
   if (card.seriesError) card.timeFact.append(element('span', 'load-error', " · couldn't load series history"));
@@ -627,7 +637,7 @@ async function addCard(shortname) {
     console.error(shortname, 'specification', error);
     for (const section of Object.values(card.sections)) section.section.remove();
     card.node.insertBefore(element('p', 'load-error', error.status === 404 ? `couldn't find ${shortname}` : "couldn't load specification"), card.footer);
-  } finally { card.node.setAttribute('aria-busy', 'false'); revealCard(card); }
+  } finally { card.node.setAttribute('aria-busy', 'false'); if (!card.spec) revealCard(card); else checkCardReveal(card); }
 }
 document.querySelector('#add-spec').addEventListener('submit', async event => {
   event.preventDefault();
@@ -650,6 +660,8 @@ document.querySelector('#export-cache').addEventListener('click', () => {
   download.href = url; download.download = 'demo-cache.json'; download.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 const walkthroughSteps = ['time', 'editors', 'review', 'maintenance'];
+const walkthroughLabels = ['Time in process', 'Editors', 'Review', 'Maintenance', 'Closing'];
+const walkthroughColours = ['var(--series-1)', 'var(--series-7)', 'var(--series-2)', 'var(--series-3)', 'var(--series-1)'];
 const walkthroughClosing = 'Same data, same sources. The difference is what a funder can act on.';
 let walkthroughStep = -1;
 const walkthroughLauncher = document.querySelector('#walk-through');
@@ -658,6 +670,12 @@ const walkthroughGuide = document.querySelector('#walkthrough-guide');
 const walkthroughFact = document.querySelector('#walkthrough-fact');
 const walkthroughNext = document.querySelector('#walkthrough-next');
 const walkthroughDone = document.querySelector('#walkthrough-done');
+const walkthroughStepLabel = document.querySelector('#walkthrough-step-label');
+const walkthroughDots = walkthroughLabels.map((name, index) => {
+  const dot = element('button', 'walkthrough-dot'); dot.type = 'button'; dot.setAttribute('aria-label', `Go to ${name}`);
+  dot.addEventListener('click', () => { closeHelp(); walkthroughStep = index; renderWalkthrough(); });
+  document.querySelector('#walkthrough-dots').append(dot); return dot;
+});
 function firstCardSummary(key) {
   const card = cards.values().next().value;
   if (!card) return 'Add a card to show its facts.';
@@ -672,9 +690,10 @@ function firstCardSummary(key) {
       const previous = latest.get(item.repository_url);
       if (!previous || parseDate(item.created_at) > parseDate(previous.created_at)) latest.set(item.repository_url, item);
     }
-    fact = `${latest.size} review areas with requests; ${[...latest.values()].filter(item => item.state === 'open').length} latest requests open`;
+    const open = [...latest.values()].filter(item => item.state === 'open').length;
+    fact = latest.size === 1 ? `Requests on file in 1 review area of 5, ${open} open` : `Requests on file in ${latest.size} of 5 review areas, ${open} open`;
   }
-  if (key === 'maintenance') fact = [...body.querySelectorAll('.maintenance-figure, .review-open-issues')].map(node => node.textContent).join(' · ');
+  if (key === 'maintenance') fact = [...body.querySelectorAll('.entry-points-block .maintenance-figure, .entry-points-block .review-open-issues')].map(node => node.textContent).join(' · ');
   fact ||= body.querySelector('.load-error, .loading')?.textContent || "couldn't load";
   return `${title} — ${fact.replace(/\s+/g, ' ').trim()}`;
 }
@@ -684,8 +703,21 @@ function renderWalkthrough() {
   document.body.classList.toggle('walkthrough-active', active);
   walkthroughLauncher.setAttribute('aria-pressed', String(active));
   walkthroughBanner.hidden = !active;
-  for (const card of cards.values()) for (const [sectionKey, section] of Object.entries(card.sections)) section.section.classList.toggle('walkthrough-highlight', active && sectionKey === key);
+  document.body.classList.toggle('walkthrough-closing', active && !key);
+  if (active) document.body.style.setProperty('--walkthrough-colour', walkthroughColours[walkthroughStep]);
+  let first = true;
+  for (const card of cards.values()) {
+    for (const [sectionKey, section] of Object.entries(card.sections)) {
+      const focused = active && sectionKey === key;
+      section.section.classList.toggle('walkthrough-highlight', focused);
+      section.section.classList.toggle('walkthrough-primary', focused && first);
+    }
+    card.node.querySelector('.context-strip')?.classList.toggle('walkthrough-context', active && !key);
+    first = false;
+  }
   if (!active) return;
+  walkthroughStepLabel.textContent = key ? `${walkthroughStep + 1} of 4 · ${walkthroughLabels[walkthroughStep]}` : 'Closing';
+  walkthroughDots.forEach((dot, index) => { if (index === walkthroughStep) dot.setAttribute('aria-current', 'step'); else dot.removeAttribute('aria-current'); });
   const guide = key ? ANGLES[key] : walkthroughClosing;
   const fact = key ? firstCardSummary(key) : '';
   if (walkthroughGuide.textContent !== guide) walkthroughGuide.textContent = guide;
@@ -699,6 +731,7 @@ function endWalkthrough() {
   walkthroughLauncher.focus({ preventScroll: true });
 }
 function advanceWalkthrough() {
+  closeHelp();
   if (walkthroughStep >= walkthroughSteps.length) { endWalkthrough(); return; }
   walkthroughStep++; renderWalkthrough();
 }

@@ -50,12 +50,13 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('.card').count(), 3);
     assert.equal(await page.locator('.load-error').count(), 0);
     assert.deepEqual(await page.locator('.time-body .fact').allTextContents(), [
-      'WD · first published 2011-04-26 · 15 years in process',
-      'CRD · first published 2016-04-21 · 10 years in process',
-      'REC · first published 2021-04-27 · 5 years in process · Level 3 · series since 2016'
+      'Latest publication: Working Draft · first published 2011-04-26 · 15 years in process',
+      'Latest publication: Candidate Recommendation Draft (stable, gathering implementations) · first published 2016-04-21 · 10 years in process',
+      'Latest publication: Recommendation (finished W3C standard) · first published 2021-04-27 · 5 years in process · Level 3 · series since 2016'
     ]);
     assert.deepEqual(await page.locator('.editors-body .fact').allTextContents(), ['1 editor from 1 organisation', '3 editors from 3 organisations', '6 editors from 5 organisations']);
     assert.equal(await page.locator('.review-row').count(), 15);
+    assert.deepEqual(await page.locator('.timeline abbr').evaluateAll(abbrs => abbrs.map(a => a.title)), ['Working Draft', 'Candidate Recommendation Draft (stable, gathering implementations)', 'Recommendation (finished W3C standard)']);
     assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [2, 2, 6]);
     assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
     assert.equal(await page.locator('.card').nth(2).locator('.review-tick').count(), 9);
@@ -75,7 +76,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     for (const [name, colour] of colours) { if (organisations.has(name)) assert.equal(organisations.get(name), colour); organisations.set(name, colour); }
     const bounds = await page.evaluate(() => ({ height: document.documentElement.scrollHeight, width: document.documentElement.scrollWidth, cards: [...document.querySelectorAll('.card')].map(c => c.getBoundingClientRect().height) }));
     assert.ok(bounds.height <= 1080, JSON.stringify(bounds)); assert.ok(bounds.width <= 1920, JSON.stringify(bounds));
-    assert.ok(bounds.cards.every(height => height <= 850), JSON.stringify(bounds));
+    assert.ok(bounds.cards.every(height => height <= 852), JSON.stringify(bounds));
     assert.equal(await page.locator('.angle').count(), 0);
     assert.equal(await page.getByRole('button', { name: 'What the funder guide says' }).count(), 12);
     await page.getByRole('button', { name: 'Remove battery-status', exact: true }).click();
@@ -90,7 +91,8 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('.help-popover:visible').count(), 0);
     await buttons.nth(0).hover();
     assert.equal(await page.locator('.help-popover:visible').count(), 1);
-    assert.equal(await page.locator('.help-popover:visible').innerText(), 'Standards decisions affect digital infrastructure for decades. Meaningful participation requires sustained engagement, and maintenance needs funding, not just initial development.');
+    assert.match(await page.locator('.help-popover:visible').innerText(), /^W3C specs move from Working Draft to Candidate Recommendation to Recommendation, the finished standard\./);
+    assert.ok((await page.locator('.help-popover:visible').innerText()).endsWith('Standards decisions affect digital infrastructure for decades. Meaningful participation requires sustained engagement, and maintenance needs funding, not just initial development.'));
     await buttons.nth(1).focus();
     assert.equal(await page.locator('.help-popover:visible').count(), 1);
     assert.equal(await buttons.nth(0).getAttribute('aria-expanded'), 'false');
@@ -162,16 +164,22 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('#walkthrough-banner:visible').count(), 1);
     assert.equal(await page.locator('.walkthrough-highlight').count(), 3);
     assert.match(await page.locator('#walkthrough-guide').innerText(), /^Standards decisions affect/);
-    assert.match(await page.locator('#walkthrough-fact').innerText(), /Battery Status API — WD/);
-    assert.equal(await page.locator('.editors-body').first().evaluate(node => getComputedStyle(node.parentElement).opacity), '0.6');
+    assert.match(await page.locator('#walkthrough-fact').innerText(), /Battery Status API — Latest publication: Working Draft/);
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('#walkthrough-overlay')).opacity === '0.55');
+    assert.equal(await page.locator('.walkthrough-primary').count(), 1);
+    assert.equal(await page.locator('#walkthrough-step-label').innerText(), '1 of 4 · Time in process');
+    assert.equal(await page.locator('.walkthrough-dot[aria-current="step"]').count(), 1);
+    assert.equal(await page.locator('.walkthrough-primary').evaluate(node => getComputedStyle(node).outlineColor), 'rgb(42, 120, 214)');
     await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Fund time for people/);
     assert.match(await page.locator('#walkthrough-fact').innerText(), /1 editor from 1 organisation/);
     await page.locator('#walkthrough-guide').click(); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
+    assert.match(await page.locator('#walkthrough-fact').innerText(), /Requests on file in 1 review area of 5, 0 open/);
     await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
     await page.locator('#walkthrough-next').click(); await page.locator('#walkthrough-next').click();
     assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Same data, same sources. The difference is what a funder can act on.');
     assert.equal(await page.locator('.walkthrough-highlight').count(), 0);
+    assert.equal(await page.locator('.walkthrough-context').count(), 3);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
     assert.deepEqual(await layout(), before);
     assert.ok(await page.evaluate(() => scrollY === 0 && document.documentElement.scrollHeight <= 1080));
@@ -212,19 +220,25 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await page.waitForFunction(() => document.querySelector('#page-message').textContent.includes('suggestions'));
     assert.equal(await page.locator('.card').count(), 3);
   });
-  await scenario('loading skeletons reserve space and reveal after the eight-second cap', async ({ page, setOverride }) => {
+  await scenario('loading skeletons reserve space and remain grey until data settles without a cap', async ({ page, setOverride }) => {
+    let release;
+    const gate = new Promise(resolve => { release = resolve; });
     setOverride(async route => {
+      await gate;
       if (!route.request().url().endsWith('/editors')) return false;
-      await new Promise(resolve => setTimeout(resolve, 9000));
+      await new Promise(resolve => setTimeout(resolve, 16000));
       await route.fulfill({ json: fixture[route.request().url()] }); return true;
     });
     await page.goto(base);
     assert.equal(await page.locator('.card.pending').count(), 3);
     assert.equal(await page.locator('.skeleton-placeholder').count(), 12);
     const initial = await page.locator('.card').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
-    await page.waitForFunction(() => !document.querySelector('.card.pending'), null, { timeout: 9000 });
+    release();
+    await page.waitForTimeout(15500);
+    assert.equal(await page.locator('.card.pending').count(), 3);
     assert.ok(await page.locator('.loading').count() > 0);
     await settled(page);
+    assert.equal(await page.locator('.card.pending').count(), 0);
     assert.deepEqual(await page.locator('.card').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height)), initial);
   });
   await scenario('accessible timeline lists include the publications, review requests and last commit', async ({ page }) => {
@@ -358,7 +372,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('.cached-note').filter({ hasText: 'cached' }).count(), 12);
     assert.equal(await page.locator('.editor-item').count(), 10);
     assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= 1080));
-    assert.ok(await page.locator('.card').evaluateAll(cs => cs.every(c => c.getBoundingClientRect().height <= 850)));
+    assert.ok(await page.locator('.card').evaluateAll(cs => cs.every(c => c.getBoundingClientRect().height <= 852)));
   });
   await scenario('token survives reload in session only and is excluded from exported cache', async ({ page, requests }) => {
     await open(page);

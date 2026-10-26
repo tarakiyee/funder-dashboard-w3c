@@ -24,14 +24,19 @@
     <div id="cards" class="cards" aria-label="Specification cards"></div>
     <footer class="page-footer"><a href="https://tarakiyee.github.io/funder-guide-draft/draft-tarakiyee-funder-guide.html">Based on draft-tarakiyee-funder-guide</a><button id="export-cache" type="button" class="quiet-button">Export cache</button></footer>
   </main>
+  <div id="walkthrough-overlay" class="walkthrough-overlay" aria-hidden="true"></div>
   <aside id="walkthrough-banner" class="walkthrough-banner" aria-label="Funder guide walkthrough" hidden>
     <div class="walkthrough-copy" aria-live="polite" aria-atomic="true">
+      <p id="walkthrough-step-label"></p>
       <p id="walkthrough-guide"></p>
       <p id="walkthrough-fact"></p>
     </div>
+    <div class="walkthrough-nav">
+      <div id="walkthrough-dots" class="walkthrough-dots" aria-label="Walkthrough steps"></div>
     <div class="walkthrough-controls">
       <button type="button" id="walkthrough-next">Next</button>
       <button type="button" id="walkthrough-done">Done</button>
+    </div>
     </div>
   </aside>
 </body>
