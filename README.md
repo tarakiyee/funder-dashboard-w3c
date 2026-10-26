@@ -19,4 +19,11 @@ Facts are shown as they are, with no scores or ratings.
 
 Live, from the browser: the [W3C API](https://api.w3.org/), the [browser-specs](https://github.com/w3c/browser-specs) index, and the GitHub API. Links out to [webstatus.dev](https://webstatus.dev/) for implementations and to the working group's IPR page for patents.
 
+## Related work
+
+- [W3C spec-dashboard](https://w3c.github.io/spec-dashboard/) tracks publication status, implementations and issue history per working group, for chairs and the W3C team. Same sources, organised for the people running specs rather than for funders.
+- [W3C horizontal review tracker](https://w3c.github.io/horizontal-issue-tracker/) lists open review comments for reviewers and editors. The Review section here shows the request side of that process, as a cue for where reviewer time could be funded.
+- [OpenSSF Scorecard](https://github.com/ossf/scorecard) scores repositories on security practices. This dashboard deliberately does not score.
+- [ecosyste.ms Funds](https://github.com/ecosyste-ms/funds) and [CHAOSS](https://chaoss.community/) bring health metrics and funding allocation to open-source packages. This applies the same intent to standards.
+
 Built at the W3C TPAC 2026 hackathon in Dublin.
