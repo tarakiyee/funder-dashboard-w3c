@@ -83,3 +83,15 @@ p { margin: 6px 0; }
 .help-button { display: inline-grid; place-items: center; width: 18px; height: 18px; padding: 0; border: 1px solid var(--ink-2); border-radius: 50%; background: none; color: var(--ink-2); font-size: 14px; line-height: 1; }
 .help-popover { position: absolute; z-index: 10; max-width: 340px; padding: 10px 12px; border: 1px solid var(--grid); border-radius: 4px; background: var(--surface); color: var(--ink); box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 12%, transparent); font-size: 14px; line-height: 1.4; font-weight: 400; }
 .help-popover[hidden] { display: none; }
+
+.walk-button { height: 42px; border: 1px solid var(--ink-2); border-radius: 5px; background: var(--surface); color: var(--ink); padding: 0 16px; font-size: 17px; white-space: nowrap; }
+.walkthrough-banner { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20px; padding: 14px 18px; border: 1px solid var(--ink); border-radius: 4px; background: var(--surface); color: var(--ink); font-size: 18px; line-height: 1.4; }
+.walkthrough-banner[hidden] { display: none; }
+.walkthrough-banner p { margin: 0; }
+#walkthrough-fact { margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2); }
+.walkthrough-controls { display: flex; gap: 8px; }
+.walkthrough-controls button { border: 1px solid var(--ink-2); border-radius: 4px; background: var(--surface); color: var(--ink); padding: 7px 12px; font-size: 18px; }
+.walkthrough-active .page-header, .walkthrough-active .input-row, .walkthrough-active .page-message, .walkthrough-active .page-footer,
+.walkthrough-active .card-header, .walkthrough-active .card-footer, .walkthrough-active .card-section:not(.walkthrough-highlight) { opacity: .6; }
+.walkthrough-highlight { outline: 2px solid var(--series-1); outline-offset: 2px; }
+@media (max-width: 650px) { .walkthrough-banner { left: 8px; right: 8px; bottom: 8px; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 12px; } .walkthrough-controls { justify-content: end; } }

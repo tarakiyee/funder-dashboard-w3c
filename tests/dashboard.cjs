@@ -153,6 +153,34 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await open(page);
     assert.deepEqual(await page.getByRole('link', { name: 'Search implementations', exact: true }).evaluateAll(links => links.map(link => link.href)), demoNames.map(name => `https://webstatus.dev/?q=${name}`));
   });
+  await scenario('walkthrough steps, summaries, controls and closing preserve the layout', async ({ page }) => {
+    await open(page);
+    const layout = () => page.locator('.card').evaluateAll(cards => cards.map(card => { const r = card.getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; }));
+    const before = await layout();
+    await page.getByRole('button', { name: 'Walk through', exact: true }).click();
+    assert.equal(await page.locator('#walkthrough-banner:visible').count(), 1);
+    assert.equal(await page.locator('.walkthrough-highlight').count(), 3);
+    assert.match(await page.locator('#walkthrough-guide').innerText(), /^Standards decisions affect/);
+    assert.match(await page.locator('#walkthrough-fact').innerText(), /Battery Status API — WD/);
+    assert.equal(await page.locator('.editors-body').first().evaluate(node => getComputedStyle(node.parentElement).opacity), '0.6');
+    await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Fund time for people/);
+    assert.match(await page.locator('#walkthrough-fact').innerText(), /1 editor from 1 organisation/);
+    await page.locator('#walkthrough-guide').click(); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
+    await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
+    await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
+    await page.locator('#walkthrough-next').click(); await page.locator('#walkthrough-next').click();
+    assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Same data, same sources. The difference is what a funder can act on.');
+    assert.equal(await page.locator('.walkthrough-highlight').count(), 0);
+    await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
+    assert.deepEqual(await layout(), before);
+    assert.ok(await page.evaluate(() => scrollY === 0 && document.documentElement.scrollHeight <= 1080));
+    await page.keyboard.press('Escape'); assert.equal(await page.locator('#walkthrough-banner:visible').count(), 0);
+    assert.equal(await page.locator('body.walkthrough-active').count(), 0);
+    await page.getByRole('button', { name: 'Walk through', exact: true }).click();
+    await page.locator('#walkthrough-done').click(); assert.equal(await page.locator('#walkthrough-banner:visible').count(), 0);
+    assert.equal(await page.locator('#walk-through').getAttribute('aria-pressed'), 'false');
+    assert.deepEqual(await layout(), before);
+  });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
       if (route.request().url() !== specURL('svg2')) return false;

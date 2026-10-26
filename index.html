@@ -16,11 +16,22 @@
       <label class="spec-input">W3C shortname<input id="shortname" name="shortname" placeholder="webauthn-3" autocomplete="off" required pattern="[A-Za-z0-9][A-Za-z0-9._\-]*"></label>
       <button type="submit" class="add-button">Add card</button>
       <label class="token-input">GitHub token (optional, kept in this tab)<input id="github-token" type="password" autocomplete="off" spellcheck="false" aria-describedby="token-note"></label>
+      <button type="button" id="walk-through" class="walk-button" aria-pressed="false" aria-controls="walkthrough-banner">Walk through</button>
       <span id="token-note" class="visually-hidden">Stored in this tab's session only. Updating the token refreshes GitHub data.</span>
     </form>
     <p id="page-message" class="page-message" role="status"></p>
     <div id="cards" class="cards" aria-label="Specification cards"></div>
     <footer class="page-footer"><a href="https://tarakiyee.github.io/funder-guide-draft/draft-tarakiyee-funder-guide.html">Based on draft-tarakiyee-funder-guide</a><button id="export-cache" type="button" class="quiet-button">Export cache</button></footer>
   </main>
+  <aside id="walkthrough-banner" class="walkthrough-banner" aria-label="Funder guide walkthrough" hidden>
+    <div class="walkthrough-copy" aria-live="polite" aria-atomic="true">
+      <p id="walkthrough-guide"></p>
+      <p id="walkthrough-fact"></p>
+    </div>
+    <div class="walkthrough-controls">
+      <button type="button" id="walkthrough-next">Next</button>
+      <button type="button" id="walkthrough-done">Done</button>
+    </div>
+  </aside>
 </body>
 </html>

@@ -570,6 +570,75 @@ document.querySelector('#export-cache').addEventListener('click', () => {
   const url = URL.createObjectURL(blob); const download = document.createElement('a');
   download.href = url; download.download = 'demo-cache.json'; download.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
+const walkthroughSteps = ['time', 'editors', 'review', 'maintenance'];
+const walkthroughClosing = 'Same data, same sources. The difference is what a funder can act on.';
+let walkthroughStep = -1;
+const walkthroughLauncher = document.querySelector('#walk-through');
+const walkthroughBanner = document.querySelector('#walkthrough-banner');
+const walkthroughGuide = document.querySelector('#walkthrough-guide');
+const walkthroughFact = document.querySelector('#walkthrough-fact');
+const walkthroughNext = document.querySelector('#walkthrough-next');
+const walkthroughDone = document.querySelector('#walkthrough-done');
+function firstCardSummary(key) {
+  const card = cards.values().next().value;
+  if (!card) return 'Add a card to show its facts.';
+  const title = card.spec?.title || card.shortname;
+  if (!card.spec) return `${title} — ${card.node.querySelector('.load-error')?.textContent || 'loading…'}`;
+  const body = card.sections[key].body;
+  let fact;
+  if (key === 'time' || key === 'editors') fact = body.querySelector('.fact')?.textContent;
+  if (key === 'review' && !body.querySelector('.loading, .load-error')) {
+    const latest = new Map();
+    for (const item of card.reviews || []) {
+      const previous = latest.get(item.repository_url);
+      if (!previous || parseDate(item.created_at) > parseDate(previous.created_at)) latest.set(item.repository_url, item);
+    }
+    fact = `${latest.size} review areas with requests; ${[...latest.values()].filter(item => item.state === 'open').length} latest requests open`;
+  }
+  if (key === 'maintenance') fact = [...body.querySelectorAll('.maintenance-figure, .review-open-issues')].map(node => node.textContent).join(' · ');
+  fact ||= body.querySelector('.load-error, .loading')?.textContent || "couldn't load";
+  return `${title} — ${fact.replace(/\s+/g, ' ').trim()}`;
+}
+function renderWalkthrough() {
+  const active = walkthroughStep >= 0;
+  const key = walkthroughSteps[walkthroughStep];
+  document.body.classList.toggle('walkthrough-active', active);
+  walkthroughLauncher.setAttribute('aria-pressed', String(active));
+  walkthroughBanner.hidden = !active;
+  for (const card of cards.values()) for (const [sectionKey, section] of Object.entries(card.sections)) section.section.classList.toggle('walkthrough-highlight', active && sectionKey === key);
+  if (!active) return;
+  const guide = key ? ANGLES[key] : walkthroughClosing;
+  const fact = key ? firstCardSummary(key) : '';
+  if (walkthroughGuide.textContent !== guide) walkthroughGuide.textContent = guide;
+  if (walkthroughFact.textContent !== fact) walkthroughFact.textContent = fact;
+  walkthroughFact.hidden = !key;
+  walkthroughNext.hidden = !key;
+  if (!key && document.activeElement === walkthroughNext) walkthroughDone.focus({ preventScroll: true });
+}
+function endWalkthrough() {
+  walkthroughStep = -1; renderWalkthrough();
+  walkthroughLauncher.focus({ preventScroll: true });
+}
+function advanceWalkthrough() {
+  if (walkthroughStep >= walkthroughSteps.length) { endWalkthrough(); return; }
+  walkthroughStep++; renderWalkthrough();
+}
+walkthroughLauncher.addEventListener('click', () => {
+  if (walkthroughStep >= 0) { endWalkthrough(); return; }
+  closeHelp(); walkthroughStep = 0; renderWalkthrough(); walkthroughNext.focus({ preventScroll: true });
+});
+walkthroughNext.addEventListener('click', advanceWalkthrough);
+walkthroughDone.addEventListener('click', endWalkthrough);
+walkthroughBanner.addEventListener('click', event => { if (!event.target.closest('button')) advanceWalkthrough(); });
+document.addEventListener('keydown', event => {
+  if (walkthroughStep < 0) return;
+  if (event.key === 'Escape') { event.preventDefault(); endWalkthrough(); return; }
+  if (event.target.matches('input, textarea, [contenteditable="true"]')) return;
+  if (event.key === 'ArrowRight') { event.preventDefault(); advanceWalkthrough(); }
+  if (event.key === 'ArrowLeft') { event.preventDefault(); walkthroughStep = Math.max(0, walkthroughStep - 1); renderWalkthrough(); }
+});
+new MutationObserver(() => { if (walkthroughStep >= 0) renderWalkthrough(); }).observe(document.querySelector('#cards'), { childList: true, subtree: true, characterData: true });
+
 DEMO_SPECS.forEach(addCard);
 
 // Register after the first page load; no application or API traffic is proxied.
