@@ -32,7 +32,7 @@ async function liveFetch(url, headers) {
   const isW3C = new URL(url).hostname === 'api.w3.org';
   if (isW3C) {
     const turn = w3cQueue;
-    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 180)));
+    w3cQueue = turn.then(() => new Promise(resolve => setTimeout(resolve, 250)));
     await turn;
   }
   for (let attempt = 0; ; attempt++) {
@@ -121,7 +121,7 @@ function wholeYears(value) {
   return Math.max(0, years);
 }
 function timeline(card, start) {
-  const width = 540, height = 158, left = 18, right = 488;
+  const width = 540, height = 122, left = 18, right = 488;
   const end = today.getTime();
   const x = value => left + (parseDate(value).getTime() - start) / Math.max(1, end - start) * (right - left);
   const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'timeline', role: 'img', 'aria-label': `Publication, review and commit timeline from ${new Date(start).getUTCFullYear()} to today` });
@@ -130,30 +130,30 @@ function timeline(card, start) {
   const step = years > 12 ? 3 : years > 6 ? 2 : 1;
   for (let year = new Date(start).getUTCFullYear(); year <= today.getUTCFullYear(); year += step) {
     const px = x(`${year}-01-01`);
-    svg.append(svgElement('line', { x1: px, x2: px, y1: 22, y2: 133, stroke: 'var(--grid)' }));
+    svg.append(svgElement('line', { x1: px, x2: px, y1: 16, y2: 106, stroke: 'var(--grid)' }));
     // Keep the final year label clear of "today".
-    if (right - px > 36) label(String(year), px, 151, 'middle', 'axis-label');
+    if (right - px > 36) label(String(year), px, 119, 'middle', 'axis-label');
   }
-  svg.append(svgElement('line', { x1: right, x2: right, y1: 18, y2: 135, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
-  label('today', right, 151, 'middle', 'axis-label');
+  svg.append(svgElement('line', { x1: right, x2: right, y1: 12, y2: 106, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
+  label('today', right, 119, 'middle', 'axis-label');
   if (card.first && card.latest) {
     const firstX = x(card.first.date), lastX = x(card.latest.date);
-    svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 28, y2: 28, stroke: 'var(--series-1)', 'stroke-width': 2 }));
-    for (const date of card.versionDates || []) svg.append(markTitle(svgElement('circle', { cx: x(date), cy: 28, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), date));
-    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 28, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), `${card.latest.status}, ${card.latest.date}`));
+    svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 23, y2: 23, stroke: 'var(--series-1)', 'stroke-width': 2 }));
+    for (const date of card.versionDates || []) svg.append(markTitle(svgElement('circle', { cx: x(date), cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), date));
+    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 23, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), `${card.latest.status}, ${card.latest.date}`));
     label(`first draft ${card.first.date.slice(0, 4)}`, firstX, 12, firstX > 340 ? 'end' : 'start');
-    label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 49, lastX > 340 ? 'end' : 'start');
+    label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 41, lastX > 340 ? 'end' : 'start');
   }
   for (const item of card.reviews || []) {
     const area = REVIEW_AREAS.findIndex(area => item.repository_url.endsWith('/' + area.repo));
     if (area < 0) continue;
-    const cy = 63 + area * 11;
+    const cy = 49 + area * 11;
     const mark = svgElement('g');
     mark.append(svgElement('circle', { cx: x(item.created_at), cy, r: 7, fill: 'var(--series-2)', stroke: 'var(--surface)', 'stroke-width': 2 }));
     mark.append(svgElement('text', { x: x(item.created_at), y: cy + 3, 'text-anchor': 'middle', class: 'review-letter' }, REVIEW_AREAS[area].letter));
     svg.append(markTitle(mark, `${REVIEW_AREAS[area].label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
   }
-  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 122, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
+  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 103, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
   return svg;
 }
 function renderTimelines() {
@@ -358,9 +358,14 @@ async function loadGithubSections(card, indexPromise) {
 async function loadCardData(card) {
   const links = card.spec._links;
   const index = specIndex();
-  const first = fetchJSON(links['first-version'].href, undefined, card.provenance.time);
-  const latest = fetchJSON(links['latest-version'].href, undefined, card.provenance.time);
-  const history = fetchJSON(links['version-history'].href, undefined, card.provenance.time);
+  const version = async relation => {
+    const url = links?.[relation]?.href;
+    if (!url) throw new Error(`No ${relation} URL returned`);
+    return fetchJSON(url, undefined, card.provenance.time);
+  };
+  const first = version('first-version');
+  const latest = version('latest-version');
+  const history = version('version-history');
   await Promise.all([loadTime(card, first, latest, history), loadEditors(card, latest), loadGithubSections(card, index)]);
 }
 
