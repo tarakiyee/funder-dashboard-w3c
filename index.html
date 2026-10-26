@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcfcfb">
+  <title>Funder dashboard for W3C specs</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="page-header"><h1>Funder dashboard for W3C specs</h1></header>
+    <form id="add-spec" class="input-row">
+      <label class="spec-input">W3C shortname<input id="shortname" name="shortname" placeholder="webauthn-3" autocomplete="off" required pattern="[A-Za-z0-9][A-Za-z0-9._-]*"></label>
+      <button type="submit" class="add-button">Add card</button>
+      <label class="token-input">GitHub token (optional, kept in memory)<input id="github-token" type="password" autocomplete="off" spellcheck="false" aria-describedby="token-note"></label>
+      <span id="token-note" class="visually-hidden">Stored in this tab's session only. Updating the token refreshes GitHub data.</span>
+    </form>
+    <p id="page-message" class="page-message" role="status"></p>
+    <div id="cards" class="cards" aria-label="Specification cards"></div>
+    <footer class="page-footer"><a href="https://tarakiyee.github.io/funder-guide-draft/draft-tarakiyee-funder-guide.html">Based on draft-tarakiyee-funder-guide</a><button id="export-cache" type="button" class="quiet-button">Export cache</button></footer>
+  </main>
+</body>
+</html>
