@@ -134,6 +134,25 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.deepEqual(matches, [false, false, true, false, true, true, true, true, true, true]);
     for (const text of await page.locator('.maintenance-figure').allTextContents()) assert.match(text, /series repository/);
   });
+  await scenario('honesty labels, visible editor names and implementation search URLs', async ({ page }) => {
+    await open(page);
+    assert.equal(await page.getByLabel('GitHub token (optional, kept in this tab)', { exact: true }).count(), 1);
+    assert.deepEqual(await page.getByRole('link', { name: 'Search implementations', exact: true }).evaluateAll(links => links.map(link => link.href)), [
+      'https://webstatus.dev/?q=Battery%20Status',
+      'https://webstatus.dev/?q=Payment%20Request',
+      'https://webstatus.dev/?q=Web%20Authentication'
+    ]);
+    assert.ok((await page.locator('.editor-name').allTextContents()).includes('Pascoe'));
+    assert.deepEqual(await page.evaluate(() => [cleanEditorName('\u3164 Pascoe'), cleanEditorName('\u200bA\ufeff'), cleanEditorName('François 李')]), ['Pascoe', 'A', 'François 李']);
+  });
+  await scenario('implementation search falls back to the shortname when the index has no entry', async ({ page, setOverride }) => {
+    setOverride(async route => {
+      if (!route.request().url().includes('web-specs@latest/index.json')) return false;
+      await route.fulfill({ json: [] }); return true;
+    });
+    await open(page);
+    assert.deepEqual(await page.getByRole('link', { name: 'Search implementations', exact: true }).evaluateAll(links => links.map(link => link.href)), demoNames.map(name => `https://webstatus.dev/?q=${name}`));
+  });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
       if (route.request().url() !== specURL('svg2')) return false;

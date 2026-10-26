@@ -145,7 +145,7 @@ function makeCard(shortname) {
     node.append(section); card.sections[key] = { section, body, note }; card.provenance[key] = new Set();
   }
   card.footer = element('footer', 'card-footer');
-  card.footer.append(link('Implementations', `https://webstatus.dev/?q=${encodeURIComponent(shortname)}`));
+  card.footer.append(link('Search implementations', `https://webstatus.dev/?q=${encodeURIComponent(shortname)}`));
   node.append(card.footer);
   return card;
 }
@@ -300,13 +300,16 @@ function organisationColour(name) {
   if (!organisationColours.has(name)) organisationColours.set(name, organisationColours.size < 8 ? `var(--series-${organisationColours.size + 1})` : 'var(--other)');
   return organisationColours.get(name);
 }
+function cleanEditorName(name) {
+  return String(name || '').replace(/[\p{Default_Ignorable_Code_Point}\p{Cc}\p{Cf}]/gu, '').replace(/\s+/g, ' ').trim();
+}
 async function loadEditors(card, latestPromise) {
   try {
     await latestPromise;
     const data = await fetchJSON(`${card.spec._links['latest-version'].href}/editors`, undefined, card.provenance.editors);
     const editors = await Promise.all((data._links?.editors || []).map(async editor => {
       const affiliations = await fetchJSON(`${editor.href}/affiliations`, undefined, card.provenance.editors);
-      return { name: editor.title, affiliations: (affiliations._links?.affiliations || []).map(item => item.title) };
+      return { name: cleanEditorName(editor.title), affiliations: (affiliations._links?.affiliations || []).map(item => item.title) };
     }));
     card.editors = editors;
     if (!editors.length) { renderSection(card, 'editors', [element('p', 'fact', 'no editors listed')]); return; }
@@ -505,6 +508,7 @@ async function loadGithubSections(card, indexPromise) {
     for (const key of ['review', 'maintenance']) inheritProvenance(card.provenance[key], index.provenance);
   } catch (error) { console.error(card.shortname, 'specification index', error); }
   if (card.githubRun !== run) return;
+  card.footer.firstChild.href = `https://webstatus.dev/?q=${encodeURIComponent(entry?.series?.shortTitle || card.shortname)}`;
   if (entry?.groups?.[0]?.url && !card.footer.querySelector('.patent-link')) card.footer.append(link('Patents', `${entry.groups[0].url.replace(/\/?$/, '/') }ipr/`, 'patent-link'));
   await Promise.all([loadReview(card, entry, run), loadMaintenance(card, entry, run)]);
 }
