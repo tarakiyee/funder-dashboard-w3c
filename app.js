@@ -121,7 +121,7 @@ function wholeYears(value) {
   return Math.max(0, years);
 }
 function timeline(card, start) {
-  const width = 540, height = 122, left = 18, right = 488;
+  const width = 540, height = 146, left = 18, right = 488;
   const end = today.getTime();
   const x = value => left + (parseDate(value).getTime() - start) / Math.max(1, end - start) * (right - left);
   const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'timeline', role: 'img', 'aria-label': `Publication, review and commit timeline from ${new Date(start).getUTCFullYear()} to today` });
@@ -130,30 +130,42 @@ function timeline(card, start) {
   const step = years > 12 ? 3 : years > 6 ? 2 : 1;
   for (let year = new Date(start).getUTCFullYear(); year <= today.getUTCFullYear(); year += step) {
     const px = x(`${year}-01-01`);
-    svg.append(svgElement('line', { x1: px, x2: px, y1: 16, y2: 106, stroke: 'var(--grid)' }));
+    svg.append(svgElement('line', { x1: px, x2: px, y1: 16, y2: 129, stroke: 'var(--grid)' }));
     // Keep the final year label clear of "today".
-    if (right - px > 36) label(String(year), px, 119, 'middle', 'axis-label');
+    if (right - px > 36) label(String(year), px, 143, 'middle', 'axis-label');
   }
-  svg.append(svgElement('line', { x1: right, x2: right, y1: 12, y2: 106, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
-  label('today', right, 119, 'middle', 'axis-label');
+  svg.append(svgElement('line', { x1: right, x2: right, y1: 12, y2: 129, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
+  label('today', right, 143, 'middle', 'axis-label');
   if (card.first && card.latest) {
     const firstX = x(card.first.date), lastX = x(card.latest.date);
     svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 23, y2: 23, stroke: 'var(--series-1)', 'stroke-width': 2 }));
-    for (const date of card.versionDates || []) svg.append(markTitle(svgElement('circle', { cx: x(date), cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), date));
-    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 23, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2 }), `${card.latest.status}, ${card.latest.date}`));
+    const dates = card.versionDates || [];
+    const dense = dates.length > 12;
+    for (const date of dates) {
+      if (date === card.latest.date || (dense && date === card.first.date)) continue;
+      const mark = dense
+        ? svgElement('line', { x1: x(date), x2: x(date), y1: 19, y2: 27, stroke: 'var(--series-1)', 'stroke-width': 1, class: 'publication-tick' })
+        : svgElement('circle', { cx: x(date), cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' });
+      svg.append(markTitle(mark, date));
+    }
+    if (dense) svg.append(markTitle(svgElement('circle', { cx: firstX, cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), card.first.date));
+    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 23, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), `${card.latest.status}, ${card.latest.date}`));
     label(`first draft ${card.first.date.slice(0, 4)}`, firstX, 12, firstX > 340 ? 'end' : 'start');
     label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 41, lastX > 340 ? 'end' : 'start');
   }
-  for (const item of card.reviews || []) {
-    const area = REVIEW_AREAS.findIndex(area => item.repository_url.endsWith('/' + area.repo));
-    if (area < 0) continue;
-    const cy = 49 + area * 11;
-    const mark = svgElement('g');
-    mark.append(svgElement('circle', { cx: x(item.created_at), cy, r: 7, fill: 'var(--series-2)', stroke: 'var(--surface)', 'stroke-width': 2 }));
-    mark.append(svgElement('text', { x: x(item.created_at), y: cy + 3, 'text-anchor': 'middle', class: 'review-letter' }, REVIEW_AREAS[area].letter));
-    svg.append(markTitle(mark, `${REVIEW_AREAS[area].label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
-  }
-  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 103, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
+  REVIEW_AREAS.forEach((area, index) => {
+    const items = (card.reviews || []).filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
+    const cy = 52 + index * 14;
+    // Earlier requests remain dated marks, without competing letter labels.
+    for (const item of items.slice(1)) svg.append(markTitle(svgElement('line', { x1: x(item.created_at), x2: x(item.created_at), y1: cy - 4, y2: cy + 4, stroke: 'var(--series-2)', 'stroke-width': 1, class: 'review-tick' }), `${area.label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
+    if (!items.length) return;
+    const item = items[0];
+    const mark = svgElement('g', { class: 'latest-review' });
+    mark.append(svgElement('circle', { cx: x(item.created_at), cy, r: 8, fill: 'var(--series-2)', stroke: 'var(--surface)', 'stroke-width': 2 }));
+    mark.append(svgElement('text', { x: x(item.created_at), y: cy + 4.5, 'text-anchor': 'middle', class: 'review-letter' }, area.letter));
+    svg.append(markTitle(mark, `${area.label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
+  });
+  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 126, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
   return svg;
 }
 function renderTimelines() {
@@ -208,7 +220,7 @@ async function loadEditors(card, latestPromise) {
       item.append(dot, label); dots.append(item);
     }
     const legend = element('div', 'editor-legend');
-    for (const name of [...organisations, ...(editors.some(editor => !editor.affiliations.length) ? ['(no affiliation listed)'] : [])]) {
+    for (const name of organisations) {
       const entry = element('span', 'legend-entry'); const dot = element('span', 'legend-dot');
       dot.style.backgroundColor = organisationColour(name); dot.setAttribute('aria-hidden', 'true');
       entry.append(dot, document.createTextNode(name)); legend.append(entry);

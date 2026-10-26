@@ -13,7 +13,7 @@
   <main>
     <header class="page-header"><h1>Funder dashboard for W3C specs</h1></header>
     <form id="add-spec" class="input-row">
-      <label class="spec-input">W3C shortname<input id="shortname" name="shortname" placeholder="webauthn-3" autocomplete="off" required pattern="[A-Za-z0-9][A-Za-z0-9._-]*"></label>
+      <label class="spec-input">W3C shortname<input id="shortname" name="shortname" placeholder="webauthn-3" autocomplete="off" required pattern="[A-Za-z0-9][A-Za-z0-9._\-]*"></label>
       <button type="submit" class="add-button">Add card</button>
       <label class="token-input">GitHub token (optional, kept in memory)<input id="github-token" type="password" autocomplete="off" spellcheck="false" aria-describedby="token-note"></label>
       <span id="token-note" class="visually-hidden">Stored in this tab's session only. Updating the token refreshes GitHub data.</span>

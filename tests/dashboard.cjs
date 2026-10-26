@@ -52,6 +52,15 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     ]);
     assert.deepEqual(await page.locator('.editors-body .fact').allTextContents(), ['6 editors from 5 organisations', '3 editors from 3 organisations', '1 editor from 1 organisation']);
     assert.equal(await page.locator('.review-row').count(), 15);
+    assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [6, 2, 2]);
+    assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
+    assert.equal(await page.locator('.card').first().locator('.review-tick').count(), 12);
+    assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
+    await page.locator('#shortname').fill('SVG2');
+    assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
+    await page.locator('#shortname').fill('bad!name');
+    assert.ok(await page.locator('#shortname').evaluate(input => !input.checkValidity()));
+    await page.locator('#shortname').fill('');
     assert.equal(await page.locator('.commit-strip > g').count(), 156);
     const axes = await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => [...svg.querySelectorAll('.axis-label')].map(label => [label.textContent, label.getAttribute('x')])));
     assert.deepEqual(axes[0], axes[1]); assert.deepEqual(axes[1], axes[2]);
