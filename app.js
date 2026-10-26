@@ -155,7 +155,9 @@ function makeCard(shortname) {
     const body = element('div', `section-body ${key}-body`);
     body.append(loadingBlock(key));
     const note = element('p', 'cached-note');
-    section.append(sectionHeading(section, heading, ANGLES[key]), body, note);
+    section.append(sectionHeading(section, heading, ANGLES[key]));
+    if (key === 'review') section.append(element('p', 'review-caveat', 'Request repos exist since 2013 (TAG), 2019 (i18n), 2020 (privacy) and 2021 (a11y, security); earlier reviews are not on file.'));
+    section.append(body, note);
     node.append(section); card.sections[key] = { section, body, note }; card.provenance[key] = new Set();
   }
   card.footer = element('footer', 'card-footer');
