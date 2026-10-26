@@ -61,6 +61,21 @@ function loadingBlock(key) {
 function revealCard(card) {
   if (card.revealed) return;
   card.revealed = true; card.node.classList.remove('pending');
+  maybeAutoStartWalkthrough();
+}
+// Start the walkthrough once per tab after every demo card has settled, unless ?walkthrough=0.
+let autoStartTimer;
+function maybeAutoStartWalkthrough() {
+  if (walkthroughStep >= 0 || autoStartTimer) return;
+  if (new URLSearchParams(location.search).get('walkthrough') === '0') return;
+  try { if (sessionStorage.getItem('walkthrough-auto-started')) return; } catch { /* Session storage can be unavailable. */ }
+  const demo = DEMO_SPECS.map(name => cards.get(name));
+  if (demo.some(card => !card || !card.revealed)) return;
+  autoStartTimer = setTimeout(() => {
+    if (walkthroughStep >= 0) return;
+    try { sessionStorage.setItem('walkthrough-auto-started', '1'); } catch { /* Memory only. */ }
+    walkthroughLauncher.click();
+  }, 1500);
 }
 function checkCardReveal(card) {
   if (card.revealed || card.node.getAttribute('aria-busy') === 'true') return;
