@@ -341,11 +341,29 @@ const REVIEW_AREAS = [
   { label: 'TAG', letter: 'T', repo: 'w3ctag/design-reviews' }
 ];
 let specIndexPromise;
+let w3cEntries = [];
+function populateShortnames(data) {
+  w3cEntries = data.filter(entry => entry.organization === 'W3C');
+  document.querySelector('#spec-shortnames').replaceChildren(...w3cEntries.map(entry => {
+    const option = element('option'); option.value = entry.shortname; option.label = entry.title; return option;
+  }));
+}
+function resolveShortname(value) {
+  const text = value.trim().toLowerCase();
+  const exact = w3cEntries.find(entry => entry.shortname.toLowerCase() === text);
+  if (exact) return exact.shortname;
+  const matches = w3cEntries.filter(entry => {
+    const names = [entry.title, entry.series?.shortTitle, entry.series?.shortname, entry.shortname.replaceAll('-', ' ')].filter(Boolean);
+    return names.some(name => name.toLowerCase() === text || name.replace(/\s+API$/i, '').toLowerCase() === text);
+  });
+  return matches.find(entry => cards.has(entry.shortname))?.shortname || matches.find(entry => entry.shortname === entry.series?.currentSpecification)?.shortname || matches[0]?.shortname || value.trim();
+}
 function specIndex() {
   if (!specIndexPromise) {
     const provenance = new Set();
     specIndexPromise = fetchJSON('https://cdn.jsdelivr.net/npm/web-specs@latest/index.json', undefined, provenance).then(data => {
       if (!Array.isArray(data)) throw new Error('Invalid specification index');
+      populateShortnames(data);
       return { data, provenance };
     }).catch(error => { specIndexPromise = null; throw error; });
   }
@@ -579,8 +597,15 @@ async function addCard(shortname) {
     card.node.insertBefore(element('p', 'load-error', error.status === 404 ? `couldn't find ${shortname}` : "couldn't load specification"), card.footer);
   } finally { card.node.setAttribute('aria-busy', 'false'); }
 }
-document.querySelector('#add-spec').addEventListener('submit', event => {
-  event.preventDefault(); const input = document.querySelector('#shortname'); addCard(input.value); input.value = '';
+document.querySelector('#add-spec').addEventListener('submit', async event => {
+  event.preventDefault();
+  const input = document.querySelector('#shortname'); const typed = input.value;
+  if (!w3cEntries.length) { try { await specIndex(); } catch { /* A direct shortname lookup still works without the index. */ } }
+  const shortname = resolveShortname(typed);
+  if (!/^[a-z0-9][a-z0-9._-]*$/i.test(shortname)) {
+    document.querySelector('#page-message').textContent = 'Enter a W3C shortname or choose a title from the suggestions.'; return;
+  }
+  addCard(shortname); input.value = '';
 });
 tokenInput.addEventListener('change', () => {
   githubToken = tokenInput.value.trim();

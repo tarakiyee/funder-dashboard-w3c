@@ -59,8 +59,6 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
     await page.locator('#shortname').fill('SVG2');
     assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
-    await page.locator('#shortname').fill('bad!name');
-    assert.ok(await page.locator('#shortname').evaluate(input => !input.checkValidity()));
     await page.locator('#shortname').fill('');
     assert.equal(await page.locator('.commit-strip > g').count(), 156);
     assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), ['2 open from horizontal review', '3 open from horizontal review', '4 open from horizontal review']);
@@ -197,6 +195,19 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     });
     await open(page);
     assert.equal(await page.locator('.patent-link').first().getAttribute('href'), 'https://www.w3.org/das/ipr/');
+  });
+  await scenario('shortname suggestions resolve titles and familiar series names', async ({ page }) => {
+    await open(page);
+    const expected = fixture['https://cdn.jsdelivr.net/npm/web-specs@latest/index.json'].filter(entry => entry.organization === 'W3C');
+    assert.equal(await page.locator('#spec-shortnames option').count(), expected.length);
+    assert.equal(await page.locator('#shortname').getAttribute('list'), 'spec-shortnames');
+    assert.deepEqual(await page.evaluate(() => ['WebAuthn', 'Battery Status', 'Payment Request', 'BATTERY-STATUS'].map(resolveShortname)), ['webauthn-3', 'battery-status', 'payment-request', 'battery-status']);
+    await add(page, 'Battery Status');
+    await page.waitForFunction(() => document.querySelector('#page-message').textContent.includes('already on the page'));
+    assert.equal(await page.locator('.card').count(), 3);
+    await add(page, 'bad!name');
+    await page.waitForFunction(() => document.querySelector('#page-message').textContent.includes('suggestions'));
+    assert.equal(await page.locator('.card').count(), 3);
   });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
