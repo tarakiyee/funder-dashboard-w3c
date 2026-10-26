@@ -1,6 +1,8 @@
 # Funder dashboard for W3C specs
 
-Enter a W3C spec shortname and get a card showing where funding could help that spec.
+**Live:** https://tarakiyee.github.io/funder-dashboard-w3c/
+
+Public funders are asked to support standards work but have no view of where money or people would help. This dashboard gives them one: enter a W3C spec shortname and get a card of facts about its time in process, editors, horizontal review and maintenance, each paired with what the funder guide draft says about supporting it.
 
 ## Why
 
@@ -17,7 +19,7 @@ Facts are shown as they are, with no scores or ratings.
 
 ## Data
 
-Live, from the browser: the [W3C API](https://api.w3.org/), the [browser-specs](https://github.com/w3c/browser-specs) index, and the GitHub API. Links out to [webstatus.dev](https://webstatus.dev/) for implementations and to the working group's IPR page for patents.
+Live, from the browser: the [W3C API](https://api.w3.org/), the [browser-specs](https://github.com/w3c/browser-specs) index (its `web-specs` package on jsDelivr), and the GitHub API. Links out to [webstatus.dev](https://webstatus.dev/) for implementations and to the working group's IPR page for patents.
 
 ## Related work
 
