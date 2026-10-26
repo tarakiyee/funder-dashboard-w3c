@@ -22,7 +22,7 @@ a { color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1p
 .page-message { font-size: 14px; margin: 8px 0; min-height: 16px; color: var(--ink-2); }
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
 .card { min-width: 0; border: 1px solid var(--grid); border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
-.card-header { position: relative; padding-right: 54px; min-height: 70px; }
+.card-header { position: relative; padding-right: 54px; min-height: 74px; }
 .card h2 { margin: 0 0 7px; font-size: 21px; line-height: 1.15; font-weight: 650; letter-spacing: -.3px; }
 .spec-link { font-size: 15px; color: var(--ink-2); }
 .remove-button { position: absolute; right: -6px; top: -6px; background: none; border: none; font-size: 13px; padding: 5px; color: var(--ink-2); }

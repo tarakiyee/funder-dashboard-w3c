@@ -413,3 +413,10 @@ document.querySelector('#export-cache').addEventListener('click', () => {
   download.href = url; download.download = 'demo-cache.json'; download.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 DEMO_SPECS.forEach(addCard);
+
+// Register after the first page load; no application or API traffic is proxied.
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(error => console.error('page', 'offline shell', error));
+  });
+}
