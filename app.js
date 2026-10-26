@@ -255,6 +255,21 @@ function timeline(card, start) {
   if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 95, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
   return svg;
 }
+function timelineText(card, contextOnly = false) {
+  const list = element('ul', 'visually-hidden timeline-text');
+  list.setAttribute('aria-label', `${card.shortname} ${contextOnly ? 'context' : 'detail'} timeline marks`);
+  if (contextOnly) {
+    list.append(element('li', '', `First draft ${card.first.date}`), element('li', '', `${STATUS[card.latest.status] || card.latest.status} ${card.latest.date}`));
+    return list;
+  }
+  for (const date of [...new Set([...(card.versionDates || []), card.first.date, card.latest.date])].sort()) list.append(element('li', '', `Publication ${date}`));
+  for (const area of REVIEW_AREAS) {
+    const items = (card.reviews || []).filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(a.created_at) - parseDate(b.created_at));
+    for (const item of items) list.append(element('li', '', `${area.label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
+  }
+  if (card.lastCommit) list.append(element('li', '', `Last commit ${dateOnly(card.lastCommit.date)}`));
+  return list;
+}
 function renderTimelines() {
   const loaded = [...cards.values()].filter(card => card.first);
   if (!loaded.length) return;
@@ -262,7 +277,7 @@ function renderTimelines() {
   const start = Date.UTC(new Date(earliest).getUTCFullYear(), 0, 1);
   for (const card of loaded) {
     if (!card.timelineHost) continue;
-    card.timelineHost.replaceChildren(contextStrip(card, start), timeline(card, parseDate(card.first.date).getTime()));
+    card.timelineHost.replaceChildren(contextStrip(card, start), timelineText(card, true), timeline(card, parseDate(card.first.date).getTime()), timelineText(card));
   }
 }
 function updateTimeFact(card) {

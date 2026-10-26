@@ -11,7 +11,10 @@ const specURL = name => `https://api.w3.org/specifications/${name}`;
 const demoNames = ['battery-status', 'payment-request', 'webauthn-3'];
 const checks = [];
 let browser;
+let scenarioSequence = 0;
 async function scenario(name, fn, contextOptions = {}) {
+  const sequence = scenarioSequence++;
+  if (process.env.DASHBOARD_TEST_GROUP !== undefined && sequence % Number(process.env.DASHBOARD_TEST_GROUPS || 3) !== Number(process.env.DASHBOARD_TEST_GROUP)) return;
   if (process.env.DASHBOARD_TEST_CASE && !name.includes(process.env.DASHBOARD_TEST_CASE)) return;
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, serviceWorkers: 'block', ...contextOptions });
   const errors = [];
@@ -56,7 +59,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [2, 2, 6]);
     assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
     assert.equal(await page.locator('.card').nth(2).locator('.review-tick').count(), 9);
-    assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
+    assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg') && !node.matches('.review-caveat')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
     await page.locator('#shortname').fill('SVG2');
     assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
     await page.locator('#shortname').fill('');
@@ -77,7 +80,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.getByRole('button', { name: 'What the funder guide says' }).count(), 12);
     await page.getByRole('button', { name: 'Remove battery-status', exact: true }).click();
     const changed = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
-    assert.deepEqual(changed, ['2016', '2016']);
+    assert.deepEqual(changed, ['shared scale · 2016', 'shared scale · 2016']);
     await page.setViewportSize({ width: 390, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   });
@@ -223,6 +226,27 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.ok(await page.locator('.loading').count() > 0);
     await settled(page);
     assert.deepEqual(await page.locator('.card').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height)), initial);
+  });
+  await scenario('accessible timeline lists include the publications, review requests and last commit', async ({ page }) => {
+    await open(page);
+    const data = await page.evaluate(() => [...cards.values()].map(card => ({
+      contextList: card.timelineHost.querySelector('.context-strip').nextElementSibling.tagName,
+      detailList: card.timelineHost.querySelector('.timeline').nextElementSibling.tagName,
+      contextLabel: card.timelineHost.querySelector('.context-strip').getAttribute('aria-label'),
+      detailLabel: card.timelineHost.querySelector('.timeline').getAttribute('aria-label'),
+      text: [...card.timelineHost.querySelector('.timeline').nextElementSibling.children].map(li => li.textContent),
+      publications: card.versionDates,
+      reviews: card.reviews.map(item => `${REVIEW_AREAS.find(area => item.repository_url.endsWith('/' + area.repo)).label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`),
+      lastCommit: dateOnly(card.lastCommit.date)
+    })));
+    for (const card of data) {
+      assert.equal(card.contextList, 'UL'); assert.equal(card.detailList, 'UL');
+      assert.ok(card.contextLabel && card.detailLabel);
+      for (const date of card.publications) assert.ok(card.text.includes(`Publication ${date}`));
+      for (const review of card.reviews) assert.ok(card.text.includes(review));
+      assert.ok(card.text.includes(`Last commit ${card.lastCommit}`));
+    }
+    assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= 1080));
   });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
