@@ -28,4 +28,12 @@ Live, from the browser: the [W3C API](https://api.w3.org/), the [browser-specs](
 - [OpenSSF Scorecard](https://github.com/ossf/scorecard) scores repositories on security practices. This dashboard deliberately does not score.
 - [ecosyste.ms Funds](https://github.com/ecosyste-ms/funds) and [CHAOSS](https://chaoss.community/) bring health metrics and funding allocation to open-source packages. This applies the same intent to standards.
 
-Built at the W3C TPAC 2026 hackathon in Dublin.
+## How it was built
+
+Built in the 90-minute window at the W3C TPAC 2026 hackathon in Dublin, 26 October 2026, for the "Visualize standards data" challenge. The concept, the funder lens, the four fields, the no-scoring stance and every design decision are Tara Tarakiyee's. Two AI tools did the work under that direction, and the commit history is the record of it:
+
+- Before the window: Claude (Anthropic) created the empty repository, verified the W3C API, browser-specs and GitHub endpoints with throwaway requests, and wrote a build brief from the decisions above. No application code was written before 19:30.
+- During the window: OpenAI Codex implemented from the brief and pushed each step to `main`. Claude reviewed each push against the brief and the expected data for the demo specs, checked the result in a browser at projector size, and sent corrections and additions as updates.
+- Tara decided the demo specs, the layout, the angle wording and what to cut, and relayed between the two tools.
+
+The brief itself is not committed; it is a plan, not code.
