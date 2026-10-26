@@ -26,7 +26,9 @@ Live, from the browser: the [W3C API](https://api.w3.org/), the [browser-specs](
 - [W3C spec-dashboard](https://w3c.github.io/spec-dashboard/) tracks publication status, implementations and issue history per working group, for chairs and the W3C team. Same sources, organised for the people running specs rather than for funders.
 - [W3C horizontal review tracker](https://w3c.github.io/horizontal-issue-tracker/) lists open review comments for reviewers and editors. The Review section here shows the request side of that process, as a cue for where reviewer time could be funded.
 - [OpenSSF Scorecard](https://github.com/ossf/scorecard) scores repositories on security practices. This dashboard deliberately does not score.
-- [ecosyste.ms Funds](https://github.com/ecosyste-ms/funds) and [CHAOSS](https://chaoss.community/) bring health metrics and funding allocation to open-source packages. This applies the same intent to standards.
+- [ecosyste.ms Funds](https://github.com/ecosyste-ms/funds) and [CHAOSS](https://chaoss.community/) bring health metrics and funding allocation to open-source packages. This applies the same intent to standards; the Editors section is CHAOSS's organizational diversity metric applied to one spec.
+
+As far as we know, no existing tool maps a funder's own criteria onto standards documents, or puts who edits a spec and who pays them on one card.
 
 ## How it was built
 
