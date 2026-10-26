@@ -138,8 +138,8 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await open(page);
     assert.equal(await page.getByLabel('GitHub token (optional, kept in this tab)', { exact: true }).count(), 1);
     assert.deepEqual(await page.getByRole('link', { name: 'Search implementations', exact: true }).evaluateAll(links => links.map(link => link.href)), [
-      'https://webstatus.dev/?q=Battery%20Status',
-      'https://webstatus.dev/?q=Payment%20Request',
+      'https://webstatus.dev/?q=Battery%20Status%20API',
+      'https://webstatus.dev/?q=Payment%20Request%20API',
       'https://webstatus.dev/?q=Web%20Authentication'
     ]);
     assert.ok((await page.locator('.editor-name').allTextContents()).includes('Pascoe'));
