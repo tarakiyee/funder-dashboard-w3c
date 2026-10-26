@@ -41,9 +41,9 @@ p { margin: 6px 0; }
 @media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } .card { min-height: auto; } main { padding: 20px; } .token-input { width: 320px; } }
 @media (max-width: 650px) { .input-row { flex-wrap: wrap; } .spec-input { flex: 1; min-width: 160px; } .token-input { width: 100%; margin-left: 0; } h1 { font-size: 28px; } .page-footer { align-items: start; } }
 .timeline { width: 100%; height: auto; overflow: visible; display: block; }
-.timeline text { fill: var(--ink); font-size: 14px; font-family: inherit; }
-.timeline .axis-label { fill: var(--ink-muted); font-size: 14px; }
-.timeline .review-letter { fill: var(--ink); font-size: 14px; font-weight: 600; }
+.timeline text { fill: var(--ink); font-size: 12px; font-family: inherit; }
+.timeline .axis-label { fill: var(--ink-muted); font-size: 11px; }
+.timeline .review-letter { fill: var(--ink); font-size: 11px; font-weight: 600; }
 .editor-dots { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .editor-item { display: flex; align-items: center; gap: 7px; min-width: 0; }
 .editor-dot { display: block; flex: 0 0 13px; width: 13px; height: 13px; border-radius: 50%; }
@@ -58,8 +58,8 @@ p { margin: 6px 0; }
 .review-row dt { color: var(--ink-2); }
 .maintenance-figures { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .maintenance-figure { font-size: 17px; line-height: 1.3; font-weight: 500; }
-.commit-strip { display: block; width: 100%; height: 40px; margin-top: 8px; }
-.last-commit { font-size: 14px; color: var(--ink-2); margin-top: 5px; }
+.commit-strip { display: block; width: 100%; height: 32px; margin-top: 2px; }
+.last-commit { font-size: 14px; color: var(--ink-2); margin: 2px 0 0; }
 .last-commit a { color: inherit; }
 @media (max-width: 450px) { .review-row { grid-template-columns: 1fr; gap: 0; margin-bottom: 5px; } }
 
@@ -71,3 +71,10 @@ p { margin: 6px 0; }
 .card-section { position: relative; }
 .cached-note { position: absolute; right: 0; top: 4px; margin: 0; font-size: 14px; }
 .timeline { overflow: hidden; }
+
+.review-open-issues { font-size: 14px; line-height: 1.3; margin: 4px 0 0; }
+.review-open-issues:empty { display: none; }
+
+.context-strip { width: 100%; height: 22px; display: block; margin-bottom: 4px; }
+.context-strip text { fill: var(--ink-muted); font-size: 11px; font-family: inherit; }
+.maintenance-label { margin: 0 0 2px; color: var(--ink-2); font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .6px; }

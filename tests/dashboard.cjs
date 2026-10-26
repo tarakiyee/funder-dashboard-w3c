@@ -55,15 +55,19 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.deepEqual(await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelectorAll('.publication-circle').length)), [6, 2, 2]);
     assert.ok(await page.locator('.timeline').evaluateAll(svgs => svgs.every(svg => svg.querySelectorAll('.latest-review').length <= 5)));
     assert.equal(await page.locator('.card').first().locator('.review-tick').count(), 12);
-    assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
+    assert.ok(await page.locator('.card *').evaluateAll(nodes => nodes.filter(node => !node.closest('svg')).every(node => parseFloat(getComputedStyle(node).fontSize) >= 14)));
     await page.locator('#shortname').fill('SVG2');
     assert.ok(await page.locator('#shortname').evaluate(input => input.checkValidity()));
     await page.locator('#shortname').fill('bad!name');
     assert.ok(await page.locator('#shortname').evaluate(input => !input.checkValidity()));
     await page.locator('#shortname').fill('');
     assert.equal(await page.locator('.commit-strip > g').count(), 156);
-    const axes = await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => [...svg.querySelectorAll('.axis-label')].map(label => [label.textContent, label.getAttribute('x')])));
+    assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), ['4 open from horizontal review', '20 open from horizontal review', '4 open from horizontal review']);
+    const axes = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => [...svg.querySelectorAll('.axis-label')].map(label => [label.textContent, label.getAttribute('x')])));
     assert.deepEqual(axes[0], axes[1]); assert.deepEqual(axes[1], axes[2]);
+    const detailStarts = await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
+    assert.deepEqual(detailStarts, ['2021', '2025', '2011']);
+    assert.equal(await page.locator('.review-body .review-open-issues').count(), 0);
     const colours = await page.locator('.legend-entry').evaluateAll(entries => entries.map(e => [e.textContent, getComputedStyle(e.firstChild).backgroundColor]));
     const organisations = new Map();
     for (const [name, colour] of colours) { if (organisations.has(name)) assert.equal(organisations.get(name), colour); organisations.set(name, colour); }
@@ -72,7 +76,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.ok(bounds.cards.every(height => height <= 850), JSON.stringify(bounds));
     assert.equal(await page.locator('.angle').count(), 12);
     await page.getByRole('button', { name: 'Remove vibration', exact: true }).click();
-    const changed = await page.locator('.timeline').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
+    const changed = await page.locator('.context-strip').evaluateAll(svgs => svgs.map(svg => svg.querySelector('.axis-label').textContent));
     assert.deepEqual(changed, ['2021', '2021']);
     await page.setViewportSize({ width: 390, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
@@ -130,6 +134,25 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     });
     await open(page); assert.equal(await page.locator('.commit-strip > g').count(), 156);
     assert.ok([...attempts.values()].every(count => count === 3));
+  });
+  await scenario('zero horizontal-review issues render plainly in Entry points', async ({ page, setOverride }) => {
+    setOverride(async route => {
+      if (!route.request().url().includes('/search/issues?per_page=1&')) return false;
+      await route.fulfill({ json: { total_count: 0, items: [] } }); return true;
+    });
+    await open(page);
+    assert.deepEqual(await page.locator('.entry-points-block .review-open-issues').allTextContents(), Array(3).fill('0 open from horizontal review'));
+    assert.equal(await page.locator('.review-row').count(), 15);
+  });
+  await scenario('repository review-count failure leaves activity and horizontal request rows intact', async ({ page, setOverride }) => {
+    setOverride(async route => {
+      if (!route.request().url().includes('/search/issues?per_page=1&')) return false;
+      await route.fulfill({ status: 503, json: {} }); return true;
+    });
+    await open(page);
+    assert.equal(await page.locator('.entry-points-block .load-error').count(), 3);
+    assert.equal(await page.locator('.commit-strip > g').count(), 156);
+    assert.equal(await page.locator('.review-row').count(), 15);
   });
   await scenario('unavailable APIs use labelled fallback and the cards still fit', async ({ page, setOverride, setFallback }) => {
     setFallback(fixture);

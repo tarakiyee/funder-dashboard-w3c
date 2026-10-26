@@ -3,7 +3,7 @@ const DEMO_SPECS = ['webauthn-3', 'digital-credentials', 'vibration'];
 const ANGLES = {
   time: 'Standards take years. Support here needs to outlast a single grant.',
   editors: 'More editors and perspectives strengthen a spec. Could you fund someone to join?',
-  review: "Horizontal review needs reviewers. 'No request found' may be a gap support could fill, or the review may have happened elsewhere.",
+  review: "Horizontal review needs reviewers. 'No request found' may be a gap support could fill, or the review may have happened elsewhere. Open review issues are where a funded contributor could start.",
   maintenance: 'Open issues are entry points for funded contributors.'
 };
 const cards = new Map();
@@ -120,52 +120,67 @@ function wholeYears(value) {
   if (today.getUTCMonth() < first.getUTCMonth() || (today.getUTCMonth() === first.getUTCMonth() && today.getUTCDate() < first.getUTCDate())) years--;
   return Math.max(0, years);
 }
+function contextStrip(card, start) {
+  const left = 18, right = 508;
+  const x = value => left + (parseDate(value).getTime() - start) / Math.max(1, today.getTime() - start) * (right - left);
+  const firstX = x(card.first.date), lastX = x(card.latest.date);
+  const svg = svgElement('svg', { viewBox: '0 0 540 22', preserveAspectRatio: 'none', class: 'context-strip', role: 'img', 'aria-label': `Shared context: ${new Date(start).getUTCFullYear()} to today` });
+  svg.append(svgElement('title', {}, `first draft ${card.first.date} to ${STATUS[card.latest.status] || card.latest.status} ${card.latest.date}`));
+  // The shaded extent (first draft to today) is expanded in the detail view below.
+  svg.append(svgElement('rect', { x: firstX, y: 0, width: Math.max(0, right - firstX), height: 10, fill: 'var(--grid)', opacity: .4 }));
+  svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 5, y2: 5, stroke: 'var(--series-1)', 'stroke-width': 2 }));
+  for (const cx of [firstX, lastX]) svg.append(svgElement('circle', { cx, cy: 5, r: 2.5, fill: 'var(--series-1)' }));
+  svg.append(svgElement('line', { x1: right, x2: right, y1: 0, y2: 12, stroke: 'var(--ink-muted)', 'stroke-dasharray': '2 2' }));
+  svg.append(svgElement('text', { x: left, y: 21, class: 'axis-label' }, String(new Date(start).getUTCFullYear())));
+  svg.append(svgElement('text', { x: right, y: 21, class: 'axis-label', 'text-anchor': 'end' }, `${today.getUTCFullYear()} · today`));
+  return svg;
+}
 function timeline(card, start) {
-  const width = 540, height = 146, left = 18, right = 488;
+  const width = 540, height = 114, left = 18, right = 508;
   const end = today.getTime();
   const x = value => left + (parseDate(value).getTime() - start) / Math.max(1, end - start) * (right - left);
-  const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'timeline', role: 'img', 'aria-label': `Publication, review and commit timeline from ${new Date(start).getUTCFullYear()} to today` });
+  const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'timeline', role: 'img', 'aria-label': `Detail: publication, review and commit timeline from ${card.first.date} to today` });
   const label = (text, px, py, anchor = 'start', cls = '') => svg.append(svgElement('text', { x: px, y: py, 'text-anchor': anchor, class: cls }, text));
+  svg.append(svgElement('rect', { x: 0, y: 0, width, height: 2, fill: 'var(--grid)', opacity: .4 }));
   const years = today.getUTCFullYear() - new Date(start).getUTCFullYear();
   const step = years > 12 ? 3 : years > 6 ? 2 : 1;
   for (let year = new Date(start).getUTCFullYear(); year <= today.getUTCFullYear(); year += step) {
-    const px = x(`${year}-01-01`);
-    svg.append(svgElement('line', { x1: px, x2: px, y1: 16, y2: 129, stroke: 'var(--grid)' }));
+    const px = year === new Date(start).getUTCFullYear() ? left : x(`${year}-01-01`);
+    svg.append(svgElement('line', { x1: px, x2: px, y1: 7, y2: 101, stroke: 'var(--grid)' }));
     // Keep the final year label clear of "today".
-    if (right - px > 36) label(String(year), px, 143, 'middle', 'axis-label');
+    if (right - px > 36) label(String(year), px, 111, 'middle', 'axis-label');
   }
-  svg.append(svgElement('line', { x1: right, x2: right, y1: 12, y2: 129, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
-  label('today', right, 143, 'middle', 'axis-label');
+  svg.append(svgElement('line', { x1: right, x2: right, y1: 7, y2: 101, stroke: 'var(--ink-muted)', 'stroke-dasharray': '3 4' }));
+  label('today', right, 111, 'middle', 'axis-label');
   if (card.first && card.latest) {
     const firstX = x(card.first.date), lastX = x(card.latest.date);
-    svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 23, y2: 23, stroke: 'var(--series-1)', 'stroke-width': 2 }));
+    svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 13, y2: 13, stroke: 'var(--series-1)', 'stroke-width': 2 }));
     const dates = card.versionDates || [];
     const dense = dates.length > 12;
     for (const date of dates) {
       if (date === card.latest.date || (dense && date === card.first.date)) continue;
       const mark = dense
-        ? svgElement('line', { x1: x(date), x2: x(date), y1: 19, y2: 27, stroke: 'var(--series-1)', 'stroke-width': 1, class: 'publication-tick' })
-        : svgElement('circle', { cx: x(date), cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' });
+        ? svgElement('line', { x1: x(date), x2: x(date), y1: 9, y2: 17, stroke: 'var(--series-1)', 'stroke-width': 1, class: 'publication-tick' })
+        : svgElement('circle', { cx: x(date), cy: 13, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' });
       svg.append(markTitle(mark, date));
     }
-    if (dense) svg.append(markTitle(svgElement('circle', { cx: firstX, cy: 23, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), card.first.date));
-    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 23, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), `${card.latest.status}, ${card.latest.date}`));
-    label(`first draft ${card.first.date.slice(0, 4)}`, firstX, 12, firstX > 340 ? 'end' : 'start');
-    label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 41, lastX > 340 ? 'end' : 'start');
+    if (dense) svg.append(markTitle(svgElement('circle', { cx: firstX, cy: 13, r: 5, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), card.first.date));
+    svg.append(markTitle(svgElement('circle', { cx: lastX, cy: 13, r: 7, fill: 'var(--series-1)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'publication-circle' }), `${card.latest.status}, ${card.latest.date}`));
+    label(`${STATUS[card.latest.status] || card.latest.status} ${card.latest.date.slice(0, 4)}`, lastX, 29, lastX > 340 ? 'end' : 'start');
   }
   REVIEW_AREAS.forEach((area, index) => {
     const items = (card.reviews || []).filter(item => item.repository_url.endsWith('/' + area.repo)).sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
-    const cy = 52 + index * 14;
+    const cy = 39 + index * 11;
     // Earlier requests remain dated marks, without competing letter labels.
     for (const item of items.slice(1)) svg.append(markTitle(svgElement('line', { x1: x(item.created_at), x2: x(item.created_at), y1: cy - 4, y2: cy + 4, stroke: 'var(--series-2)', 'stroke-width': 1, class: 'review-tick' }), `${area.label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
     if (!items.length) return;
     const item = items[0];
     const mark = svgElement('g', { class: 'latest-review' });
-    mark.append(svgElement('circle', { cx: x(item.created_at), cy, r: 8, fill: 'var(--series-2)', stroke: 'var(--surface)', 'stroke-width': 2 }));
-    mark.append(svgElement('text', { x: x(item.created_at), y: cy + 4.5, 'text-anchor': 'middle', class: 'review-letter' }, area.letter));
+    mark.append(svgElement('circle', { cx: x(item.created_at), cy, r: 7, fill: 'var(--series-2)', stroke: 'var(--surface)', 'stroke-width': 2 }));
+    mark.append(svgElement('text', { x: x(item.created_at), y: cy + 3.5, 'text-anchor': 'middle', class: 'review-letter' }, area.letter));
     svg.append(markTitle(mark, `${area.label}, #${item.number}, ${item.state}, ${dateOnly(item.created_at)}`));
   });
-  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 126, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
+  if (card.lastCommit) svg.append(markTitle(svgElement('rect', { x: x(card.lastCommit.date) - 4, y: 95, width: 8, height: 8, fill: 'var(--ink-2)', stroke: 'var(--surface)', 'stroke-width': 2 }), `Last commit ${dateOnly(card.lastCommit.date)}`));
   return svg;
 }
 function renderTimelines() {
@@ -175,7 +190,7 @@ function renderTimelines() {
   const start = Date.UTC(new Date(earliest).getUTCFullYear(), 0, 1);
   for (const card of loaded) {
     if (!card.timelineHost) continue;
-    card.timelineHost.replaceChildren(timeline(card, start));
+    card.timelineHost.replaceChildren(contextStrip(card, start), timeline(card, parseDate(card.first.date).getTime()));
   }
 }
 async function loadTime(card, firstPromise, latestPromise, historyPromise) {
@@ -252,6 +267,25 @@ function githubHeaders() { return githubToken ? { Authorization: `Bearer ${githu
 function reviewPhrase(card, entry) {
   return (entry?.series?.shortTitle || card.spec.title.split(':')[0]).replace(/\s+(level\s*)?\d+(\.\d+)?$/i, '').trim();
 }
+const REVIEW_LABELS = [
+  'i18n-needs-resolution', 'a11y-needs-resolution', 'privacy-needs-resolution',
+  'security-needs-resolution', 'tag-needs-resolution', 'i18n-tracker',
+  'a11y-tracker', 'privacy-tracker', 'security-tracker', 'tag-tracker'
+];
+async function loadOpenReviewCount(card, repository, run, host) {
+  const query = `repo:${repository} is:issue is:open label:${REVIEW_LABELS.join(',')}`;
+  try {
+    const data = await fetchJSON(`https://api.github.com/search/issues?per_page=1&q=${encodeURIComponent(query)}`, githubHeaders(), card.provenance.maintenance);
+    if (card.githubRun !== run) return;
+    if (!Number.isInteger(data.total_count) || data.total_count < 0) throw new Error('Invalid open review issue count');
+    host.replaceChildren(link(`${data.total_count} open from horizontal review`, `https://github.com/${repository}/issues?q=${encodeURIComponent(query)}`));
+  } catch (error) {
+    if (card.githubRun !== run) return;
+    console.error(card.shortname, 'maintenance', error);
+    host.replaceChildren(element('span', 'load-error', "couldn't load open review issues"));
+  }
+  card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : '';
+}
 async function loadReview(card, entry, run) {
   try {
     const phrase = reviewPhrase(card, entry).replaceAll('"', '');
@@ -269,7 +303,11 @@ async function loadReview(card, entry, run) {
       row.append(element('dt', '', area.label), value); list.append(row);
     }
     renderSection(card, 'review', [list]); renderTimelines();
-  } catch (error) { if (card.githubRun === run) sectionFailure(card, 'review', error); }
+  } catch (error) {
+    if (card.githubRun === run) {
+      sectionFailure(card, 'review', error);
+    }
+  }
 }
 function repositoryFor(card, entry) {
   const candidate = entry?.nightly?.repository;
@@ -296,9 +334,9 @@ async function commitActivity(url, headers, provenance) {
   throw new Error('Commit activity is still being computed after three retries');
 }
 function commitStrip(weeks) {
-  const width = 520, height = 44, gap = 2, barWidth = (width - gap * 51) / 52;
+  const width = 260, height = 44, gap = 2, barWidth = (width - gap * 51) / 52;
   const max = Math.max(1, ...weeks.map(week => week.total));
-  const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'commit-strip', role: 'img', 'aria-label': 'Weekly commits over the last 52 weeks; scale is local to this card' });
+  const svg = svgElement('svg', { viewBox: `0 0 ${width} ${height}`, class: 'commit-strip', preserveAspectRatio: 'none', role: 'img', 'aria-label': 'Weekly commits over the last 52 weeks; scale is local to this card' });
   svg.append(svgElement('line', { x1: 0, x2: width, y1: 43, y2: 43, stroke: 'var(--grid)' }));
   weeks.forEach((week, index) => {
     const x = index * (barWidth + gap), h = week.total / max * 40, y = 43 - h, r = Math.min(4, h, barWidth / 2);
@@ -317,12 +355,17 @@ async function loadMaintenance(card, entry, run) {
   const headers = githubHeaders();
   // Render independent figures as each call resolves, including when activity takes time to compute.
   const figures = element('div', 'maintenance-figures');
-  const issues = element('div', 'maintenance-figure'); issues.append(element('p', 'loading', 'loading…'));
-  const count = element('div', 'maintenance-figure'); count.append(element('p', 'loading', 'loading…'));
-  figures.append(issues, count);
+  const activity = element('div', 'maintenance-block activity-block');
+  const entryPoints = element('div', 'maintenance-block entry-points-block');
+  const issues = element('div', 'maintenance-figure'); issues.append(element('span', 'loading', 'loading…'));
+  const count = element('div', 'maintenance-figure'); count.append(element('span', 'loading', 'loading…'));
+  const openCount = element('p', 'review-open-issues'); openCount.append(element('span', 'loading', 'loading…'));
   const strip = element('div', 'commit-strip-host');
   const last = element('p', 'last-commit'); last.append(element('span', 'loading', 'loading…'));
-  renderSection(card, 'maintenance', [figures, strip, last]);
+  activity.append(element('h4', 'maintenance-label', 'Activity'), count, strip, last);
+  entryPoints.append(element('h4', 'maintenance-label', 'Entry points'), issues, openCount);
+  figures.append(activity, entryPoints);
+  renderSection(card, 'maintenance', [figures]);
   const note = () => { card.sections.maintenance.note.textContent = card.provenance.maintenance.size ? `cached ${[...card.provenance.maintenance].join(', ')}` : ''; };
   const fail = (target, error) => {
     if (card.githubRun !== run) return;
@@ -330,6 +373,7 @@ async function loadMaintenance(card, entry, run) {
     target.replaceChildren(element('span', 'load-error', "couldn't load")); note();
   };
   await Promise.all([
+    loadOpenReviewCount(card, repository, run, openCount),
     fetchJSON(base, headers, card.provenance.maintenance).then(data => {
       if (card.githubRun !== run) return;
       if (!Number.isFinite(data.open_issues_count)) throw new Error('Invalid repository issue count');
