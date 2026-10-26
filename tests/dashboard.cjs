@@ -177,7 +177,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await page.keyboard.press('ArrowRight'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Accessibility, internationalization/);
     await page.locator('#walkthrough-next').click(); await page.locator('#walkthrough-next').click();
-    assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Same data, same sources. The difference is what a funder can act on.');
+    assert.equal(await page.locator('#walkthrough-guide').innerText(), 'Three things on every card a funder can pay for: an editor’s time, an independent impact assessment, and the open issues that keep a standard maintained.');
     assert.equal(await page.locator('.walkthrough-highlight').count(), 0);
     assert.equal(await page.locator('.walkthrough-context').count(), 3);
     await page.keyboard.press('ArrowLeft'); assert.match(await page.locator('#walkthrough-guide').innerText(), /^Maintenance means/);
