@@ -188,6 +188,35 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     await open(page); assert.equal(await page.locator('.commit-strip > g').count(), 156);
     assert.ok([...attempts.values()].every(count => count === 3));
   });
+  await scenario('cold commit activity keeps other figures visible and succeeds on attempt eight', async ({ page, setOverride }) => {
+    const attempts = new Map();
+    setOverride(async route => {
+      const url = route.request().url(); if (!url.endsWith('/stats/commit_activity')) return false;
+      const count = (attempts.get(url) || 0) + 1; attempts.set(url, count);
+      if (count < 8) { await route.fulfill({ status: 202, body: '' }); return true; }
+      return false;
+    });
+    await page.goto(base);
+    await page.waitForSelector('.entry-points-block .maintenance-figure a');
+    await page.waitForFunction(() => [...document.querySelectorAll('.activity-block .loading')].some(e => e.textContent === 'GitHub is computing commit activity…'));
+    await settled(page);
+    assert.equal(await page.locator('.commit-strip > g').count(), 156);
+    assert.ok([...attempts.values()].every(count => count === 8));
+  });
+  await scenario('cold commit activity stops after eight attempts without blanking other data', async ({ page, setOverride }) => {
+    const attempts = new Map();
+    setOverride(async route => {
+      const url = route.request().url(); if (!url.endsWith('/stats/commit_activity')) return false;
+      attempts.set(url, (attempts.get(url) || 0) + 1);
+      await route.fulfill({ status: 202, body: '' }); return true;
+    });
+    await open(page);
+    assert.ok([...attempts.values()].every(count => count === 8));
+    assert.equal(await page.locator('.activity-block .load-error').count(), 3);
+    assert.equal(await page.locator('.entry-points-block .maintenance-figure a').count(), 3);
+    assert.equal(await page.locator('.last-commit a').count(), 3);
+    assert.equal(await page.locator('.review-row').count(), 15);
+  });
   await scenario('zero horizontal-review issues render plainly in Entry points', async ({ page, setOverride }) => {
     setOverride(async route => {
       if (!route.request().url().includes('/search/issues?per_page=1&')) return false;

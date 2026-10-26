@@ -419,14 +419,14 @@ function repositoryFor(card, entry) {
   return null;
 }
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-async function commitActivity(url, headers, provenance) {
-  for (let attempt = 0; attempt < 4; attempt++) {
+async function commitActivity(url, headers, provenance, onPending) {
+  for (let attempt = 0; attempt < 8; attempt++) {
     const data = await fetchJSON(url, headers, provenance);
     if (Array.isArray(data) && data.length === 52 && data.every(week => Number.isFinite(week.week) && Number.isFinite(week.total))) return data;
     delete responses[url];
-    if (attempt < 3) await delay(2000);
+    if (attempt < 7) { onPending(); await delay(2500); }
   }
-  throw new Error('Commit activity is still being computed after three retries');
+  throw new Error('Commit activity is still being computed after eight attempts');
 }
 function commitStrip(weeks) {
   const width = 260, height = 44, gap = 2, barWidth = (width - gap * 51) / 52;
@@ -480,7 +480,9 @@ async function loadMaintenance(card, entry, run) {
       card.lastCommit = { date: data[0].commit.committer.date, url: data[0].html_url };
       last.replaceChildren(link(`Last commit ${dateOnly(card.lastCommit.date)}`, card.lastCommit.url)); note(); renderTimelines();
     }).catch(error => fail(last, error)),
-    commitActivity(`${base}/stats/commit_activity`, headers, card.provenance.maintenance).then(weeks => {
+    commitActivity(`${base}/stats/commit_activity`, headers, card.provenance.maintenance, () => {
+      if (card.githubRun === run) count.replaceChildren(element('span', 'loading', 'GitHub is computing commit activity…'));
+    }).then(weeks => {
       if (card.githubRun !== run) return;
       const total = weeks.reduce((sum, week) => sum + week.total, 0);
       count.textContent = `${total} ${total === 1 ? 'commit' : 'commits'} in the last 52 weeks, series repository`;
