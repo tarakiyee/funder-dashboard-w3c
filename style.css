@@ -109,3 +109,13 @@ p { margin: 6px 0; }
 .review-caveat { font-size: 13px; line-height: 1.25; color: var(--ink-2); margin: 2px 0 4px; }
 
 .card h2 { min-height: 2.3em; }
+
+.fact, .editor-label, .editor-affiliation, .legend-entry, .review-list, .maintenance-figure, .last-commit, .review-open-issues, .card-footer { font-size: 16px; }
+.timeline { height: 130px; }
+.timeline .axis-label, .context-strip .axis-label { font-size: 12px; }
+.context-strip .axis-label:first-of-type { font-size: 11px; }
+.time-body { --body-height: 206px; }
+main { padding-top: 12px; }
+h1 { margin-bottom: 8px; }
+.page-message:empty { margin-top: 8px; }
+.walkthrough-banner { bottom: 8px; padding: 8px 14px; }

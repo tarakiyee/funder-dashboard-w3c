@@ -203,8 +203,8 @@ function contextStrip(card, start) {
   svg.append(svgElement('line', { x1: firstX, x2: lastX, y1: 5, y2: 5, stroke: 'var(--series-1)', 'stroke-width': 2 }));
   for (const cx of [firstX, lastX]) svg.append(svgElement('circle', { cx, cy: 5, r: 2.5, fill: 'var(--series-1)' }));
   svg.append(svgElement('line', { x1: right, x2: right, y1: 0, y2: 12, stroke: 'var(--ink-muted)', 'stroke-dasharray': '2 2' }));
-  svg.append(svgElement('text', { x: left, y: 21, class: 'axis-label' }, `shared scale · ${new Date(start).getUTCFullYear()}`));
-  svg.append(svgElement('text', { x: right, y: 21, class: 'axis-label', 'text-anchor': 'end' }, `${today.getUTCFullYear()} · today`));
+  svg.append(svgElement('text', { x: left, y: 19, class: 'axis-label' }, `shared scale · ${new Date(start).getUTCFullYear()}`));
+  svg.append(svgElement('text', { x: right, y: 19, class: 'axis-label', 'text-anchor': 'end' }, `${today.getUTCFullYear()} · today`));
   return svg;
 }
 function timeline(card, start) {
