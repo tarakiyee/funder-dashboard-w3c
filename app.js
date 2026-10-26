@@ -111,11 +111,14 @@ function sectionHeading(section, heading, angle) {
   control.addEventListener('pointerleave', () => {
     help.closeTimer = setTimeout(() => { if (activeHelp === help && !help.pinned && document.activeElement !== button) closeHelp(); }, 160);
   });
-  button.addEventListener('focus', () => openHelp(help));
-  control.addEventListener('focusout', event => { if (activeHelp === help && !control.contains(event.relatedTarget)) closeHelp(); });
+  button.addEventListener('pointerdown', () => { help.pointerFocusing = true; });
+  button.addEventListener('pointercancel', () => { help.pointerFocusing = false; });
+  button.addEventListener('focus', () => { if (!help.pointerFocusing) openHelp(help); });
+  control.addEventListener('focusout', event => { help.pointerFocusing = false; if (activeHelp === help && !control.contains(event.relatedTarget)) closeHelp(); });
   button.addEventListener('click', () => {
-    // Focus opens the tooltip first on touch; the first click pins it instead of closing it.
-    if (activeHelp === help && help.pinned) closeHelp(); else openHelp(help, true);
+    // Pointer focus defers to this toggle; keyboard focus can open it independently.
+    help.pointerFocusing = false;
+    if (activeHelp === help) closeHelp(); else openHelp(help, true);
   });
   control.append(button, popover); row.append(element('h3', '', heading), control);
   return row;

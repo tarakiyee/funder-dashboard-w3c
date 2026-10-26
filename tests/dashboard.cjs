@@ -11,9 +11,9 @@ const specURL = name => `https://api.w3.org/specifications/${name}`;
 const demoNames = ['battery-status', 'payment-request', 'webauthn-3'];
 const checks = [];
 let browser;
-async function scenario(name, fn) {
+async function scenario(name, fn, contextOptions = {}) {
   if (process.env.DASHBOARD_TEST_CASE && !name.includes(process.env.DASHBOARD_TEST_CASE)) return;
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, serviceWorkers: 'block' });
+  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, serviceWorkers: 'block', ...contextOptions });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   const requests = [];
@@ -95,10 +95,15 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await buttons.nth(0).getAttribute('aria-expanded'), 'false');
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('.help-popover:visible').count(), 0);
-    await buttons.nth(2).focus(); await buttons.nth(2).click();
+    await buttons.nth(2).focus(); await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.help-popover:visible').count(), 0);
+    await page.keyboard.press('Space');
     assert.equal(await page.locator('.help-popover:visible').count(), 1);
     assert.ok((await page.locator('.help-popover:visible').innerText()).endsWith('Fund independent impact assessments.'));
-    await buttons.nth(2).click(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
+    await page.keyboard.press('Escape');
+    await page.locator('#shortname').focus();
+    await buttons.nth(2).tap(); assert.equal(await page.locator('.help-popover:visible').count(), 1);
+    await buttons.nth(2).tap(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
     await page.locator('#shortname').focus();
     await page.mouse.move(0, 0);
     await page.setViewportSize({ width: 390, height: 844 });
@@ -109,7 +114,7 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     });
     assert.ok(bounds.width <= 340 && bounds.left >= bounds.cardLeft && bounds.right <= bounds.cardRight && bounds.bottom <= bounds.cardBottom, JSON.stringify(bounds));
     await page.locator('#shortname').click(); assert.equal(await page.locator('.help-popover:visible').count(), 0);
-  });
+  }, { hasTouch: true });
   await scenario('series chronology and level-aware review matching', async ({ page }) => {
     await open(page);
     assert.match(await page.locator('.time-body').nth(2).innerText(), /Level 3 · series since 2016/);
