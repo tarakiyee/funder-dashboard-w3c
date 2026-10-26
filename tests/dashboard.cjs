@@ -181,6 +181,23 @@ async function add(page, name) { await page.locator('#shortname').fill(name); aw
     assert.equal(await page.locator('#walk-through').getAttribute('aria-pressed'), 'false');
     assert.deepEqual(await layout(), before);
   });
+  await scenario('patents links use W3C delivering-group IPR URLs', async ({ page }) => {
+    await open(page);
+    assert.deepEqual(await page.locator('.patent-link').evaluateAll(links => links.map(a => a.href)), demoNames.map(name => {
+      const latest = fixture[fixture[specURL(name)]._links['latest-version'].href];
+      const group = fixture[fixture[latest._links.deliverers.href]._links.deliverers[0].href];
+      return group._links['pp-status'].href;
+    }));
+    assert.match(await page.locator('.patent-link').first().getAttribute('href'), /\/groups\/wg\/das\/ipr/);
+  });
+  await scenario('patents fallback is used only when the group API fails', async ({ page, setOverride }) => {
+    setOverride(async route => {
+      if (!route.request().url().endsWith('/deliverers')) return false;
+      await route.fulfill({ status: 503, json: {} }); return true;
+    });
+    await open(page);
+    assert.equal(await page.locator('.patent-link').first().getAttribute('href'), 'https://www.w3.org/das/ipr/');
+  });
   await scenario('canonical aliases, deduplication and card removal', async ({ page, setOverride }) => {
     setOverride(async route => {
       if (route.request().url() !== specURL('svg2')) return false;

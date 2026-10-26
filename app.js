@@ -509,10 +509,32 @@ async function loadGithubSections(card, indexPromise) {
   } catch (error) { console.error(card.shortname, 'specification index', error); }
   if (card.githubRun !== run) return;
   card.footer.firstChild.href = `https://webstatus.dev/?q=${encodeURIComponent(entry?.series?.shortTitle || card.shortname)}`;
-  if (entry?.groups?.[0]?.url && !card.footer.querySelector('.patent-link')) card.footer.append(link('Patents', `${entry.groups[0].url.replace(/\/?$/, '/') }ipr/`, 'patent-link'));
   await Promise.all([loadReview(card, entry, run), loadMaintenance(card, entry, run)]);
 }
 
+async function loadPatents(card, latestPromise, indexPromise) {
+  const provenance = new Set(card.specProvenance);
+  let url;
+  try {
+    const latest = await latestPromise;
+    const deliverers = await fetchJSON(latest._links.deliverers.href, undefined, provenance);
+    const groupURL = deliverers._links?.deliverers?.[0]?.href;
+    if (!groupURL) throw new Error('No delivering group returned');
+    const group = await fetchJSON(groupURL, undefined, provenance);
+    url = group._links?.['pp-status']?.href;
+    if (!url) throw new Error('No IPR page returned');
+  } catch (error) {
+    console.error(card.shortname, 'patents', error);
+    try {
+      const index = await indexPromise;
+      inheritProvenance(provenance, index.provenance);
+      const entry = index.data.find(item => item.shortname === card.shortname);
+      if (entry?.groups?.[0]?.url) url = `${entry.groups[0].url.replace(/\/?$/, '/')}ipr/`;
+    } catch (indexError) { console.error(card.shortname, 'patents', indexError); }
+  }
+  if (url) card.footer.append(link('Patents', url, 'patent-link'));
+  if (provenance.size) card.footer.append(element('span', 'patent-cache-note', `cached ${[...provenance].join(', ')}`));
+}
 async function loadCardData(card) {
   const links = card.spec._links;
   const index = specIndex();
@@ -524,7 +546,7 @@ async function loadCardData(card) {
   const first = version('first-version');
   const latest = version('latest-version');
   const history = version('version-history');
-  await Promise.all([loadTime(card, first, latest, history), loadSeries(card, first), loadEditors(card, latest), loadGithubSections(card, index)]);
+  await Promise.all([loadTime(card, first, latest, history), loadSeries(card, first), loadEditors(card, latest), loadGithubSections(card, index), loadPatents(card, latest, index)]);
 }
 
 async function addCard(shortname) {
