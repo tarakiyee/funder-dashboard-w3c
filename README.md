@@ -1,3 +1,3 @@
-# Where would support help?
+# Funder dashboard for W3C specs
 
-Enter a W3C spec shortname and get a card showing where support could help that spec: a starting point, not an assessment.
+Enter a W3C spec shortname and get a card showing where funding could help that spec.
