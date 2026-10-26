@@ -107,3 +107,5 @@ p { margin: 6px 0; }
 @media (max-width: 1100px) { .section-body { min-height: var(--body-height); } }
 
 .review-caveat { font-size: 13px; line-height: 1.25; color: var(--ink-2); margin: 2px 0 4px; }
+
+.card h2 { min-height: 2.3em; }
